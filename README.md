@@ -1,6 +1,7 @@
 # Inferential Seamless Designs for Treatment Selection during a Phase II/III Study in Oncology
 
 Student: Manuel Pfister
+
 Year: 2024
 
 ## Overview
