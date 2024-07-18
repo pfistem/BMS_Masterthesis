@@ -35,7 +35,6 @@ summary(filtered_data2)
 boxplot(sqrt(AVAL)~ARM, data= filtered_data2)
 
 table(filtered_data2$ARM)
-table(filtered_data2$USUBJI2$PARAMCD == "PFS",]
 summary(filtered_data2)
 
 
