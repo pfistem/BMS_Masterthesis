@@ -4,12 +4,10 @@
 # Date: 2024-07-17
 
 # -------------------------------------------------------------------------
-
 library(mvtnorm)
 
 # integral_typeIerror is a function called by finddesign that finds the difference 
 # between the FWER of a given design and the required FWER for binary outcomes.
-
 integral_typeIerror = function(c, requiredtypeIerror, mean, var, combinations, K) {
   lower = rep(0, length(mean))
   lower[length(lower)] = c
@@ -22,18 +20,16 @@ integral_typeIerror = function(c, requiredtypeIerror, mean, var, combinations, K
 }
 
 # -------------------------------------------------------------------------
-
 # integral_power is a function called by finddesign that finds the difference between 
 # the power under the LFC of a given design and the required power for binary outcomes.
-
-integral_power = function(n, requiredpower, c, A, var, combinations, J, K, delta1, delta0, cumgroupsizes) {
-  # get mu under LFC (assuming standardized data)
+integral_power = function(n, requiredpower, c, A, var, combinations, J, K, p_control, p_treatment) {
+  # get mu under LFC
   mu = rep(0, length(A[1, ]))
   for (i in 1:(K-1)) {
-    mu[((i-1)*J+1):(i*J)] = sqrt(n * cumgroupsizes / 2) * delta0
+    mu[((i-1)*J+1):(i*J)] = sqrt(n * p_control * (1 - p_control)) * log(p_treatment[i] / p_control)
   }
   
-  mu[((K-1)*J+1):(K*J)] = sqrt(n * cumgroupsizes / 2) * delta1
+  mu[((K-1)*J+1):(K*J)] = sqrt(n * p_control * (1 - p_control)) * log(p_treatment[K] / p_control)
   
   mean = as.double(A %*% mu)
   
@@ -47,25 +43,22 @@ integral_power = function(n, requiredpower, c, A, var, combinations, J, K, delta
   return(as.double(int) * factorial(K-1) - requiredpower)
 }
 
-# -------------------------------------------------------------------------
-
 # finddesign returns a design with specified family-wise error rate and power. 
 # Arguments:
 # J - number of stages
 # K - number of experimental arms
 # ns - vector of length J stating the number of treatments at each stage - 
 #      first entry must be K and last entry must be 1, and entries must be strictly decreasing
-# delta1 - standardized clinically relevant difference for power
-# delta0 - standardized uninteresting treatment threshold for power
 # requiredfwer - required family-wise error rate at the global null
 # requiredpower - required power at the least favorable configuration
 # groupsizes - relative proportion of patients recruited per arm at each stage 
-# treatmentsigmas - vector of length K+1 with standard deviation of effect for each arm 
-#                  (1 is control, j+1th entry is jth experimental arm)
+# p_control - probability of success in the control group
+# p_treatment - vector of probabilities of success for each treatment arm
+
+# -------------------------------------------------------------------------
 # output is a list with entries n, c and totalSS. 
 # n is the required group-size, c is the required critical value and totalSS is the total sample size used by the design.
-
-finddesign = function(J, K, ns, delta1, delta0, requiredfwer, requiredpower, groupsizes, treatmentsigmas) {
+finddesign = function(J, K, ns, requiredfwer, requiredpower, groupsizes, p_control, p_treatment) {
   
   if (J < 2 || J > 10) {
     stop("J must be an integer between 2 and 10")
@@ -98,20 +91,29 @@ finddesign = function(J, K, ns, delta1, delta0, requiredfwer, requiredpower, gro
   
   sigma = matrix(0, J * K, J * K)
   
-  # fill in sigma blocks
-  for (i in 1:J) {
-    for (j in 1:J) {
-      sigma[i, j] = sqrt(min(cumgroupsizes[i], cumgroupsizes[j]) / max(cumgroupsizes[i], cumgroupsizes[j]))
+  # fill in sigma blocks for binary outcomes
+  for (i in 1:K) {
+    for (j in 1:K) {
+      if (i == j) {
+        for (m in 1:J) {
+          for (n in 1:J) {
+            sigma[(i-1)*J + m, (j-1)*J + n] = min(cumgroupsizes[m], cumgroupsizes[n]) / sqrt(cumgroupsizes[m] * cumgroupsizes[n])
+          }
+        }
+      } else {
+        p1 = p_treatment[i]
+        p2 = p_treatment[j]
+        cov_factor = sqrt((p_control * (1 - p_control)) / ((p1 * (1 - p1)) * (p2 * (1 - p2))))
+        for (m in 1:J) {
+          for (n in 1:J) {
+            sigma[(i-1)*J + m, (j-1)*J + n] = min(cumgroupsizes[m], cumgroupsizes[n]) / sqrt(cumgroupsizes[m] * cumgroupsizes[n]) * cov_factor
+          }
+        }
+      }
     }
   }
   
-  for (i in 1:K) {
-    sigma[((i-1)*J+1):(i*J), ((i-1)*J+1):(i*J)] = sigma[1:J, 1:J]
-    
-    for (j in (1:K)[-i]) {
-      sigma[((i-1)*J+1):(i*J), ((j-1)*J+1):(j*J)] = sigma[1:J, 1:J] * sqrt((treatmentsigmas[1]^4) / ((treatmentsigmas[i+1]^2 + treatmentsigmas[1]^2) * (treatmentsigmas[j+1]^2 + treatmentsigmas[1]^2)))
-    }
-  }
+  print(sigma)
   
   rowsofA = ns - 1
   rowsofA[length(rowsofA)] = 1
@@ -157,7 +159,7 @@ finddesign = function(J, K, ns, delta1, delta0, requiredfwer, requiredpower, gro
   c = uniroot(integral_typeIerror, lower=-2, upper=5, requiredtypeIerror=requiredfwer, mean=mean, var=var, combinations=combinations, K=K)$root
   
   # find sample size for given power power
-  n = uniroot(integral_power, lower=0, upper=2000, requiredpower=requiredpower, c=c, A=A, var=var, combinations=combinations, J=J, K=K, delta1=delta1, delta0=delta0, cumgroupsizes=cumgroupsizes)$root
+  n = uniroot(integral_power, lower=0, upper=2000, requiredpower=requiredpower, c=c, A=A, var=var, combinations=combinations, J=J, K=K, p_control=p_control, p_treatment=p_treatment)$root
   
   return(list(n=n, c=c, totalSS=n * sum((ns + 1) * groupsizes / groupsizes[1])))
 }
@@ -165,4 +167,14 @@ finddesign = function(J, K, ns, delta1, delta0, requiredfwer, requiredpower, gro
 # -------------------------------------------------------------------------
 
 # Example usage:
-finddesign(J=3, K=4, ns=c(4, 2, 1), delta1=0.545, delta0=0.178, requiredfwer=0.05, requiredpower=0.9, groupsizes=c(1, 1, 1), treatmentsigmas=c(1, 1, 1, 100, 1))
+finddesign(J=3, K=4, ns=c(4, 2, 1), requiredfwer=0.05, requiredpower=0.9, 
+           groupsizes=c(1, 1, 1), p_control=0.5, p_treatment=c(0.5, 0.6, 0.7, 0.8))
+
+
+
+
+
+
+
+
+

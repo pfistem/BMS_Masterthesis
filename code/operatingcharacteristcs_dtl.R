@@ -208,15 +208,15 @@ c=uniroot(integral_typeIerror,lower=-2,upper=5,requiredtypeIerror=requiredfwer,m
 
 n=uniroot(integral_power,lower=0,upper=2000,requiredpower=requiredpower,c=c,A=A,var=var,combinations=combinations,J=J,K=K,delta1=delta1,delta0=delta0,cumgroupsizes=cumgroupsizes)$root
 
-
+print(sigma)
 return(list(n=n,c=c,totalSS=n*sum((ns+1)*groupsizes/groupsizes[1])))
 
 }
 
 
 
-finddesign(J=3,K=4,ns=c(4,2,1),delta1=0.545,delta0=0.178,requiredfwer=0.05,requiredpower=0.9,treatmentsigmas=c(1,1,1,100,1))
-
+finddesign(J=3,K=4,ns=c(4,2,1),delta1=0.545,delta0=0.178,requiredfwer=0.05,requiredpower=0.9,treatmentsigmas=c(1,1,1,100,1),
+           groupsizes = c(1, 1, 1))
 
 
 

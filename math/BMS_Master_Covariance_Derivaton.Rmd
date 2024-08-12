@@ -1,0 +1,43 @@
+---
+title: "Covariance Derivaton"
+author: "Manuel Pfister"
+date: "2024-07-23"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+\section*{Page 1}
+
+\begin{align*}
+& Z_j^{(k)} = \left(\frac{\sum_{i=1}^{n_j} X_{ki}}{n_j} - \frac{\sum_{i=1}^{n_e} X_{oi}}{n_e}\right) \sqrt{\frac{n_i n_e}{2\sigma^2}} \tag{1} \\
+& \text{Assuming } p > i \text{ and } n_e > n_j \\
+& \text{Cov}\left(Z_j^{(k)}; Z_e^{(k)}\right)? \\
+& \text{Cov}\left(Z_j^{(k)}; Z_e^{(k)}\right) \\
+& = \text{Cov} \left( \left( \frac{\sum_{i=1}^{n_j} X_{ki}}{n_j} - \frac{\sum_{i=1}^{n_e} X_{oi}}{n_e} \right) \sqrt{\frac{n_j n_e}{2 \sigma^2}}, \left( \frac{\sum_{i=1}^{n_j} X_{ki}}{n_j} - \frac{\sum_{i=1}^{n_e} X_{oi}}{n_e} \right) \sqrt{\frac{n_j n_e}{2 \sigma^2}} \right) \\
+& = \frac{n_j n_e}{2 \sigma^2} \text{Cov} \left( \frac{\sum_{i=1}^{n_j} X_{ki}}{n_j} - \frac{\sum_{i=1}^{n_e} X_{oi}}{n_e}; \frac{\sum_{i=1}^{n_j} X_{ki}}{n_j} - \frac{\sum_{i=1}^{n_e} X_{oi}}{n_e} \right) \\
+& = \frac{n_j n_e}{2 \sigma^2} \left[ \text{Cov} \left( \frac{\sum_{i=1}^{n_j} X_{ki}}{n_j}; \frac{\sum_{i=1}^{n_j} X_{ki}}{n_j} \right) - \text{Cov} \left( \frac{\sum_{i=1}^{n_j} X_{ki}}{n_j}; \frac{\sum_{i=1}^{n_e} X_{oi}}{n_e} \right) \right. \\
+& \quad \left. - \text{Cov} \left( \frac{\sum_{i=1}^{n_e} X_{oi}}{n_e}; \frac{\sum_{i=1}^{n_j} X_{ki}}{n_j} \right) + \text{Cov} \left( \frac{\sum_{i=1}^{n_e} X_{oi}}{n_e}; \frac{\sum_{i=1}^{n_e} X_{oi}}{n_e} \right) \right] \\
+& = \frac{n_j n_e}{2 \sigma^2} \left[ \frac{\sigma^2}{n_j} + 0 + 0 + \frac{\sigma^2}{n_e} \right] \\
+& = \frac{n_j n_e}{2 \sigma^2} \left[ \frac{\sigma^2}{n_j} + \frac{\sigma^2}{n_e} \right] \\
+& = \frac{n_j n_e}{2 \sigma^2} \left[ \frac{\sigma^2}{n_j} + \frac{\sigma^2}{n_e} \right] \\
+& = \frac{n_j n_e}{2 \sigma^2} \left[ \frac{n_e \sigma^2 + n_j \sigma^2}{n_j n_e} \right] \\
+& = \frac{n_j n_e}{2 \sigma^2} \left[ \frac{\sigma^2 (n_j + n_e)}{n_j n_e} \right] \\
+& = \frac{n_j n_e}{2 \sigma^2} \left[ \frac{\sigma^2}{n_j n_e} (n_j + n_e) \right] \\
+& = \frac{n_j n_e}{2 \sigma^2} \left[ \frac{\sigma^2}{n_j n_e} (n_j + n_e) \right] \\
+& = \frac{n_j + n_e}{2} \\
+& = \frac{1}{2} (n_j + n_e)
+\end{align*}
+
+\section*{Page 2}
+
+\begin{align*}
+& \text{Cov}\left(Z_j^{(k)}; Z_e^{(k)}\right) \\
+& = \frac{n_j n_e}{2 \sigma^2} \left[ \frac{\sigma^2}{n_j} + \frac{\sigma^2}{n_e} \right] \\
+& = \frac{n_j n_e}{2 \sigma^2} \left[ \frac{1}{n_j n_e} \times 2 n_j \sigma^2 \right] \\
+& = \sqrt{\frac{n_j}{n_e}} \\
+& = \frac{n_j}{n_e}
+\end{align*}
