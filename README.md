@@ -19,7 +19,8 @@ The repository includes:
 
 **NOTE:**
 The simulation data files included in this release are large .RData files generated from extensive simulations. 
-These files may require substantial disk space and memory for loading and processing in R. Ensure adequate system resources when working with these datasets.
+These files may require substantial memory for loading and processing in R. Ensure adequate system resources when working with these datasets.
+Make sure to unzip the data file first!
 
 
 ### Project Setup with renv
