@@ -8,59 +8,59 @@ Year: 2024
 
 This repository contains the research and code associated with the STA495 Master Thesis by Manuel Pfister. The thesis explores efficient statistical designs for multi-arm multi-stage (MAMS) clinical trials, focusing on the "drop-the-losers" approach to improve drug development in oncology.
 
+The repository includes:
 
-## Introduction to `renv`
+- R scripts for generating data, running models, and simulations.
+- The final thesis report compiled using knitr and LaTeX.
+- Necessary datasets and model results for reproducibility.
+- Use HS24_Masterthesis_BMNS.Rproj Project in the report folder for compilation and running code.
+- renv folder for managing the R environment to ensure reproducibility.
 
-`renv` is an R package that helps manage project-specific R package libraries. It allows you to create isolated environments for your R projects, ensuring that the packages used in one project do not interfere with those used in another. This is particularly useful for maintaining reproducibility and consistency in data analysis workflows.
 
-## Getting Started with `renv`
+### Project Setup with renv
+renv helps manage R package dependencies for reproducible projects.
 
-### Installation
-
-You can install `renv` from CRAN using the following command:
-
+1. Install renv:
 ```r
 install.packages("renv")
 ```
-### Initializing a Project
-To start using renv in a project, navigate to your project's directory and initialize renv:
-
+2. Initialize the project:
 ```r
 renv::init()
 ```
-
-This will set up a new project-specific library and snapshot the current state of your R packages. It will also create an renv folder in your project directory to store the environment configuration.
-
-### Adding and Managing Packages
-To install a new package in your project-specific library, use renv::install():
-
-```r
-renv::install("dplyr")
-```
-
-This will install 'dplyr' and add it to your project's renv.lock file, which records the state of your project's library.
-
-### Snapshotting the Project
-After installing or updating packages, you should snapshot the project's library to update the renv.lock file:
+3. Save dependencies:
 ```r
 renv::snapshot()
 ```
-This ensures that the renv.lock file reflects the current state of the project library.
 
-### Restoring the Project Library
-If you clone a project that uses renv, you can restore the project library as specified in the renv.lock file by running:
-
+4. Restore environment on a new system:
 ```r
 renv::restore()
 ```
-This will install the required package versions as listed in the lockfile, ensuring reproducibility.
+5. Add renv.lock to Git and ignore renv/library in .gitignore.
 
-### Managing Dependencies
-To check for any missing dependencies or update the renv.lock file, you can use:
+For more, see the official documentation: https://rstudio.github.io/renv/
+
+### Install Packages manually
 ```r
-renv::status()
+required_packages <- c("mvtnorm", "rpact", "doParallel", "foreach", 
+                       "survival", "renv", "knitr", "dplyr", 
+                       "ggplot2", "xtable")
+
+# Install all packages
+install.packages(required_packages)
 ```
-This provides an overview of the current state of your project's dependencies.
+
+## Repository Structure
+
+- **`HS24_Masterthesis_BMS.Rproj`**: The R project file for organizing the working environment.
+
+  - **`code/`**: Contains R scripts for data generation, simulations, and calculations.
+  - **`data/`**: Contains datasets used in the analysis.
+  - **`report/`**: Contains the LaTeX and `.Rnw` files for the thesis report.
+    - **`report_master.Rnw`**: The main file for compiling the thesis.
+  - **`figures/`**: Folder containing figures for the report.
+  - **`literature/`**: Contains relevant references.
 
 
 ## Contact
