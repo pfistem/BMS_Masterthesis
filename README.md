@@ -22,6 +22,11 @@ The simulation data files included in this release are large .RData files genera
 These files may require substantial memory for loading and processing in R. Ensure adequate system resources when working with these datasets.
 Make sure to unzip the data file first!
 
+```
+cat data/data_part_* > data/data.zip
+unzip -t data/data.zip
+
+```
 
 ### Project Setup with renv
 renv helps manage R package dependencies for reproducible projects.
