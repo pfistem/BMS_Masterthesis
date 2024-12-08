@@ -17,6 +17,11 @@ The repository includes:
 - renv folder for managing the R environment to ensure reproducibility.
 
 
+**NOTE:**
+The simulation data files included in this release are large .RData files generated from extensive simulations. 
+These files may require substantial disk space and memory for loading and processing in R. Ensure adequate system resources when working with these datasets.
+
+
 ### Project Setup with renv
 renv helps manage R package dependencies for reproducible projects.
 
