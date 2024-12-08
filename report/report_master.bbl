@@ -1,0 +1,35 @@
+\begin{thebibliography}{5}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+
+\bibitem[{Demets and Lan(1994)}]{spendingFunction}
+\textsc{Demets, D.~L.} and \textsc{Lan, K. K.~G.} (1994).
+\newblock Interim analysis: The alpha spending function approach.
+\newblock \textit{Statistics in Medicine} \textbf{13} 1341--1352.
+\newline\urlprefix\url{https://onlinelibrary.wiley.com/doi/abs/10.1002/sim.4780131308}
+
+\bibitem[{Morris et~al.(2019)Morris, White and Crowther}]{Morris2019}
+\textsc{Morris, T.}, \textsc{White, I.} and \textsc{Crowther, M.} (2019).
+\newblock Using simulation studies to evaluate statistical methods.
+\newblock \textit{Statistics in Medicine} \textbf{38} 2074--2102.
+
+\bibitem[{Royston et~al.(2003)Royston, Parmar and Qian}]{Royston2003MAMS}
+\textsc{Royston, P.}, \textsc{Parmar, M. K.~B.} and \textsc{Qian, W.} (2003).
+\newblock Novel designs for multi-arm clinical trials with survival outcomes with an application in ovarian cancer.
+\newblock \textit{Statistics in Medicine} \textbf{22} 2239--2256.
+\newline\urlprefix\url{https://doi.org/10.1002/sim.1421}
+
+\bibitem[{Wason et~al.(2017)Wason, Stallard, Bowden and Jennison}]{Wason2017DropTheLosers}
+\textsc{Wason, J.}, \textsc{Stallard, N.}, \textsc{Bowden, J.} and \textsc{Jennison, C.} (2017).
+\newblock A multi-stage drop-the-losers design for multi-arm clinical trials.
+\newblock \textit{Statistical Methods in Medical Research} \textbf{26} 508--524.
+
+\bibitem[{Weston et~al.(2022)Weston, Calaway, Schmidt and Lawrence}]{doParallel}
+\textsc{Weston, S.}, \textsc{Calaway, R.}, \textsc{Schmidt, D.} and \textsc{Lawrence, M.} (2022).
+\newblock \textit{doParallel: Foreach Parallel Adaptor for the 'parallel' Package}.
+\newblock R package version 1.0.17.
+\newline\urlprefix\url{https://CRAN.R-project.org/package=doParallel}
+
+\end{thebibliography}
