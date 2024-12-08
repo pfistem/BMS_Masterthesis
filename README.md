@@ -25,7 +25,6 @@ Make sure to unzip the data file first!
 ```
 cat data/data_part_* > data/data.zip
 unzip -t data/data.zip
-
 ```
 
 ### Project Setup with renv
