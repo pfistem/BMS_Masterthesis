@@ -13,7 +13,7 @@ The repository includes:
 - R scripts for generating data, running models, and simulations.
 - The final thesis report compiled using knitr and LaTeX.
 - Necessary datasets and model results for reproducibility.
-- Use HS24_Masterthesis_BMNS.Rproj Project in the report folder for compilation and running code.
+- Use HS24_Masterthesis_BMS.Rproj Project in the report folder for compilation and running code.
 - renv folder for managing the R environment to ensure reproducibility.
 
 
