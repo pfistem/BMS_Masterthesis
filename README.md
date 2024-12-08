@@ -55,12 +55,14 @@ install.packages(required_packages)
 
 - **`HS24_Masterthesis_BMS.Rproj`**: The R project file for organizing the working environment.
 
+  - **`admin/`**: Contains proposals and organizational documents.
   - **`code/`**: Contains R scripts for data generation, simulations, and calculations.
   - **`data/`**: Contains datasets used in the analysis.
   - **`report/`**: Contains the LaTeX and `.Rnw` files for the thesis report.
     - **`report_master.Rnw`**: The main file for compiling the thesis.
-  - **`figures/`**: Folder containing figures for the report.
+    - **`figures/`**: Folder containing figures for the report.
   - **`literature/`**: Contains relevant references.
+  - **`presentation/`**: Contains presentation material.
 
 
 ## Contact
