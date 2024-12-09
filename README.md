@@ -17,15 +17,20 @@ The repository includes:
 - renv folder for managing the R environment to ensure reproducibility.
 
 
-**NOTE:**
-The simulation data files included in this release are large .RData files generated from extensive simulations. 
-These files may require substantial memory for loading and processing in R. Ensure adequate system resources when working with these datasets.
-Make sure to unzip the data file first!
+**NOTE:**  
+The simulation data files included in this release are too large to be hosted directly on GitHub. Therefore, you can download them from the following [[Google Drive link](https://drive.google.com/drive/folders/1DX-D1qHVUcbXPk3v5d8naI3KoSB7UR7c?usp=sharing)].  
 
-```
-cat data/data_part_* > data/data.zip
-unzip -t data/data.zip
-```
+### Instructions for Use:
+1. **For Report Compilation:**  
+   - Copy the entire `data` folder into the `report` folder. This is required to compile the report successfully.
+
+2. **For Data Analysis:**  
+   - Alternatively, copy the `data` folder into the main directory if you wish to use the files for general data analysis.
+
+Please note that the data files are large `.RData` files generated from extensive simulations.  
+- Ensure sufficient system resources (e.g., memory) when loading and processing these datasets in R.  
+- **Important:** Make sure to unzip the data file before use!
+
 
 ### Project Setup with renv
 renv helps manage R package dependencies for reproducible projects.
