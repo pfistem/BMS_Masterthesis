@@ -11,6 +11,7 @@
 \citation{Royston2003MAMS}
 \citation{Wason2017DropTheLosers}
 \citation{spendingFunction}
+\citation{Schmidli2006Seamless}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Methods}{7}{section.2}\protected@file@percent }
 \newlabel{sec:methods}{{2}{7}{Methods}{section.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Multi-Arm Multi-Stage Study Design}{7}{subsection.2.1}\protected@file@percent }
@@ -18,117 +19,119 @@
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:mams_design}{{1}{7}{Illustration of the Multi-Arm Multi-Stage (MAMS) trial design. Treatments are evaluated at each interim analysis. Treatments showing insufficient efficacy (futile) are dropped, while the most promising treatments continue to the next stage. The final analysis compares the remaining treatments to the control (SoC: Standard of Care)}{figure.caption.6}{}}
 \citation{Wason2017DropTheLosers}
+\citation{bland2015introduction}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Drop-the-Losers Study Design}{8}{subsection.2.2}\protected@file@percent }
 \newlabel{eq:Z_j_k}{{1}{8}{Drop-the-Losers Study Design}{equation.2.1}{}}
 \citation{Wason2017DropTheLosers}
-\newlabel{eq:covariance1}{{2}{9}{Drop-the-Losers Study Design}{equation.2.2}{}}
-\newlabel{eq:covariance2}{{3}{9}{Drop-the-Losers Study Design}{equation.2.3}{}}
+\newlabel{eq:covariance_method1}{{2}{9}{Drop-the-Losers Study Design}{equation.2.2}{}}
+\newlabel{eq:covariance_method2}{{3}{9}{Drop-the-Losers Study Design}{equation.2.3}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Illustration of the (4:2:1) "Drop-the-Losers" design. Treatments are evaluated at each interim analysis. Treatments with the least promising results are dropped, while the most promising treatments continue to the next stage. The process continues until the final analysis, where the remaining treatment is compared to the control.}}{9}{figure.caption.7}\protected@file@percent }
 \newlabel{fig:drop_losers}{{2}{9}{Illustration of the (4:2:1) "Drop-the-Losers" design. Treatments are evaluated at each interim analysis. Treatments with the least promising results are dropped, while the most promising treatments continue to the next stage. The process continues until the final analysis, where the remaining treatment is compared to the control}{figure.caption.7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Analytical Operational Properties}{9}{subsection.2.3}\protected@file@percent }
-\newlabel{sec:operating_characteristics}{{2.3}{9}{Analytical Operational Properties}{subsection.2.3}{}}
-\@writefile{toc}{\contentsline {paragraph}{Ranking of Treatments}{9}{section*.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Multivariate Normal Distribution and Matrix Representation}{10}{section*.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Probability of Treatment Recommendation under the LFC}{10}{section*.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Step-by-Step Example: 4:2:1 DTL for Continuous Endpoints}{10}{subsection.2.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Overview of the treatment effects at each stage and the final analysis.}}{11}{table.caption.11}\protected@file@percent }
-\newlabel{tab:example}{{1}{11}{Overview of the treatment effects at each stage and the final analysis}{table.caption.11}{}}
-\@writefile{toc}{\contentsline {paragraph}{Test Statistics, Covariance, and Contrast Matrices}{11}{section*.12}\protected@file@percent }
-\@writefile{toc}{\contentsline {subparagraph}{Test Statistics for Interim Analysis 1:}{11}{section*.13}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Test Statistics for Interim Analysis 2}{11}{section*.14}\protected@file@percent }
-\newlabel{eq:Z2_3}{{12}{11}{Test Statistics for Interim Analysis 2}{equation.2.12}{}}
-\@writefile{toc}{\contentsline {paragraph}{Test Statistics for Final Analysis}{12}{section*.15}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Contrast Matrix}{12}{section*.16}\protected@file@percent }
-\newlabel{eq:contrast_matrix}{{14}{12}{Contrast Matrix}{equation.2.14}{}}
-\newlabel{eq:Z_stages}{{15}{12}{Contrast Matrix}{equation.2.15}{}}
-\@writefile{toc}{\contentsline {paragraph}{Step-by-Step Multiplication:}{13}{section*.17}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Resulting Contrast Vector:}{14}{section*.18}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Interpretation:}{14}{section*.19}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Covariance Matrix Calculation}{14}{section*.20}\protected@file@percent }
-\newlabel{eq:covariance1}{{2.4}{14}{Covariance Matrix Calculation}{section*.20}{}}
-\newlabel{eq:covariance2}{{2.4}{14}{Covariance Matrix Calculation}{section*.20}{}}
-\@writefile{toc}{\contentsline {subparagraph}{Example: Covariance Matrix for a 4:2:1 Design}{14}{section*.21}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Step 1: Define the Matrix Structure}{14}{section*.22}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Step 2: Populate Blocks}{15}{section*.23}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Step 3: Full Covariance Matrix}{15}{section*.24}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Calculation of the Critical Value \( c \)}{15}{section*.25}\protected@file@percent }
-\@writefile{toc}{\contentsline {subparagraph}{Numerical Calculation}{15}{section*.26}\protected@file@percent }
-\@writefile{toc}{\contentsline {subparagraph}{Resulting Critical Value}{16}{section*.27}\protected@file@percent }
-\@writefile{toc}{\contentsline {subparagraph}{Application of the Critical Value}{16}{section*.28}\protected@file@percent }
-\@writefile{toc}{\contentsline {subparagraph}{Conclusion}{16}{section*.29}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Step-by-Step Example: 4:2:1 DTL for Continuous Endpoints}{9}{subsection.2.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Overview of the treatment effects at each stage and the final analysis.}}{10}{table.caption.8}\protected@file@percent }
+\newlabel{tab:example}{{1}{10}{Overview of the treatment effects at each stage and the final analysis}{table.caption.8}{}}
+\@writefile{toc}{\contentsline {paragraph}{Test Statistics, Covariance, and Contrast Matrices}{10}{section*.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Test Statistics for Interim Analysis 1:}{10}{section*.10}\protected@file@percent }
+\newlabel{eq:Z1_2}{{5}{10}{Test Statistics for Interim Analysis 1:}{equation.2.5}{}}
+\newlabel{eq:Z1_4}{{7}{10}{Test Statistics for Interim Analysis 1:}{equation.2.7}{}}
+\@writefile{toc}{\contentsline {paragraph}{Test Statistics for Interim Analysis 2}{10}{section*.11}\protected@file@percent }
+\newlabel{eq:Z2_3}{{9}{10}{Test Statistics for Interim Analysis 2}{equation.2.9}{}}
+\@writefile{toc}{\contentsline {paragraph}{Test Statistics for Final Analysis}{11}{section*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Contrast Matrix}{11}{section*.13}\protected@file@percent }
+\newlabel{eq:contrast_matrix}{{11}{11}{Contrast Matrix}{equation.2.11}{}}
+\newlabel{eq:Z_stages}{{12}{11}{Contrast Matrix}{equation.2.12}{}}
+\@writefile{toc}{\contentsline {paragraph}{Step-by-Step Multiplication:}{12}{section*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Resulting Contrast Vector:}{13}{section*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Interpretation:}{13}{section*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Covariance Matrix Calculation}{13}{section*.17}\protected@file@percent }
+\newlabel{eq:covariance1}{{2.3}{13}{Covariance Matrix Calculation}{section*.17}{}}
+\newlabel{eq:covariance2}{{2.3}{13}{Covariance Matrix Calculation}{section*.17}{}}
+\@writefile{toc}{\contentsline {subparagraph}{Example: Covariance Matrix for a 4:2:1 Design}{13}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Step 1: Define the Matrix Structure}{13}{section*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Step 2: Populate Blocks}{14}{section*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Step 3: Full Covariance Matrix}{14}{section*.21}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Calculation of the Critical Value \( c \)}{14}{section*.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {subparagraph}{Numerical Calculation}{14}{section*.23}\protected@file@percent }
+\citation{Wason2017DropTheLosers}
+\@writefile{toc}{\contentsline {subparagraph}{Resulting Critical Value}{15}{section*.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {subparagraph}{Application of the Critical Value}{15}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {subparagraph}{Conclusion}{15}{section*.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Analytical Operating Properties}{15}{subsection.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Probability of a Specific Treatment Being Recommended}{16}{section*.27}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Probability of Recommending Any Treatment Under the Global Null Hypothesis}{16}{section*.28}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Probability of Recommending a Specific Treatment Under the LFC}{16}{section*.29}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3}Results: Derivations}{17}{section.3}\protected@file@percent }
 \newlabel{sec:results_derivation}{{3}{17}{Results: Derivations}{section.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Binary Outcomes}{17}{subsection.3.1}\protected@file@percent }
-\newlabel{eq:bin_covariance1}{{17}{17}{Binary Outcomes}{equation.3.17}{}}
+\newlabel{eq:bin_covariance1}{{14}{17}{Binary Outcomes}{equation.3.14}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Survival Outcomes}{17}{subsection.3.2}\protected@file@percent }
 \newlabel{sec:survival_outcomes}{{3.2}{17}{Survival Outcomes}{subsection.3.2}{}}
-\newlabel{eq:survival_covariance1}{{20}{17}{Survival Outcomes}{equation.3.20}{}}
-\newlabel{eq:survival_covariance2}{{21}{17}{Survival Outcomes}{equation.3.21}{}}
+\newlabel{eq:survival_covariance1}{{17}{17}{Survival Outcomes}{equation.3.17}{}}
+\newlabel{eq:survival_covariance2}{{18}{17}{Survival Outcomes}{equation.3.18}{}}
 \citation{Morris2019}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Results: Simulation Study}{18}{section.4}\protected@file@percent }
 \newlabel{sec:simulation_results}{{4}{18}{Results: Simulation Study}{section.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Design of the Simulation Study}{19}{subsection.4.1}\protected@file@percent }
-\newlabel{sec:simulation_design}{{4.1}{19}{Design of the Simulation Study}{subsection.4.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Overview of the simulation workflow for the 4:2:1 "Drop-the-Losers" design, including design inputs, simulation structure, and statistical analysis for Phase II and III.}}{19}{figure.caption.30}\protected@file@percent }
-\newlabel{fig:simulation_flowchart}{{3}{19}{Overview of the simulation workflow for the 4:2:1 "Drop-the-Losers" design, including design inputs, simulation structure, and statistical analysis for Phase II and III}{figure.caption.30}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Design of the Simulation Study}{18}{subsection.4.1}\protected@file@percent }
+\newlabel{sec:simulation_design}{{4.1}{18}{Design of the Simulation Study}{subsection.4.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Overview of the simulation workflow for the 4:2:1 "Drop-the-Losers" design, including design inputs, simulation structure, and statistical analysis for Phase II and III.}}{18}{figure.caption.30}\protected@file@percent }
+\newlabel{fig:simulation_flowchart}{{3}{18}{Overview of the simulation workflow for the 4:2:1 "Drop-the-Losers" design, including design inputs, simulation structure, and statistical analysis for Phase II and III}{figure.caption.30}{}}
 \citation{doParallel}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Hazard ratios for different treatment arms under various scenarios.}}{21}{table.caption.31}\protected@file@percent }
-\newlabel{tab:hazard_ratios}{{2}{21}{Hazard ratios for different treatment arms under various scenarios}{table.caption.31}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Results: Phase II Trial}{22}{subsection.4.2}\protected@file@percent }
-\newlabel{sec:simulation_results}{{4.2}{22}{Results: Phase II Trial}{subsection.4.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Distribution of Test Statistics with Theoretical Chi-Squared (\( \chi ^2_{(1)} \)). The gray bars represent Log-Rank test statistics, the blue bars represent squared Cox regression test statistics, and the dashed line represents the theoretical \( \chi ^2_{(1)} \) distribution.}}{23}{figure.caption.32}\protected@file@percent }
-\newlabel{fig:test_statistics}{{4}{23}{Distribution of Test Statistics with Theoretical Chi-Squared (\( \chi ^2_{(1)} \)). The gray bars represent Log-Rank test statistics, the blue bars represent squared Cox regression test statistics, and the dashed line represents the theoretical \( \chi ^2_{(1)} \) distribution}{figure.caption.32}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Outcome distribution across interim steps and final analysis for different scenarios for Phase II Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref {tab:outcome_distribution_phase2} for detailed examination. }}{24}{figure.caption.33}\protected@file@percent }
-\newlabel{fig:outcome_distribution_phase2}{{5}{24}{Outcome distribution across interim steps and final analysis for different scenarios for Phase II Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref {tab:outcome_distribution_phase2} for detailed examination}{figure.caption.33}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Outcome Distribution Across Interim Steps and Final Analysis in Phase II Trial (with 95\% Confidence Intervals for the Final Analysis). Note: The maximum Monte Carlo Standard Error is calculated on the following page (Equation~\ref {eq:mcse}).}}{25}{table.caption.34}\protected@file@percent }
-\newlabel{tab:outcome_distribution}{{3}{25}{Outcome Distribution Across Interim Steps and Final Analysis in Phase II Trial (with 95\% Confidence Intervals for the Final Analysis). Note: The maximum Monte Carlo Standard Error is calculated on the following page (Equation~\ref {eq:mcse})}{table.caption.34}{}}
-\newlabel{tab:outcome_distribution_phase2}{{4.2}{26}{Results: Phase II Trial}{figure.caption.33}{}}
-\newlabel{eq:mcse}{{23}{26}{Results: Phase II Trial}{equation.4.23}{}}
-\@writefile{toc}{\contentsline {paragraph}{Ethical Considerations}{26}{section*.35}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Probability of Ineffective Arms Advancing to Interim Analysis 2 Across Scenarios}}{26}{table.caption.36}\protected@file@percent }
-\newlabel{tab:ineffective_arm_probability_interim2}{{4}{26}{Probability of Ineffective Arms Advancing to Interim Analysis 2 Across Scenarios}{table.caption.36}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Probability of Ineffective Arms Advancing to Final Analysis Across Scenarios}}{26}{table.caption.37}\protected@file@percent }
-\newlabel{tab:ineffective_arm_probability_final}{{5}{26}{Probability of Ineffective Arms Advancing to Final Analysis Across Scenarios}{table.caption.37}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Results: Phase III Trial}{27}{subsection.4.3}\protected@file@percent }
-\newlabel{sec:simulation_results_phase3}{{4.3}{27}{Results: Phase III Trial}{subsection.4.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Outcome distribution across interim steps and final analysis for different scenarios for Phase III Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table~\ref {tab:outcome_distribution_phase3} for detailed examination. }}{28}{figure.caption.38}\protected@file@percent }
-\newlabel{fig:outcome_distribution_phase3}{{6}{28}{Outcome distribution across interim steps and final analysis for different scenarios for Phase III Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table~\ref {tab:outcome_distribution_phase3} for detailed examination}{figure.caption.38}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Outcome Distribution Across Interim Steps and Final Analysis in Phase III Trial (with 95\% Confidence Intervals for the Final Analysis). Note: The maximum Monte Carlo Standard Error is calculated on the following page (Equation~\ref {eq:mcse2}).}}{29}{table.caption.39}\protected@file@percent }
-\newlabel{tab:outcome_distribution}{{6}{29}{Outcome Distribution Across Interim Steps and Final Analysis in Phase III Trial (with 95\% Confidence Intervals for the Final Analysis). Note: The maximum Monte Carlo Standard Error is calculated on the following page (Equation~\ref {eq:mcse2})}{table.caption.39}{}}
-\newlabel{tab:outcome_distribution_phase3}{{4.3}{30}{Results: Phase III Trial}{figure.caption.38}{}}
-\newlabel{eq:mcse1}{{24}{30}{Results: Phase III Trial}{equation.4.24}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{31}{section.5}\protected@file@percent }
-\newlabel{sec:discussion}{{5}{31}{Discussion}{section.5}{}}
-\newlabel{sec:app}{{5}{32}{Appendix}{section*.40}{}}
-\@writefile{toc}{\contentsline {section}{Appendix}{32}{section*.40}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {A}Covariance between test statistics based on continuous endpoints}{32}{appendix.A}\protected@file@percent }
-\newlabel{sec:app_derivations}{{A}{32}{Covariance between test statistics based on continuous endpoints}{appendix.A}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {B}Covariance between test statistics based on binary endpoints}{34}{appendix.B}\protected@file@percent }
-\newlabel{sec:app_derivations_binary}{{B}{34}{Covariance between test statistics based on binary endpoints}{appendix.B}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {C}Covariance between test statistics based on survival endpoints}{36}{appendix.C}\protected@file@percent }
-\newlabel{sec:app_derivations_survival}{{C}{36}{Covariance between test statistics based on survival endpoints}{appendix.C}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {D}Additional Simulation Results}{38}{appendix.D}\protected@file@percent }
-\newlabel{sec:app_sim_results}{{D}{38}{Additional Simulation Results}{appendix.D}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Outcome distribution across interim steps and final analysis for different scenarios for Phase II Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref {tab:outcome_distribution_phase2_appendix} for detailed examination. }}{38}{figure.caption.41}\protected@file@percent }
-\newlabel{fig:outcome_distribution_phase2_appendix}{{7}{38}{Outcome distribution across interim steps and final analysis for different scenarios for Phase II Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref {tab:outcome_distribution_phase2_appendix} for detailed examination}{figure.caption.41}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Outcome Distribution Across Interim Steps and Final Analysis in Phase II Trial (with 95\% Confidence Intervals for the Final Analysis).}}{39}{table.caption.42}\protected@file@percent }
-\newlabel{tab:outcome_distribution_phase2_appendix}{{7}{39}{Outcome Distribution Across Interim Steps and Final Analysis in Phase II Trial (with 95\% Confidence Intervals for the Final Analysis)}{table.caption.42}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Outcome distribution across interim steps and final analysis for different scenarios for Phase III Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref {tab:outcome_distribution_phase3_appendix} for detailed examination. }}{40}{figure.caption.43}\protected@file@percent }
-\newlabel{fig:outcome_distribution_phase3_appendix}{{8}{40}{Outcome distribution across interim steps and final analysis for different scenarios for Phase III Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref {tab:outcome_distribution_phase3_appendix} for detailed examination}{figure.caption.43}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Outcome Distribution Across Interim Steps and Final Analysis in Phase II Trial (with 95\% Confidence Intervals for the Final Analysis).}}{41}{table.caption.44}\protected@file@percent }
-\newlabel{tab:outcome_distribution_phase3_appendix}{{8}{41}{Outcome Distribution Across Interim Steps and Final Analysis in Phase II Trial (with 95\% Confidence Intervals for the Final Analysis)}{table.caption.44}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {E}Personal Statement}{42}{appendix.E}\protected@file@percent }
-\newlabel{sec:statment}{{E}{42}{Personal Statement}{appendix.E}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {F}Reproducibility}{42}{appendix.F}\protected@file@percent }
-\newlabel{sec:app_reproducibility}{{F}{42}{Reproducibility}{appendix.F}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {G}Session Info}{42}{appendix.G}\protected@file@percent }
-\newlabel{sec:session_info}{{G}{42}{Session Info}{appendix.G}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Hazard ratios for different treatment arms under various scenarios.}}{20}{table.caption.31}\protected@file@percent }
+\newlabel{tab:hazard_ratios}{{2}{20}{Hazard ratios for different treatment arms under various scenarios}{table.caption.31}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Results: Phase II Trial}{21}{subsection.4.2}\protected@file@percent }
+\newlabel{sec:simulation_results}{{4.2}{21}{Results: Phase II Trial}{subsection.4.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Distribution of Test Statistics with Theoretical Chi-Squared (\( \chi ^2_{(1)} \)). The gray bars represent Log-Rank test statistics, the blue bars represent squared Cox regression test statistics, and the dashed line represents the theoretical \( \chi ^2_{(1)} \) distribution.}}{22}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:test_statistics}{{4}{22}{Distribution of Test Statistics with Theoretical Chi-Squared (\( \chi ^2_{(1)} \)). The gray bars represent Log-Rank test statistics, the blue bars represent squared Cox regression test statistics, and the dashed line represents the theoretical \( \chi ^2_{(1)} \) distribution}{figure.caption.32}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Outcome distribution across interim steps and final analysis for different scenarios for Phase II Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref {tab:outcome_distribution_phase2.1} for detailed examination. }}{23}{figure.caption.33}\protected@file@percent }
+\newlabel{fig:outcome_distribution_phase2}{{5}{23}{Outcome distribution across interim steps and final analysis for different scenarios for Phase II Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref {tab:outcome_distribution_phase2.1} for detailed examination}{figure.caption.33}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Outcome Distribution Across Interim Steps and Final Analysis in Phase II Trial (with 95\% Confidence Intervals for the Final Analysis). Note: The maximum Monte Carlo Standard Error is calculated on the following page (Equation~\ref {eq:mcse}).}}{24}{table.caption.34}\protected@file@percent }
+\newlabel{tab:outcome_distribution_phase2.1}{{3}{24}{Outcome Distribution Across Interim Steps and Final Analysis in Phase II Trial (with 95\% Confidence Intervals for the Final Analysis). Note: The maximum Monte Carlo Standard Error is calculated on the following page (Equation~\ref {eq:mcse})}{table.caption.34}{}}
+\newlabel{eq:mcse}{{20}{25}{Results: Phase II Trial}{equation.4.20}{}}
+\@writefile{toc}{\contentsline {paragraph}{Ethical Considerations}{25}{section*.35}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Probability of Ineffective Arms Advancing to Interim Analysis 2 Across Scenarios}}{25}{table.caption.36}\protected@file@percent }
+\newlabel{tab:ineffective_arm_probability_interim2}{{4}{25}{Probability of Ineffective Arms Advancing to Interim Analysis 2 Across Scenarios}{table.caption.36}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Probability of Ineffective Arms Advancing to Final Analysis Across Scenarios}}{25}{table.caption.37}\protected@file@percent }
+\newlabel{tab:ineffective_arm_probability_final}{{5}{25}{Probability of Ineffective Arms Advancing to Final Analysis Across Scenarios}{table.caption.37}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Results: Phase III Trial}{26}{subsection.4.3}\protected@file@percent }
+\newlabel{sec:simulation_results_phase3}{{4.3}{26}{Results: Phase III Trial}{subsection.4.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Outcome distribution across interim steps and final analysis for different scenarios for Phase III Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table~\ref {tab:outcome_distribution_phase3} for detailed examination. }}{27}{figure.caption.38}\protected@file@percent }
+\newlabel{fig:outcome_distribution_phase3}{{6}{27}{Outcome distribution across interim steps and final analysis for different scenarios for Phase III Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table~\ref {tab:outcome_distribution_phase3} for detailed examination}{figure.caption.38}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Outcome Distribution Across Interim Steps and Final Analysis in Phase III Trial (with 95\% Confidence Intervals for the Final Analysis). Note: The maximum Monte Carlo Standard Error is calculated on the following page (Equation~\ref {eq:mcse2}).}}{28}{table.caption.39}\protected@file@percent }
+\newlabel{tab:outcome_distribution_phase3}{{6}{28}{Outcome Distribution Across Interim Steps and Final Analysis in Phase III Trial (with 95\% Confidence Intervals for the Final Analysis). Note: The maximum Monte Carlo Standard Error is calculated on the following page (Equation~\ref {eq:mcse2})}{table.caption.39}{}}
+\newlabel{eq:mcse2}{{21}{29}{Results: Phase III Trial}{equation.4.21}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{30}{section.5}\protected@file@percent }
+\newlabel{sec:discussion}{{5}{30}{Discussion}{section.5}{}}
+\newlabel{sec:app}{{5}{31}{Appendix}{section*.40}{}}
+\@writefile{toc}{\contentsline {section}{Appendix}{31}{section*.40}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A}Covariance between test statistics based on continuous endpoints}{31}{appendix.A}\protected@file@percent }
+\newlabel{sec:app_derivations}{{A}{31}{Covariance between test statistics based on continuous endpoints}{appendix.A}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Covariance between test statistics based on binary endpoints}{33}{appendix.B}\protected@file@percent }
+\newlabel{sec:app_derivations_binary}{{B}{33}{Covariance between test statistics based on binary endpoints}{appendix.B}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C}Covariance between test statistics based on survival endpoints}{35}{appendix.C}\protected@file@percent }
+\newlabel{sec:app_derivations_survival}{{C}{35}{Covariance between test statistics based on survival endpoints}{appendix.C}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {D}Additional Simulation Results}{37}{appendix.D}\protected@file@percent }
+\newlabel{sec:app_sim_results}{{D}{37}{Additional Simulation Results}{appendix.D}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Outcome distribution across interim steps and final analysis for different scenarios for Phase II Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref {tab:outcome_distribution_phase2_appendix} for detailed examination. }}{37}{figure.caption.41}\protected@file@percent }
+\newlabel{fig:outcome_distribution_phase2_appendix}{{7}{37}{Outcome distribution across interim steps and final analysis for different scenarios for Phase II Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref {tab:outcome_distribution_phase2_appendix} for detailed examination}{figure.caption.41}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Outcome Distribution Across Interim Steps and Final Analysis in Phase II Trial (with 95\% Confidence Intervals for the Final Analysis).}}{38}{table.caption.42}\protected@file@percent }
+\newlabel{tab:outcome_distribution_phase2_appendix}{{7}{38}{Outcome Distribution Across Interim Steps and Final Analysis in Phase II Trial (with 95\% Confidence Intervals for the Final Analysis)}{table.caption.42}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Outcome distribution across interim steps and final analysis for different scenarios for Phase III Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref {tab:outcome_distribution_phase3_appendix} for detailed examination. }}{39}{figure.caption.43}\protected@file@percent }
+\newlabel{fig:outcome_distribution_phase3_appendix}{{8}{39}{Outcome distribution across interim steps and final analysis for different scenarios for Phase III Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref {tab:outcome_distribution_phase3_appendix} for detailed examination}{figure.caption.43}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Outcome Distribution Across Interim Steps and Final Analysis in Phase III Trial (with 95\% Confidence Intervals for the Final Analysis).}}{40}{table.caption.44}\protected@file@percent }
+\newlabel{tab:outcome_distribution_phase3_appendix}{{8}{40}{Outcome Distribution Across Interim Steps and Final Analysis in Phase III Trial (with 95\% Confidence Intervals for the Final Analysis)}{table.caption.44}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {E}Personal Statement}{41}{appendix.E}\protected@file@percent }
+\newlabel{sec:statment}{{E}{41}{Personal Statement}{appendix.E}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {F}Reproducibility}{41}{appendix.F}\protected@file@percent }
+\newlabel{sec:app_reproducibility}{{F}{41}{Reproducibility}{appendix.F}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {G}Session Info}{41}{appendix.G}\protected@file@percent }
+\newlabel{sec:session_info}{{G}{41}{Session Info}{appendix.G}{}}
 \citation{R}
 \bibstyle{ims}
 \bibdata{reference}
-\bibcite{spendingFunction}{{1}{1994}{{Demets and Lan}}{{}}}
-\bibcite{Morris2019}{{2}{2019}{{Morris et~al.}}{{Morris, White and Crowther}}}
-\bibcite{Royston2003MAMS}{{3}{2003}{{Royston et~al.}}{{Royston, Parmar and Qian}}}
-\bibcite{Wason2017DropTheLosers}{{4}{2017}{{Wason et~al.}}{{Wason, Stallard, Bowden and Jennison}}}
-\bibcite{doParallel}{{5}{2022}{{Weston et~al.}}{{Weston, Calaway, Schmidt and Lawrence}}}
-\gdef \@abspage@last{45}
+\bibcite{bland2015introduction}{{1}{2015}{{Bland}}{{}}}
+\bibcite{spendingFunction}{{2}{1994}{{Demets and Lan}}{{}}}
+\bibcite{Morris2019}{{3}{2019}{{Morris et~al.}}{{Morris, White and Crowther}}}
+\bibcite{Royston2003MAMS}{{4}{2003}{{Royston et~al.}}{{Royston, Parmar and Qian}}}
+\bibcite{Wason2017DropTheLosers}{{5}{2017}{{Wason et~al.}}{{Wason, Stallard, Bowden and Jennison}}}
+\bibcite{doParallel}{{6}{2022}{{Weston et~al.}}{{Weston, Calaway, Schmidt and Lawrence}}}
+\gdef \@abspage@last{44}

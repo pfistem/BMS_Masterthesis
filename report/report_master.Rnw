@@ -175,16 +175,19 @@ This thesis provides a comprehensive framework for implementing "Drop-the-Losers
 \section{Introduction} \label{sec:intro}
 % =============================================================================
 
-Clinical trials are the cornerstone of clinical drug development, playing a critical role in evaluating new treatments, particularly in fields such as oncology where multiple treatment options are often explored concurrently. However, traditional clinical trial designs are often resource-intensive and time-consuming, particularly when multiple treatments need to be tested. Multi-Arm Multi-Stage (MAMS) trial designs, such as the "Drop-the-Losers" (DTL)  approach proposed by \cite{Wason2017DropTheLosers}, provide a more efficient alternative by allowing multiple treatments to be evaluated within the same trial while utilizing interim analyses to drop the less effective or less promising treatments early.
+Clinical trials are the cornerstone of drug development, particularly in oncology, where multiple treatment options are often explored. Traditional trial designs are resource-intensive and time-consuming, especially when testing multiple treatments. Multi-Arm Multi-Stage (MAMS) trial designs, such as the "Drop-the-Losers" (DTL) approach proposed by \cite{Wason2017DropTheLosers}, provide a more efficient alternative. These designs evaluate multiple treatments within a single trial, using interim analyses to drop less effective options early.
 
-Oncology trials often involve complex decision-making processes, including the evaluation of multiple drug combinations, schedules, and dose levels. The need to efficiently select the most effective treatments early in the trial is critical for improving patient outcomes and expediting the drug development process. Traditional clinical trial designs, which evaluate one treatment at a time, do not address this need effectively due to inefficiencies in time, cost, and sample size requirements. The "Drop-the-Losers" design offers a powerful solution by allowing several treatments to be tested simultaneously, with less promising treatments being dropped at each interim analysis. This design is particularly advantageous in Phase II/III studies, where treatments are first screened for efficacy (excluding safety in this design) and selected for further evaluation in Phase III, even if certain aspects like optimal dose or combinations still require exploration.
+Oncology trials often require evaluating multiple drug combinations, schedules, and dose levels. Efficiently identifying the most effective treatments early is critical for improving patient outcomes and expediting drug development. Traditional designs, which evaluate one treatment at a time, are inefficient in terms of time, cost, and sample size (\(N\)), where \(N\) represents the total number of patients required to achieve sufficient statistical power. As \(N\) is a random variable, its variability introduces uncertainty in both the cost and duration of the trial, making these designs less predictable and efficient compared to more adaptive approaches.
 
-This master thesis focuses on evaluating the performance of the "Drop-the-Losers" design in Phase II/III oncology trials, where treatment selection is crucial for determining the most effective therapies for patients. The design is characterized by interim analyses at predefined stages, where a number of experimental treatments are dropped based on their performance relative to a control group. This approach optimizes resource allocation by focusing efforts on more promising treatments while maintaining robust statistical power and controlling Type I error rates. The primary objective of this is to assess the effectiveness of the "Drop-the-Losers" design in controlling Type I error rates and maintaining statistical power while efficiently selecting promising treatments. The study investigates how this design performs under different clinical scenarios involving continuous, binary, and survival endpoints. Additionally, the study will also examine the Monte Carlo standard error (MCSE) associated with the design.
+The DTL design addresses these limitations by testing several treatments simultaneously and dropping less promising ones at each interim analysis. This approach is particularly advantageous in Phase II/III studies, where treatments are screened for efficacy and selected for further evaluation in Phase III.
 
-This thesis employs a simulation study to assess the performance of the "Drop-the-Losers" design across various clinical scenarios. Simulations were conducted in the R programming language using parallel computing to manage the computational complexity. While ~\cite{Wason2017DropTheLosers} has already addressed continuous outcomes, this study focuses on extending the DTL approach to binary outcomes, as well as survival outcomes like progression-free survival (PFS), which are essential endpoints in oncology trials. The study evaluates the statistical properties of the design, including Type I error rates, statistical power, and biases under various configurations of treatment effects, such as the null hypothesis and hybrid models with one or more effective treatments.
+This master thesis evaluates the performance of the DTL design in Phase II/III oncology trials, where treatment selection is crucial. The design incorporates interim analyses at predefined stages, dropping experimental treatments based on their relative performance to a control group. This optimizes resource allocation, focusing on promising treatments while maintaining robust statistical power and controlling Type I error rates. The study investigates the design's effectiveness in controlling Type I error and maintaining statistical power under various clinical scenarios, including continuous, binary, and survival endpoints.
 
-The Methods section outlines the methodological framework of the "Drop-the-Losers" design, including its mathematical formulation and application to binary and survival endpoints. The Results section presents findings from the simulation study, evaluating the design's performance across various scenarios. The Discussion addresses the implications of these results, highlighting the strengths, limitations, and ethical considerations of the design. Finally, the Conclusion summarizes the key insights and provides recommendations for future research. Additional details and supplementary results are included in the appendices.
+A simulation study assesses the performance of the DTL design across different scenarios. Simulations, conducted in the R programming language with parallel computing, build upon the work of \cite{Wason2017DropTheLosers}, who previously evaluated continuous outcomes. This simulation study extends the DTL approach to survival outcomes, such as progression-free survival (PFS), which are critical in oncology. The study evaluates statistical properties, including Type I error rates, power under null and hybrid models with one or more effective treatments. Additionally, it examines the Monte Carlo standard error (MCSE) associated with the design.
 
+The Methods section describes the DTL design's mathematical framework and its application to binary and survival endpoints. The Results section presents findings from the simulation study for survival endpoints, assessing the design's performance across scenarios. The Discussion highlights the implications, strengths, limitations, and ethical considerations, while the Conclusion summarizes key insights and suggests directions for future research. Supplementary details are provided in the appendices.
+
+\newpage
 
 \section{Methods} \label{sec:methods}
 % =============================================================================
@@ -210,7 +213,7 @@ As with any design incorporating interim analyses, the issue of multiple testing
 \subsection{Drop-the-Losers Study Design}
 
 
-In this section, we discuss the specific design of MAMS studies, particularly the Drop-the-Losers (DTL) design, with a focus on hypothesis testing, the distribution of treatment outcomes, and the underlying concept.
+In this section, we discuss the specific design of MAMS studies, particularly the Drop-the-Losers (DTL) design, with a focus on hypothesis testing, the distribution of treatment outcomes, and the underlying concept. The DTL  design is a type of seamless design, meaning that it allows for the continuation of promising treatments through various stages of the trial without the need for a formal transition between phases~\citep{Schmidli2006Seamless}.
 
 At the end of stage $j$, let $Z_j^{(k)}$ be the test statistic~(\ref{eq:Z_j_k}) for treatment $k$. The treatments are ranked according to these statistics, and a fixed number of treatments with the worst test statistics are dropped. Let $n^{(j)}$ represent the number of treatments remaining at stage $j$. The design is defined by the sequence of treatment counts across stages: $K : n^{(2)} : n^{(3)} : \dots : n^{(J)}$, where $n^{(J)} = 1$ (indicating that only one experimental treatment reaches the final stage). At each interim analysis, the least promising treatments are dropped based on their ranked test statistics (see Figure \ref{fig:drop_losers}). The exact number of treatments to be dropped is prespecified, and the remaining treatments proceed to the next stage.
 
@@ -218,7 +221,7 @@ We focus on the 4:2:1 design, which consists of 4 treatment arms, followed by 2 
 
 From a practical perspective, prespecifying the number of treatments to be dropped stabilizes the sample size across stages, which would otherwise be treated as a random variable. Such randomness could lead to significant variability in resource requirements and logistical challenges during trial execution. By ensuring a fixed number of treatments at each stage, the design aligns with the goals of resource-efficient clinical trials while retaining robust statistical rigor. Wason's publication showed, when using a continuous endpoint, that the sample size required by the Drop-the-Losers design is similar to the average sample size required by other MAMS designs. With the Drop-the-Losers design, the future study expenses are no longer considered as a risk ~\citep{Wason2017DropTheLosers}.
 
-The control group remains in the trial throughout all stages. At the final stage, the remaining treatment arm is compared to the control arm, and if its test statistic exceeds a predefined significance threshold \( c \), it is declared superior to the control. The \( c \)-value represents a critical threshold that controls both Type I and Type II errors in hypothesis testing. Type I error (false positive) occurs when the null hypothesis is incorrectly rejected, i.e., when a treatment is declared superior to the control even though no true difference exists. Conversely, Type II error (false negative) occurs when the null hypothesis fails to be rejected, i.e., when a treatment is not declared superior despite a true underlying difference~\ref{bland2015introduction}. The numerical calculation of the test statistic and the corresponding threshold \( c \) will be further discussed in the Results~\ref{sec:simulation_design}.
+The control group remains in the trial throughout all stages. At the final stage, the remaining treatment arm is compared to the control arm, and if its test statistic exceeds a predefined significance threshold \( c \), it is declared superior to the control. The \( c \)-value represents a critical threshold that controls both Type I and Type II errors in hypothesis testing. Type I error (false positive) occurs when the null hypothesis is incorrectly rejected, i.e., when a treatment is declared superior to the control even though no true difference exists. Conversely, Type II error (false negative) occurs when the null hypothesis fails to be rejected, i.e., when a treatment is not declared superior despite a true underlying difference~\citep{bland2015introduction}. The numerical calculation of the test statistic and the corresponding threshold \( c \) will be further discussed in the Results~\ref{sec:simulation_design}.
 
 Let $k \in \{0, 1, \dots, K\}$ index the treatments, with $k=0$ representing the control treatment. The outcome for each patient $i$ on treatment $k$ is denoted by $X_{ki}$, assumed to be normally distributed with mean $\mu_k$ and variance $\sigma^2$. For \( k \in \{0, 1, \dots, K\} \), define \( \delta_k = \mu_k - \mu_0 \). The null hypothesis for each treatment $k$ is $H_0^{(k)}: \mu_k \leq \mu_0$, where $\mu_0$ is the mean outcome for the control group. The alternative hypothesis is $H_1^{(k)}: \mu_k > \mu_0$. The global null hypothesis, $H_0$, is that all treatments are no better than the control, i.e., $\mu_k \leq \mu_0$ for all $k \in \{1, \dots, K\}$. The global alternative hypothesis, $H_1$, is that at least one treatment is better than the control, i.e., $\mu_k > \mu_0$ for at least one $k \in \{1, \dots, K\}$.
 
@@ -228,19 +231,19 @@ Z_j^{(k)} = \frac{\frac{1}{n_j}\sum_{i=1}^{n_j} X_{ki} - \frac{1}{n_j}\sum_{i=1}
 \end{equation}
 where $n_j$ is the number of patients observed up to stage $j$. This statistic~(\ref{eq:Z_j_k}) has a marginal distribution $\mathcal{N}\left(\delta_k \cdot \sqrt{\frac{n_j}{2\sigma^2}}, 1\right)$ and the covariance between test statistics at two different stages is given by
 
-\begin{equation}
-\text{Cov}(Z_j^{(k)}, Z_l^{(m)}) = \sqrt{\frac{\min(n_j, n_l)}{\max(n_j, n_l)}},\label{eq:covariance1}
+\begin{equation}\label{eq:covariance_method1}
+\text{Cov}(Z_j^{(k)}, Z_l^{(m)}) = \sqrt{\frac{\min(n_j, n_l)}{\max(n_j, n_l)}},
 \end{equation}
 
 if $k$ = $m$ (same treatment) across stages $j$ and $l$ (different stages), and
 
-\begin{equation}
-\text{Cov}(Z_j^{(k)}, Z_l^{(m)}) = \frac{1}{2} \sqrt{\frac{\min(n_j, n_l)}{\max(n_j, n_l)}}, \label{eq:covariance2}
+\begin{equation}\label{eq:covariance_method2}
+\text{Cov}(Z_j^{(k)}, Z_l^{(m)}) = \frac{1}{2} \sqrt{\frac{\min(n_j, n_l)}{\max(n_j, n_l)}},
 \end{equation}
 
 if $k$ $\neq$ $m$ (different treatment) across stages $j$ and $l$ (different stages)~\citep{Wason2017DropTheLosers}.\\
 
-The correlation~(\ref{eq:covariance1},~\ref{eq:covariance2}) between test statistics arises due to two main reasons: First, the cumulative nature of the data, as information from earlier stages contributes to later stages, and second, the shared control group across treatment arms, which introduces dependencies in the comparisons between different treatments and the control. These factors inherently link the test statistics, making them non-independent across stages and treatments.
+The correlation~(\ref{eq:covariance_method1},~\ref{eq:covariance_method2}) between test statistics arises due to two main reasons: First, the cumulative nature of the data, as information from earlier stages contributes to later stages, and second, the shared control group across treatment arms, which introduces dependencies in the comparisons between different treatments and the control. These factors inherently link the test statistics, making them non-independent across stages and treatments.
 
 
 \begin{figure}[ht]
@@ -249,50 +252,6 @@ The correlation~(\ref{eq:covariance1},~\ref{eq:covariance2}) between test statis
     \caption{Illustration of the (4:2:1) "Drop-the-Losers" design. Treatments are evaluated at each interim analysis. Treatments with the least promising results are dropped, while the most promising treatments continue to the next stage. The process continues until the final analysis, where the remaining treatment is compared to the control.}
     \label{fig:drop_losers}
 \end{figure}
-
-
-\subsection{Analytical Operational Properties} \label{sec:operating_characteristics}
-
-Having outlined the structure and mechanics of the Drop-the-Losers study design, we now explore its analytical operational properties. Specifically, we derive formulas for the probability of recommending a treatment, rejecting the global null hypothesis, and selecting the best treatment under various configurations, particularly focusing on the Least-Favourable-Configuration (LFC) scenario.
-
-For simplicity, the analysis focuses again on a three-stage design with $K$ treatments in the first stage, $L$ in the second, and a remaining candidate in the third stage, which is referred to as a $K:L:1$ design.
-
-\paragraph{Ranking of Treatments}
-The probability that a given treatment $k$ is recommended is based on a ranking of the experimental treatments $\psi = (\psi_1, \ldots, \psi_K)$. The following conditions are satisfied for $\psi$:
-\begin{enumerate}
-    \item The treatment that reaches the final analysis is ranked $1$.
-    \item The treatment excluded in an earlier analysis with the lowest test statistic is ranked $K$.
-    \item If treatment $k_1$ is excluded later than treatment $k_2$, then $\psi_{k_1} < \psi_{k_2}$.
-    \item If treatments $k_1$ and $k_2$ are excluded in the same stage and $k_1$ has a higher test statistic, then $\psi_{k_1} < \psi_{k_2}$.
-\end{enumerate}
-The probability that $H_0^{(k)}$ is rejected for treatment $k$ is:
-\begin{equation}
-P(\text{Reject } H_0^{(k)} | \delta) = P(\psi_k = 1, Z^{(k)} > c | \delta),
-\end{equation}
-where $Z^{(k)}$ is the test statistic for treatment $k$ in the final stage, and $c$ is the critical value.
-
-\paragraph{Multivariate Normal Distribution and Matrix Representation}
-The distribution of the test statistics $Z = (Z^{(1)}, Z^{(2)}, \ldots, Z^{(K)})$ is multivariate normal, with the mean $m(\delta)$ and the covariance matrix $\Sigma$ determined by the effects $\delta$ and the study design. For a given ranking $\psi$, the probabilities can be reformulated into conditions on pairwise elements of the test statistic $Z$:
-\begin{equation}
-(AZ)_i > 0 \quad \forall i,
-\end{equation}
-where $A$ is a matrix defining the differences and critical values in the ranking. For an example with a $4:2:1$ design, the matrix $A$ is:
-\[
-A =
-\begin{bmatrix}
-0 & 1 & 0 & 0 & 1 & 0 & -1 & 0 \\
-0 & 0 & 0 & 1 & -1 & 0 & 0 & 0 \\
-\vdots & & & \vdots & & & & \vdots \\
-0 & 0 & 1 & 0 & 0 & -1 & 0 & 0
-\end{bmatrix}.
-\]
-
-\paragraph{Probability of Treatment Recommendation under the LFC}
-For the Least-Favourable-Configuration scenario, it is assumed that the treatment effect for a reference treatment $\delta^{(1)}$ is clinically relevant, while all other effects $\delta^{(k)}$ ($k = 2, \ldots, K$) are considered negligible. The probability that the reference treatment $k = 1$ is recommended is derived as:
-\begin{equation}
-(K-1)! \cdot P(\psi_1 = 1, \psi_2 = 2, \ldots, \psi_K = K, Z^{(1)} > c | \delta_1 = \delta^{(1)}, \delta_2 = \delta_3 = \ldots = \delta_K = \delta^{(0)}),
-\end{equation}
-where $P$ is the marginal probability of a multivariate normal distribution.
 
 
 \subsection{Step-by-Step Example: 4:2:1 DTL for Continuous Endpoints}
@@ -316,9 +275,9 @@ The following example is a fictional scenario designed to illustrate the applica
     \rowcolor[gray]{0.9} \textbf{Arms} & \textbf{Interim Analysis 1 (j=1)} & \textbf{Interim Analysis 2 (j=2)} & \textbf{Final Analysis (j=3)} \\
     \hline
     \text{Control (k=0)} & 1.0 & 1.0 & 1.0 \\
-    \text{Treatment 1 (k=1)} & 1.5 & 1.7 & \text{Dropped} \\
+    \text{Treatment 1 (k=1)} & 1.5 & 1.6 & \text{Dropped} \\
     \text{Treatment 2 (k=2)} & 1.2 & \text{Dropped} & \text{Dropped} \\
-    \text{Treatment 3 (k=3)} & 1.3 & 1.6 & 1.8 \\
+    \text{Treatment 3 (k=3)} & 1.3 & 1.7 & 1.8 \\
     \text{Treatment 4 (k=4)} & 1.1 & \text{Dropped} & \text{Dropped} \\
     \hline
     \end{tabular}
@@ -328,7 +287,7 @@ The following example is a fictional scenario designed to illustrate the applica
 
 \paragraph{Test Statistics, Covariance, and Contrast Matrices}\\
 
-\subparagraph{Test Statistics for Interim Analysis 1:}
+\paragraph{Test Statistics for Interim Analysis 1:}
 The test statistic for each treatment arm at Interim Analysis 1 is:
 \[
 Z_1^{(k)} = \left( \frac{\sum_{i=1}^{n_1} X_{ki}}{n_1} - \frac{\sum_{i=1}^{n_1} X_{0i}}{n_1} \right) \sqrt{\frac{n_1}{2\sigma^2}}.
@@ -340,7 +299,7 @@ Z_1^{(1)} = \left( \frac{1.5}{20} - \frac{1.0}{20} \right) \sqrt{\frac{20}{2 \cd
 \end{equation}
 
 \begin{equation}
-Z_1^{(2)} = \left( \frac{1.2}{20} - \frac{1.0}{20} \right) \sqrt{\frac{20}{2 \cdot 1}} = 0.032,
+Z_1^{(2)} = \left( \frac{1.2}{20} - \frac{1.0}{20} \right) \sqrt{\frac{20}{2 \cdot 1}} = 0.032, \label{eq:Z1_2}
 \end{equation}
 
 \begin{equation}
@@ -349,6 +308,7 @@ Z_1^{(3)} = \left( \frac{1.3}{20} - \frac{1.0}{20} \right) \sqrt{\frac{20}{2 \cd
 
 \begin{equation}
 Z_1^{(4)} = \left( \frac{1.1}{20} - \frac{1.0}{20} \right) \sqrt{\frac{20}{2 \cdot 1}} = 0.016.
+\label{eq:Z1_4}
 \end{equation}
 
 
@@ -359,13 +319,18 @@ The test statistic for each treatment arm at Interim Analysis 2 is:
 Z_2^{(k)} = \left( \frac{\sum_{i=1}^{n_2} X_{ki}}{n_2} - \frac{\sum_{i=1}^{n_2} X_{0i}}{n_2} \right) \sqrt{\frac{n_2}{2\sigma^2}}.
 \]
 Using the observed means from Interim Analysis 2 from Table~\ref{tab:example}, we compute:
-\begin{equation}
-Z_2^{(1)} = \left( \frac{1.7}{40} - \frac{1.0}{40} \right) \sqrt{\frac{40}{2 \cdot 1}} = 3.13,
-\end{equation}
+
 
 \begin{equation}
-Z_2^{(3)} = \left( \frac{1.6}{40} - \frac{1.0}{40} \right) \sqrt{\frac{40}{2 \cdot 1}} = 2.68. \label{eq:Z2_3}
+Z_2^{(1)} = \left( \frac{1.6}{40} - \frac{1.0}{40} \right) \sqrt{\frac{40}{2 \cdot 1}} = 0.067
 \end{equation}
+
+
+\begin{equation}
+Z_2^{(3)} = \left( \frac{1.7}{40} - \frac{1.0}{40} \right) \sqrt{\frac{40}{2 \cdot 1}} = 0.078,
+\label{eq:Z2_3}
+\end{equation}
+
 
 Treatment arms \(k=2\) and \(k=4\) were dropped at this stage.
 
@@ -383,12 +348,9 @@ Treatment arms \(k=1\), \(k=2\), and \(k=4\) were dropped prior to the Final Ana
 
 
 
-
-
-
 \paragraph{Contrast Matrix}\\
 
-The contrast matrix \( A \) is used to define the pairwise comparisons between treatment arms and the control in a 4:2:1 "Drop-the-Losers" design. The matrix accounts for dropping \( k = 2 \) and \( k = 4 \) after the first interim analysis and \( k = 1 \) after the second interim analysis, as observed in the means provided and further illustrated in Equations~\eqref{eq:Z1_2} and~\eqref{eq:Z1_4}. This results in only \( k = 3 \) proceeding to the final analysis. The matrix is defined as
+The contrast matrix \( A \) defines the pairwise comparisons between treatment arms and the control in a 4:2:1 "Drop-the-Losers" design. It reflects the dropping of \( k = 2 \) and \( k = 4 \) after the first interim analysis, and \( k = 1 \) after the second interim analysis, as directly shown in Equations~\ref{eq:Z1_2} and~\ref{eq:Z1_4}. This leads to only \( k = 3 \) proceeding to the final analysis. The matrix is defined as
 
 \begin{equation}
 \setlength{\arraycolsep}{3pt}
@@ -397,7 +359,7 @@ A =
 \begin{array}{cccccccccccc}
 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & -1 & 0 & 0 \\
 1 & 0 & 0 & -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & -1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & -1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
 0 & -1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0
 \end{array}
@@ -408,13 +370,13 @@ A =
 \begin{flushleft}
 \textbf{Row 1}: Compares \( Z_1^{(4)} \) with \( Z_1^{(2)} \), indicating that Arm 4 performs worse than Arm 2.\\
 \textbf{Row 2}: Compares \( Z_1^{(2)} \) with \( Z_1^{(1)} \), indicating that Arm 2 performs worse than Arm 1.\\
-\textbf{Row 3}: Compares \( Z_1^{(3)} \) with \( Z_1^{(1)} \), indicating that Arm 1 performs worse than Arm 2.\\
+\textbf{Row 3}: Compares \( Z_1^{(2)} \) with \( Z_1^{(3)} \), indicating that Arm 2 performs worse than Arm 3.\\
 \textbf{Row 4}: Compares \( Z_2^{(1)} \) with \( Z_2^{(3)} \), indicating that Arm 1 performs worse than Arm 3.\\
 \textbf{Row 5}: Tests whether \( Z_3^{(3)} \), the remaining arm in the final analysis, is significantly better than the control.
 \end{flushleft}
 
 
-The contrast vector \( C \) is obtained by multiplying the contrast matrix \( A \)~(\ref{eq:contrast_matrix}) with the vector of test statistics \( Z \)~(\ref{eq:Z_stages}). The test statistics vector \( Z \) contains all test statistics for the treatment arms (\( k = 1, 2, 3, 4 \)) across all stages (\( j = 1, 2, 3 \)):
+The vector \( C \) is obtained by multiplying the contrast matrix \( A \)~(\ref{eq:contrast_matrix}) with the vector of test statistics \( Z \)~(\ref{eq:Z_stages}). The test statistics vector \( Z \) contains all test statistics for the treatment arms (\( k = 1, 2, 3, 4 \)) across all stages (\( j = 1, 2, 3 \)):
 
 \begin{equation}
 Z =
@@ -428,7 +390,7 @@ Z_1^{(4)} \\ Z_2^{(4)} \\ Z_3^{(4)}
 
 
 \paragraph{Step-by-Step Multiplication:}
-Using the contrast matrix \( A \) and the test statistics vector \( Z \), the contrast vector \( C \) is computed. Each element of \( C \) represents a specific contrast derived from the matrix multiplication \( C = A \cdot Z \). For example:
+Using the contrast matrix \( A \) and the test statistics vector \( Z \), the vector \( C \) is computed. Each element of \( C \) represents a specific contrast derived from the matrix multiplication \( C = A \cdot Z \). For example:
 
 \[
 C_1 = 0 \cdot Z_1^{(1)} + 0 \cdot Z_2^{(1)} + 0 \cdot Z_3^{(1)} + 1 \cdot Z_1^{(2)} + 0 \cdot Z_2^{(2)} + 0 \cdot Z_3^{(2)} + 0 \cdot Z_1^{(3)} + 0 \cdot Z_2^{(3)} + 0 \cdot Z_3^{(3)} - 1 \cdot Z_1^{(4)} + 0 \cdot Z_2^{(4)} + 0 \cdot Z_3^{(4)}.
@@ -451,7 +413,7 @@ C_2 = Z_1^{(1)} - Z_1^{(2)}.
 \]
 
 \[
-C_3 = 0 \cdot Z_1^{(1)} + 0 \cdot Z_2^{(1)} - 1 \cdot Z_3^{(1)} + 0 \cdot Z_1^{(2)} + 1 \cdot Z_2^{(2)} + 0 \cdot Z_3^{(2)} + 0 \cdot Z_1^{(3)} + 0 \cdot Z_2^{(3)} + 0 \cdot Z_3^{(3)} + 0 \cdot Z_1^{(4)} + 0 \cdot Z_2^{(4)} + 0 \cdot Z_3^{(4)}.
+C_3 = 0 \cdot Z_1^{(1)} + 0 \cdot Z_2^{(1)} + 0 \cdot Z_3^{(1)} - 1 \cdot Z_1^{(2)} + 0 \cdot Z_2^{(2)} + 0 \cdot Z_3^{(2)} + 1 \cdot Z_1^{(3)} + 0 \cdot Z_2^{(3)} + 0 \cdot Z_3^{(3)} + 0 \cdot Z_1^{(4)} + 0 \cdot Z_2^{(4)} + 0 \cdot Z_3^{(4)}.
 \]
 
 This simplifies to:
@@ -482,8 +444,8 @@ Substitute the computed test statistics:
 Z =
 \begin{bmatrix}
 0.079 \\ 0.032 \\ 0.047 \\
-3.13 \\ \text{Dropped} \\ 2.68 \\
-\text{Dropped} \\ 4.38 \\ \text{Dropped} \\
+0.067 \\ \text{Dropped} \\ 0.078 \\
+\text{Dropped} \\ 0.073 \\ \text{Dropped} \\
 0.016 \\ \text{Dropped} \\ \text{Dropped}
 \end{bmatrix}.
 \]
@@ -497,11 +459,11 @@ C_1 \\ C_2 \\ C_3 \\ C_4 \\ C_5
 \end{bmatrix}
 =
 \begin{bmatrix}
-3.13 - 0.016 \\
-0.079 - 3.13 \\
-2.68 - 0.047 \\
-4.38 - 0.032 \\
-4.38
+0.067 - 0.016 \\
+0.079 - 0.032 \\
+0.047 - 0.032 \\
+0.078 - 0.067 \\
+0.073
 \end{bmatrix}.
 \]
 
@@ -509,22 +471,23 @@ Perform the calculations:
 \[
 C =
 \begin{bmatrix}
-3.114 \\
--3.051 \\
-2.633 \\
-4.348 \\
-4.38
+0.051 \\
+0.032 \\
+0.015 \\
+0.011 \\
+0.073
 \end{bmatrix}.
 \]
 
 \paragraph{Interpretation:}
 \begin{itemize}
-    \item \( C_1 = 3.114 \): Indicates that Treatment 1 performed much better at Interim Analysis 2 compared to Treatment 4 at Interim Analysis 1.
-    \item \( C_2 = -3.051 \): Indicates that Treatment 1 at Interim Analysis 1 performed much worse than at Interim Analysis 2.
-    \item \( C_3 = 2.633 \): Indicates that Treatment 2 at Interim Analysis 2 performed better than Treatment 3 at Interim Analysis 1.
-    \item \( C_4 = 4.348 \): Indicates that Treatment 3 at Final Analysis performed significantly better than Treatment 2 at Interim Analysis 1.
-    \item \( C_5 = 4.38 \): Indicates the absolute performance of Treatment 3 at the Final Analysis compared to the control.
+    \item \( C_1 = 0.051 \): Indicates that Treatment 1 at Interim Analysis 2 performed slightly better than Treatment 4 at Interim Analysis 1.
+    \item \( C_2 = 0.032 \): Indicates that Treatment 1 at Interim Analysis 1 performed worse than at Interim Analysis 2, but only to a small extent.
+    \item \( C_3 = 0.015 \): Indicates that Treatment 2 at Interim Analysis 2 performed marginally better than Treatment 3 at Interim Analysis 1.
+    \item \( C_4 = 0.011 \): Indicates that Treatment 3 at the Final Analysis performed slightly better than Treatment 2 at Interim Analysis 1.
+    \item \( C_5 = 0.073 \): Represents the absolute performance of Treatment 3 at the Final Analysis.
 \end{itemize}
+
 
 
 
@@ -632,11 +595,51 @@ c = 1.906.
 The critical value \( c = 1.906 \) is applied to the final stage of the trial to determine significance:
 \begin{itemize}
     \item If the test statistic \( Z_j^{(k)} > c \), the treatment \( k \) is deemed significantly better than the control.
-    \item In this example, for \( k = 3 \), the final test statistic is \( Z_3^{(3)} = 4.38 \), which satisfies \( Z_3^{(3)} > c \). Thus, treatment \( k = 3 \) is significantly better than the control.
+    \item In this example, for \( k = 3 \), the final test statistic is \( Z_3^{(3)} = 0.073 \), which not satisfies \( Z_3^{(3)} > c \). Thus, treatment \( k = 3 \) is not significantly better than the control.
 \end{itemize}
 
 \subparagraph{Conclusion}\\
-By applying the critical value \( c = 1.906 \), we conclude that treatment \( k = 3 \) is significantly better than the control in the final analysis. All other treatments were dropped at earlier stages based on the interim analyses.
+By applying the critical value \( c = 1.906 \), we conclude that treatment \( k = 3 \) is not significantly better than the control in the final analysis. All other treatments were dropped at earlier stages based on the interim analyses.
+
+
+
+\subsection{Analytical Operating Properties}
+This subsection provides a brief introduction from~\cite{Wason2017DropTheLosers} to the analytical formulae used to calculate key probabilities in multi-stage, multi-arm clinical trials. Specifically, we focus on the probability of recommending a particular treatment based on a general vector of treatment effects. Additionally, we provide formulae for the probability of rejecting any null hypothesis when the global null hypothesis ($H_G$) is true, as well as the probability of selecting the best treatment under the least favorable configuration (LFC).
+
+
+\paragraph{Probability of a Specific Treatment Being Recommended}
+The ranking of experimental treatments is defined by random variables $\psi = (\psi_1, \ldots, \psi_K)$, where $\psi_k$ represents the rank of treatment $k$. The ranking satisfies:
+\begin{enumerate}
+    \item The treatment that reaches the final analysis has rank 1.
+    \item Treatments dropped earlier are ranked lower.
+    \item If treatment $k_1$ reaches a later stage than $k_2$, then $\psi_{k_1} < \psi_{k_2}$.
+    \item For ties in the same stage, the treatment with the higher test statistic is ranked higher.
+\end{enumerate}
+
+The probability of recommending treatment $k$ is:
+\[
+P\left(\text{Reject } H_0^{(k)} \mid \delta\right) = P\left(\psi_k = 1, Z_3^{(k)} > c \mid \delta\right),
+\]
+where $Z_3^{(k)}$ is the test statistic for treatment $k$ at the final stage and $c$ is the critical value.
+
+This probability is expressed as:
+\[
+\sum_{\psi \in \Psi} P(Z_3^{(1)} > c, \psi \mid \delta),
+\]
+where $\Psi$ represents all possible rankings.
+
+\paragraph{Probability of Recommending Any Treatment Under the Global Null Hypothesis}
+Under the global null hypothesis ($H_G$), all treatment effects are zero, i.e., $m(\delta) = 0$. By symmetry, the probability of observing any ranking $\psi$ is equal, leading to:
+\[
+P(\text{recommend any treatment} \mid H_G) = \sum_{\psi \in \Psi} P(\psi_1 = 1, Z_J^{(1)} > c \mid H_G).
+\]
+
+\paragraph{Probability of Recommending a Specific Treatment Under the LFC}
+The least favorable configuration (LFC) assumes treatment 1 has a clinically meaningful effect $\mu_1 - \mu_0 = \delta^{(1)}$, while others are ineffective ($\mu_k - \mu_0 = \delta^{(0)}$ for $k \geq 2$). The probability of recommending treatment 1 is:
+\[
+P(\text{recommend treatment 1} \mid \text{LFC}) = (K-1)! \cdot P(\psi_1 = 1, Z_J^{(1)} > c \mid \delta_1 = \delta^{(1)}, \delta_k = \delta^{(0)} \ \forall k \geq 2).
+\]
+
 
 
 
@@ -695,7 +698,7 @@ The present simulation study adopts the ADEMP framework to systematically evalua
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\textwidth]{figure/flowchart_simulation.pdf}
+    \includegraphics[width=0.80\textwidth]{figure/flowchart_simulation.pdf}
     \caption{Overview of the simulation workflow for the 4:2:1 "Drop-the-Losers" design, including design inputs, simulation structure, and statistical analysis for Phase II and III.}
     \label{fig:simulation_flowchart}
 \end{figure}
@@ -719,7 +722,7 @@ finddesign_survival(
 
 The simulation was implemented in the \texttt{R} programming language using the \texttt{simulate\_trial} and \texttt{simulate\_trial\_log\_rank} functions. The \texttt{doParallel}~\citep{doParallel} package was employed to parallelize the computations, enabling the generation of \(n = 200,000\) simulation runs for each scenario. These runs provided robust estimates of the performance measures, including statistical power, Type I error rates, and the ability to correctly identify effective treatment arms while dropping ineffective or harmful arms at early stages.
 
-The clinical scenarios, detailed in Table~\ref{tab:hazard_ratios}, covered a broad range of treatment effects, from null effects (all \(HR = 1.00\)) to multiple effective arms (\(HR < 1.00\)) or harmful arms (\(HR > 1.00\)). This range allowed a comprehensive assessment of the 4:2:1 design under realistic clinical conditions, ensuring the robustness and adaptability of the simulation framework.
+The clinical scenarios, detailed in Table~\ref{tab:hazard_ratios}, covered a broad range of treatment effects, from null effects (all \(HR = 1.00\)) to multiple effective arms (\(HR < 1.00\)) or harmful arms (\(HR > 1.00\)).
 
 
 \begin{table}[H]
@@ -751,7 +754,7 @@ The primary estimands of interest in this simulation study were defined to align
     \item \textbf{Ethical Considerations:} The proportion of harmful arms (\(HR > 1.00\)) that were dropped at early stages of the trial was also assessed to ensure minimal patient exposure to treatments associated with increased risk.
 \end{itemize}
 
-These estimands were evaluated separately for Phase II and Phase III designs to account for differences in sample size, event thresholds, and statistical requirements. The results of these estimands provide a comprehensive understanding of the performance of the "Drop-the-Losers" design in terms of efficacy, safety, and statistical rigor.
+These estimands were evaluated separately for Phase II and Phase III designs to account for differences in sample size and event thresholds.
 
 % performance measures
 The performance of the 4:2:1 "Drop-the-Losers" design was evaluated using key metrics. These included control of the family-wise error rate (FWER) to maintain Type I error within specified thresholds (\(\alpha = 0.05\) for Phase II and \(\alpha = 0.025\) for Phase III) and statistical power to detect effective treatment arms (\(HR < 1.00\)) across various scenarios. The proportion of arms dropped during interim analyses was measured, both for futility (\(HR \geq 1.00\)) and based on the "Drop-the-Losers" rules, providing insights into the design's efficiency. The proportion of dropped arms was visualized as barplots to illustrate the trial dynamics.
@@ -760,12 +763,11 @@ In our analysis, we focus particularly on the maximum error introduced by estima
 \[
 s = \sqrt{\hat{p}(1 - \hat{p})}
 \]
-This is followed by the computation of the Monte Carlo Standard Error (MCSE), which we derive by dividing \( s \) by the square root of the number of Monte Carlo simulations \( n \). This process yields:
+This is followed by the computation of the Monte Carlo Standard Error (MCSE), which we derive by dividing \( s \) by the square root of the number of Monte Carlo simulations \( n \).
+
 \begin{equation}
 \text{MCSE} = \frac{s}{\sqrt{n}} = \frac{\sqrt{\hat{p}(1 - \hat{p})}}{\sqrt{n}}
 \end{equation}
-
-This measure focuses on the maximum error, providing a crucial metric for assessing the uncertainty and reliability of our simulation results.
 
 
 % \subsection{Design of the Simulation Study} \label{sec:simulation_design}
@@ -808,11 +810,13 @@ This measure focuses on the maximum error, providing a crucial metric for assess
 
 
 \subsection{Results: Phase II Trial} \label{sec:simulation_results}
-This simulation study was conducted with $n = 200'000$ runs for each scenario to evaluate the performance of the "Drop-the-Losers" design in Phase II trials under various clinical scenarios. Additionally, the plots for $ n = 1'000'000$ runs are provided in the Appendix~\ref{sec:app_sim_results}, as they are not included in the main results section for clarity. Figure~\ref{fig:outcome_distribution_phase2} presents the distribution of treatment arm outcomes for each scenario, showing the proportions dropped at interim analyses or deemed significant in the final analysis. The results shown in the Figure~\ref{fig:outcome_distribution_phase2} and~\ref{fig:outcome_distribution_phase3} are based on the function \texttt{simulate\_trial}, which implements the "Drop-the-Losers" approach using test statistics derived from the Cox regression model. While this practice differs minimally from the approach based on Cox regression and log-rank test, results from the log-rank-based method are included in the Appendix~\ref{sec:app_sim_results} for comparison.
+This simulation study was conducted with $n = 200'000$ runs for each scenario to evaluate the performance of the "Drop-the-Losers" design in Phase II trials under various clinical scenarios. Figure~\ref{fig:outcome_distribution_phase2} presents the distribution of treatment arm outcomes for each scenario, showing the proportions dropped at interim analyses or deemed significant in the final analysis. The results shown in the Figure~\ref{fig:outcome_distribution_phase2} and~\ref{fig:outcome_distribution_phase3} are based on the function \texttt{simulate\_trial}, which implements the "Drop-the-Losers" approach using test statistics derived from the Cox regression model. While this practice differs minimally from the approach based on Cox regression and log-rank test, results from the log-rank-based method are included in the Appendix~\ref{sec:app_sim_results} for comparison.
+
+The simulation was also performed with $n = 1'000'000$ runs to ensure robustness of the findings. However, due to the computational intensity of the larger simulation and the negligible differences observed in the results between $n = 200'000$ and $n = 1'000'000$, the outcomes for $n = 1'000'000$ are not included in this report.
 
 In the Null Hypothesis scenario (top-left in Figure~\ref{fig:outcome_distribution_phase2}), where no treatment arm is effective, the observed Type I error rate was 0.047, with a 95\% confidence interval (CI) of [0.0461, 0.0479]. This is slightly below the theoretical value of 5.0\%, reflecting strong control of Type I error. The conservative nature of this design slightly reduces the effective Type I error but does not materially impact power, ensuring statistical rigor while maintaining reliability.
 
-In scenarios where effective treatment arms were present, the design consistently demonstrated high power, with variations depending on the scenario. For example, in "Hybrid 1," where one arm was effective, the power exceeded 80\%, showing the design's robust ability to detect true effects. In the "All Effective" scenario, where all arms were clinically significant, the design achieved near-perfect power, effectively identifying all treatments as significant while maintaining strong statistical control.
+The design consistently demonstrated high power in scenarios where effective treatment arms were present, with variations depending on the specific scenario. For instance, in "Hybrid 1," where one arm was effective, the power exceeded 40\%. While this may seem modest, it is largely attributable to the small sample size allocated to each treatment arm during the early stages of the trial. In contrast, in later Phase III studies~(see Figure~\ref{fig:outcome_distribution_phase3}), scenarios like "All Effective," where all arms were clinically significant, achieved power exceeding 98\%, successfully identifying all treatments as significant while maintaining strong statistical control. These findings highlight that, despite lower power in early-stage evaluations, the design is highly efficient and robust in Phase II/III settings.
 
 For hybrid scenarios, such as "Hybrid 1" and "Hybrid 2," the design performed well in distinguishing effective arms. In "Hybrid 1," the single effective arm was correctly identified in most simulations. In "Hybrid 2," with two effective arms, the design consistently identified both as significant, confirming its ability to handle multiple effective treatments.
 
@@ -995,14 +999,13 @@ ggplot(status_summary, aes(x = TreatmentArm, y = Percentage, fill = Status)) +
         legend.position = "top"
     )
     @
-    \caption{Outcome distribution across interim steps and final analysis for different scenarios for Phase II Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref{tab:outcome_distribution_phase2} for detailed examination.
+    \caption{Outcome distribution across interim steps and final analysis for different scenarios for Phase II Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref{tab:outcome_distribution_phase2.1} for detailed examination.
 }
     \label{fig:outcome_distribution_phase2}
 \end{figure}
 
 
 \begin{landscape}
-\label{tab:outcome_distribution_phase2}
 <<table_phaseII, echo=FALSE, results='asis', message=FALSE, warning=FALSE>>=
 library(dplyr)
 library(xtable)
@@ -1048,7 +1051,7 @@ grouped_data <- status_summary %>%
 # Tabelle erstellen
 xtable_data <- xtable(grouped_data,
                       caption = "Outcome Distribution Across Interim Steps and Final Analysis in Phase II Trial (with 95\\% Confidence Intervals for the Final Analysis). Note: The maximum Monte Carlo Standard Error is calculated on the following page (Equation~\\ref{eq:mcse}).",
-                      label = "tab:outcome_distribution")
+                      label = "tab:outcome_distribution_phase2.1")
 
 # Horizontale Linien nach jeder 4. Zeile einfügen
 n_rows <- nrow(grouped_data)
@@ -1245,11 +1248,7 @@ ggplot(status_summary, aes(x = TreatmentArm, y = Percentage, fill = Status)) +
 
 
 
-
-
-
 \begin{landscape}
-\label{tab:outcome_distribution_phase3}
 <<table_phaseIII, echo=FALSE, results='asis', message=FALSE, warning=FALSE>>=
 library(dplyr)
 library(xtable)
@@ -1294,7 +1293,7 @@ grouped_data <- status_summary %>%
 # Tabelle erstellen
 xtable_data <- xtable(grouped_data,
                       caption = "Outcome Distribution Across Interim Steps and Final Analysis in Phase III Trial (with 95\\% Confidence Intervals for the Final Analysis). Note: The maximum Monte Carlo Standard Error is calculated on the following page (Equation~\\ref{eq:mcse2}).",
-                      label = "tab:outcome_distribution")
+                      label = "tab:outcome_distribution_phase3")
 
 # Horizontale Linien nach jeder 4. Zeile einfügen
 n_rows <- nrow(grouped_data)
@@ -1315,7 +1314,7 @@ print(xtable_data,
 \end{landscape}
 
 \begin{equation}
-\text{MCSE} = \frac{s}{\sqrt{n}} = \frac{\sqrt{\hat{p}(1 - \hat{p})}}{\sqrt{n}} = \frac{\sqrt{0.49964 \times 0.50036}}{\sqrt{200000}} = 0.00112 \label{eq:mcse1}
+\text{MCSE} = \frac{s}{\sqrt{n}} = \frac{\sqrt{\hat{p}(1 - \hat{p})}}{\sqrt{n}} = \frac{\sqrt{0.49964 \times 0.50036}}{\sqrt{200000}} = 0.00112 \label{eq:mcse2}
 \end{equation}
 
 The maximal Monte Carlo standard error (MCSE) is 0.00112
@@ -1965,7 +1964,7 @@ grouped_data <- status_summary %>%
 
 # Tabelle erstellen
 xtable_data <- xtable(grouped_data,
-                      caption = "Outcome Distribution Across Interim Steps and Final Analysis in Phase II Trial (with 95\\% Confidence Intervals for the Final Analysis).",
+                      caption = "Outcome Distribution Across Interim Steps and Final Analysis in Phase III Trial (with 95\\% Confidence Intervals for the Final Analysis).",
                       label = "tab:outcome_distribution_phase3_appendix",)
 
 # Horizontale Linien nach jeder 4. Zeile einfügen
@@ -1985,31 +1984,6 @@ print(xtable_data,
       add.to.row = add_to_row)
 @
 \end{landscape}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
