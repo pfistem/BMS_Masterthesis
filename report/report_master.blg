@@ -3,48 +3,47 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: report_master.aux
 The style file: ims.bst
 Database file #1: reference.bib
-Warning--I didn't find a database entry for "Schmidli2006Seamless"
 Warning--I didn't find a database entry for "R"
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-You've used 6 entries,
+You've used 8 entries,
             3069 wiz_defined-function locations,
-            706 strings with 6442 characters,
-and the built_in function-call counts, 3716 in all, are:
-= -- 306
-> -- 150
-< -- 4
-+ -- 61
-- -- 51
-* -- 315
-:= -- 581
-add.period$ -- 19
-call.type$ -- 6
-change.case$ -- 48
-chr.to.int$ -- 12
-cite$ -- 6
-duplicate$ -- 257
-empty$ -- 275
-format.name$ -- 69
-if$ -- 716
+            721 strings with 6809 characters,
+and the built_in function-call counts, 4914 in all, are:
+= -- 408
+> -- 194
+< -- 5
++ -- 78
+- -- 66
+* -- 414
+:= -- 770
+add.period$ -- 25
+call.type$ -- 8
+change.case$ -- 63
+chr.to.int$ -- 14
+cite$ -- 8
+duplicate$ -- 342
+empty$ -- 367
+format.name$ -- 88
+if$ -- 947
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 51
-newline$ -- 40
-num.names$ -- 24
-pop$ -- 102
+missing$ -- 68
+newline$ -- 51
+num.names$ -- 32
+pop$ -- 130
 preamble$ -- 1
-purify$ -- 41
+purify$ -- 54
 quote$ -- 0
-skip$ -- 82
+skip$ -- 108
 stack$ -- 0
-substring$ -- 190
-swap$ -- 144
+substring$ -- 262
+swap$ -- 191
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 51
+type$ -- 69
 warning$ -- 0
-while$ -- 26
+while$ -- 36
 width$ -- 0
-write$ -- 86
-(There were 2 warnings)
+write$ -- 113
+(There was 1 warning)

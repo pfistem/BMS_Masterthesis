@@ -156,11 +156,11 @@
 
 First and foremost, I would like to express my heartfelt gratitude to Pierre from Bristol Myers Squibb. Pierre has been an invaluable source of support and motivation throughout my Master's thesis. He significantly advanced my statistical skills and provided thoughtful guidance that extended beyond my academic work. Despite my demanding schedule as a football referee, he always made time to support me with my thesis, offering both flexibility and unwavering encouragement. His advice and commitment have consistently inspired me, both professionally and personally.\\
 
-\noindent I would also like to extend my sincere thanks to Maggie from the University of Zurich. Her constant support and readiness to assist were invaluable throughout this process. She always came well-prepared, offering constructive feedback and valuable input that greatly enriched my work. Her expertise and willingness to help made a significant impact on the completion of this thesis.\\
+\noindent I would also like to extend my sincere thanks to Malgorzata from the University of Zurich. Her constant support and readiness to assist were invaluable throughout this process. She always came well-prepared, offering constructive feedback and valuable input that greatly enriched my work. Her expertise and willingness to help made a significant impact on the completion of this thesis.\\
 
 \noindent I am also profoundly grateful to the Master's Program in Biostatistics at the University of Zurich for providing me with such a solid foundation in this fascinating field. This program has not only deepened my knowledge but also broadened my horizons, equipping me with the skills necessary for the challenges ahead.\\
 
-\noindent To both Pierre and Maggie, I am truly thankful for their guidance, time, and encouragement, which have been instrumental in helping me navigate this challenging yet rewarding journey.\\
+\noindent To both Pierre and Malgorzata, I am truly thankful for their guidance, time, and encouragement, which have been instrumental in helping me navigate this challenging yet rewarding journey.\\
 
 \vspace{1cm}
 \hfill
@@ -182,7 +182,7 @@ December 2024
 \begin{tabular}{ll}
 BMS                  & Bristol Myers Squibb \\
 CI                   & Confidence Interval \\
-DTL                  & Drop-the-Losers \\
+DtL                  & Drop-the-Losers \\
 EBPI                 & Epidemiology, Biostatistics and Prevention Institute \\
 FWER                 & Family-Wise Error Rate \\
 GBDS                 & Global Biostatistics and Data Science \\
@@ -219,17 +219,17 @@ This thesis provides a comprehensive framework for implementing "Drop-the-Losers
 \section{Introduction} \label{sec:intro}
 % =============================================================================
 
-Clinical trials are the cornerstone of drug development, particularly in oncology, where multiple treatment options are often explored. Traditional trial designs are resource-intensive and time-consuming, especially when testing multiple treatments. Multi-Arm Multi-Stage (MAMS) trial designs, such as the "Drop-the-Losers" (DTL) approach proposed by \cite{Wason2017DropTheLosers}, provide a more efficient alternative. These designs evaluate multiple treatments within a single trial, using interim analyses to drop less effective options early.
+Clinical trials are the cornerstone of drug development, particularly in oncology, where multiple treatment options are often explored. Traditional trial designs are resource-intensive and time-consuming, especially when testing multiple treatments. Multi-Arm Multi-Stage (MAMS) trial designs, such as the "Drop-the-Losers" (DtL) approach proposed by \cite{Wason2017DropTheLosers}, provide a more efficient alternative. These designs evaluate multiple treatments within a single trial, using interim analyses to drop less effective options early.
 
 Oncology trials often require evaluating multiple drug combinations, schedules, and dose levels. Efficiently identifying the most effective treatments early is critical for improving patient outcomes and expediting drug development. Traditional designs, which evaluate one treatment at a time, are inefficient in terms of time, cost, and sample size (\(N\)), where \(N\) represents the total number of patients required to achieve sufficient statistical power. As \(N\) is a random variable, its variability introduces uncertainty in both the cost and duration of the trial, making these designs less predictable and efficient compared to more adaptive approaches.
 
-The DTL design addresses these limitations by testing several treatments simultaneously and dropping less promising ones at each interim analysis. This approach is particularly advantageous in Phase II/III studies, where treatments are screened for efficacy and selected for further evaluation in Phase III.
+The DtL design addresses these limitations by testing several treatments simultaneously and dropping less promising ones at each interim analysis. This approach is particularly advantageous in Phase II/III studies, where treatments are screened for efficacy and selected for further evaluation in Phase III.
 
-This master thesis evaluates the performance of the DTL design in Phase II/III oncology trials, where treatment selection is crucial. The design incorporates interim analyses at predefined stages, dropping experimental treatments based on their relative performance to a control group. This optimizes resource allocation, focusing on promising treatments while maintaining robust statistical power and controlling Type I error rates. The study investigates the design's effectiveness in controlling Type I error and maintaining statistical power under various clinical scenarios, including continuous, binary, and survival endpoints.
+This master thesis evaluates the performance of the DtL design in Phase II/III oncology trials, where treatment selection is crucial. The design incorporates interim analyses at predefined stages, dropping experimental treatments based on their relative performance to a control group. This optimizes resource allocation, focusing on promising treatments while maintaining robust statistical power and controlling Type I error rates. The study investigates the design's effectiveness in controlling Type I error and maintaining statistical power under various clinical scenarios, including continuous, binary, and survival endpoints.
 
-A simulation study assesses the performance of the DTL design across different scenarios. Simulations, conducted in the R programming language with parallel computing, build upon the work of \cite{Wason2017DropTheLosers}, who previously evaluated continuous outcomes. This simulation study extends the DTL approach to survival outcomes, such as progression-free survival (PFS), which are critical in oncology. The study evaluates statistical properties, including Type I error rates, power under null and hybrid models with one or more effective treatments. Additionally, it examines the Monte Carlo standard error (MCSE) associated with the design.
+A simulation study assesses the performance of the DtL design across different scenarios. Simulations, conducted in the R programming language with parallel computing, build upon the work of \cite{Wason2017DropTheLosers}, who previously evaluated continuous outcomes. This simulation study extends the DtL approach to survival outcomes, such as progression-free survival (PFS), which are critical in oncology. The study evaluates statistical properties, including Type I error rates, power under null and hybrid models with one or more effective treatments. Additionally, it examines the Monte Carlo standard error (MCSE) associated with the design.
 
-The Methods section describes the DTL design's mathematical framework and its application to binary and survival endpoints. The Results section presents findings from the simulation study for survival endpoints, assessing the design's performance across scenarios. The Discussion highlights the implications, strengths, limitations, and ethical considerations, while the Conclusion summarizes key insights and suggests directions for future research. Supplementary details are provided in the appendices.
+The Methods section describes the DtL design's mathematical framework and its application to binary and survival endpoints. The Results section presents findings from the simulation study for survival endpoints, assessing the design's performance across scenarios. The Discussion highlights the implications, strengths, limitations, and ethical considerations, while the Conclusion summarizes key insights and suggests directions for future research. Supplementary details are provided in the appendices.
 
 \newpage
 
@@ -241,9 +241,9 @@ In this section, we present the methods used in this study, focusing on the Mult
 
 \subsection{Multi-Arm Multi-Stage Study Design}
 
-The MAMS design is an adaptive clinical trial framework that enables the simultaneous evaluation of multiple treatments within a single trial. Unlike traditional designs, which require separate trials for each treatment, MAMS designs incorporate interim analyses at predefined stages to assess treatment efficacy. Treatments that fail to demonstrate sufficient promise are dropped early, allowing resources to focus on the most effective options. This approach improves efficiency, reduces costs, and shortens the time needed to identify successful therapies while maintaining rigorous control over statistical error rates. The MAMS design is particularly useful in settings with limited resources or when rapid treatment evaluation is essential, such as in oncology \citep{Royston2003MAMS}. This study evaluates a MAMS clinical trial design, focusing on the DLT approach as discussed by \cite{Wason2017DropTheLosers}. As shown in Figure~\ref{fig:mams_design}, the MAMS framework, allows multiple experimental treatments to be assessed in parallel within a single trial. At the outset, we have four treatment arms. During each interim analysis, the arms are assessed for futility or high efficacy. In the first interim analysis, treatment arm 2 is removed, and in the second interim analysis, treatment arm 1 is eliminated. By the end, two arms remain, which are compared against the standard of care to determine if they are significantly better.
+The MAMS design is an adaptive clinical trial framework that enables the simultaneous evaluation of multiple treatments within a single trial. Unlike traditional designs, which require separate trials for each treatment, MAMS designs incorporate interim analyses at predefined stages to assess treatment efficacy. Treatments that fail to demonstrate sufficient promise are dropped early, allowing resources to focus on the most effective options. This approach improves efficiency, reduces costs, and shortens the time needed to identify successful therapies while maintaining rigorous control over statistical error rates. The MAMS design is particularly useful in settings with limited resources or when rapid treatment evaluation is essential, such as in oncology \citep{Royston2003MAMS}. This study evaluates a MAMS clinical trial design, focusing on the DtL approach as discussed by \cite{Wason2017DropTheLosers}. As shown in Figure~\ref{fig:mams_design}, the MAMS framework, allows multiple experimental treatments to be assessed in parallel within a single trial. At the outset, we have four treatment arms. During each interim analysis, the arms are assessed for futility or high efficacy. In the first interim analysis, treatment arm 2 is removed, and in the second interim analysis, treatment arm 1 is eliminated. By the end, two arms remain, which are compared against the standard of care to determine if they are significantly better.
 
-As with any design incorporating interim analyses, the issue of multiple testing arises, along with the associated risks of Type I and Type II errors. This challenge can be addressed by applying a spending function, such as the Pocock spending function~\citep{spendingFunction}, which allocates the significance level across interim analyses in a controlled manner. Later in this section, the DLT design is introduced, highlighting the differences compared to the traditional MAMS (Multi-Arm Multi-Stage) design.
+As with any design incorporating interim analyses, the issue of multiple testing arises, along with the associated risks of Type I and Type II errors. This challenge can be addressed by applying a spending function, such as the Pocock spending function~\citep{spendingFunction}, which allocates the significance level across interim analyses in a controlled manner. Later in this section, the DtL design is introduced, highlighting the differences compared to the traditional MAMS (Multi-Arm Multi-Stage) design.
 
 
 \begin{figure}[H]
@@ -257,7 +257,7 @@ As with any design incorporating interim analyses, the issue of multiple testing
 \subsection{Drop-the-Losers Study Design}
 
 
-In this section, we discuss the specific design of MAMS studies, particularly the Drop-the-Losers (DTL) design, with a focus on hypothesis testing, the distribution of treatment outcomes, and the underlying concept. The DTL  design is a type of seamless design, meaning that it allows for the continuation of promising treatments through various stages of the trial without the need for a formal transition between phases~\citep{Schmidli2006Seamless}.
+In this section, we discuss the specific design of MAMS studies, particularly the Drop-the-Losers (DtL) design, with a focus on hypothesis testing, the distribution of treatment outcomes, and the underlying concept. The DtL  design is a type of seamless design, meaning that it allows for the continuation of promising treatments through various stages of the trial without the need for a formal transition between phases~\citep{Schmidli2006Seamless}.
 
 At the end of stage $j$, let $Z_j^{(k)}$ be the test statistic~(\ref{eq:Z_j_k}) for treatment $k$. The treatments are ranked according to these statistics, and a fixed number of treatments with the worst test statistics are dropped. Let $n^{(j)}$ represent the number of treatments remaining at stage $j$. The design is defined by the sequence of treatment counts across stages: $K : n^{(2)} : n^{(3)} : \dots : n^{(J)}$, where $n^{(J)} = 1$ (indicating that only one experimental treatment reaches the final stage). At each interim analysis, the least promising treatments are dropped based on their ranked test statistics (see Figure \ref{fig:drop_losers}). The exact number of treatments to be dropped is prespecified, and the remaining treatments proceed to the next stage.
 
@@ -298,7 +298,7 @@ The correlation~(\ref{eq:covariance_method1},~\ref{eq:covariance_method2}) betwe
 \end{figure}
 
 
-\subsection{Step-by-Step Example: 4:2:1 DTL for Continuous Endpoints}
+\subsection{Step-by-Step Example: 4:2:1 DtL for Continuous Endpoints}
 
 The following example is a fictional scenario designed to illustrate the application of a 4:2:1 Drop-the-Loser design for continuous endpoints. All parameters and calculations are hypothetical and do not represent any real-world clinical trial data.
 \begin{itemize}
@@ -309,6 +309,7 @@ The following example is a fictional scenario designed to illustrate the applica
           \[
           n_1 = 20, \quad n_2 = 40, \quad n_3 = 60.
           \]
+    \item Standard deviation: \( \sigma = 1 \).
 \end{itemize}
 
 
@@ -325,7 +326,7 @@ The following example is a fictional scenario designed to illustrate the applica
     \text{Treatment 4 (k=4)} & 1.1 & \text{Dropped} & \text{Dropped} \\
     \hline
     \end{tabular}
-    \caption{Overview of the treatment effects at each stage and the final analysis.}
+    \caption{Overview of the average endpoint values at each stage and the final analysis.}
     \label{tab:example}
 \end{table}
 
@@ -339,19 +340,19 @@ Z_1^{(k)} = \left( \frac{\sum_{i=1}^{n_1} X_{ki}}{n_1} - \frac{\sum_{i=1}^{n_1} 
 Using the observed means from Interim Analysis 1 from the Table~\ref{tab:example}:
 
 \begin{equation}
-Z_1^{(1)} = \left( \frac{1.5}{20} - \frac{1.0}{20} \right) \sqrt{\frac{20}{2 \cdot 1}} = 0.079,
+Z_1^{(1)} = \left(1.5 - 1.0} \right) \sqrt{\frac{20}{2 \cdot 1}} = 1.581,
 \end{equation}
 
 \begin{equation}
-Z_1^{(2)} = \left( \frac{1.2}{20} - \frac{1.0}{20} \right) \sqrt{\frac{20}{2 \cdot 1}} = 0.032, \label{eq:Z1_2}
+Z_1^{(2)} = \left(1.2 - 1.0 \right) \sqrt{\frac{20}{2 \cdot 1}} = 0.632, \label{eq:Z1_2}
 \end{equation}
 
 \begin{equation}
-Z_1^{(3)} = \left( \frac{1.3}{20} - \frac{1.0}{20} \right) \sqrt{\frac{20}{2 \cdot 1}} = 0.047,
+Z_1^{(3)} = \left( 1.3 - 1.0 \right) \sqrt{\frac{20}{2 \cdot 1}} = 0.945,
 \end{equation}
 
 \begin{equation}
-Z_1^{(4)} = \left( \frac{1.1}{20} - \frac{1.0}{20} \right) \sqrt{\frac{20}{2 \cdot 1}} = 0.016.
+Z_1^{(4)} = \left( 1.1 - 1.0 \right) \sqrt{\frac{20}{2 \cdot 1}} = 0.316
 \label{eq:Z1_4}
 \end{equation}
 
@@ -366,12 +367,12 @@ Using the observed means from Interim Analysis 2 from Table~\ref{tab:example}, w
 
 
 \begin{equation}
-Z_2^{(1)} = \left( \frac{1.6}{40} - \frac{1.0}{40} \right) \sqrt{\frac{40}{2 \cdot 1}} = 0.067
+Z_2^{(1)} = \left( 1.6 - 1.0 \right) \sqrt{\frac{40}{2 \cdot 1}} = 2.683,
 \end{equation}
 
 
 \begin{equation}
-Z_2^{(3)} = \left( \frac{1.7}{40} - \frac{1.0}{40} \right) \sqrt{\frac{40}{2 \cdot 1}} = 0.078,
+Z_2^{(3)} = \left(1.7 - 1.0 \right) \sqrt{\frac{40}{2 \cdot 1}} = 3.130,
 \label{eq:Z2_3}
 \end{equation}
 
@@ -385,7 +386,7 @@ Z_3^{(k)} = \left( \frac{\sum_{i=1}^{n_3} X_{ki}}{n_3} - \frac{\sum_{i=1}^{n_3} 
 \]
 Using the observed means from the Final Analysis from Table~\ref{tab:example}, we compute:
 \begin{equation}
-Z_3^{(3)} = \left( \frac{1.8}{60} - \frac{1.0}{60} \right) \sqrt{\frac{60}{2 \cdot 1}} = 4.38.
+Z_3^{(3)} = \left(1.8 - 1.0} \right) \sqrt{\frac{60}{2 \cdot 1}} = 4.382.
 \end{equation}
 
 Treatment arms \(k=1\), \(k=2\), and \(k=4\) were dropped prior to the Final Analysis.
@@ -416,7 +417,7 @@ A =
 \textbf{Row 2}: Compares \( Z_1^{(2)} \) with \( Z_1^{(1)} \), indicating that Arm 2 performs worse than Arm 1.\\
 \textbf{Row 3}: Compares \( Z_1^{(2)} \) with \( Z_1^{(3)} \), indicating that Arm 2 performs worse than Arm 3.\\
 \textbf{Row 4}: Compares \( Z_2^{(1)} \) with \( Z_2^{(3)} \), indicating that Arm 1 performs worse than Arm 3.\\
-\textbf{Row 5}: Tests whether \( Z_3^{(3)} \), the remaining arm in the final analysis, is significantly better than the control.
+\textbf{Row 5}: Tests whether \( Z_3^{(3)} \), the remaining arm at the final analysis, is significantly better than the control.
 \end{flushleft}
 
 
@@ -462,7 +463,7 @@ C_3 = 0 \cdot Z_1^{(1)} + 0 \cdot Z_2^{(1)} + 0 \cdot Z_3^{(1)} - 1 \cdot Z_1^{(
 
 This simplifies to:
 \[
-C_3 = Z_2^{(2)} - Z_3^{(1)}.
+C_3 = Z_1^{(3)} - Z_1^{(2)}.
 \]
 
 \[
@@ -487,10 +488,10 @@ Substitute the computed test statistics:
 \[
 Z =
 \begin{bmatrix}
-0.079 \\ 0.032 \\ 0.047 \\
-0.067 \\ \text{Dropped} \\ 0.078 \\
-\text{Dropped} \\ 0.073 \\ \text{Dropped} \\
-0.016 \\ \text{Dropped} \\ \text{Dropped}
+1.581 \\ 2.683 \\ \text{Dropped} \\
+0.632 \\ \text{Dropped} \\ \text{Dropped} \\
+0.945 \\ 3.130 \\ 4.382 \\
+0.316 \\ \text{Dropped} \\ \text{Dropped}
 \end{bmatrix}.
 \]
 
@@ -503,11 +504,11 @@ C_1 \\ C_2 \\ C_3 \\ C_4 \\ C_5
 \end{bmatrix}
 =
 \begin{bmatrix}
-0.067 - 0.016 \\
-0.079 - 0.032 \\
-0.047 - 0.032 \\
-0.078 - 0.067 \\
-0.073
+0.632 - 0.316 \\
+1.581 - 0.632 \\
+0.949 - 0.632 \\
+3.130 - 2.683 \\
+4.382
 \end{bmatrix}.
 \]
 
@@ -515,21 +516,21 @@ Perform the calculations:
 \[
 C =
 \begin{bmatrix}
-0.051 \\
-0.032 \\
-0.015 \\
-0.011 \\
-0.073
+0.316 \\
+0.946 \\
+0.317 \\
+0.447 \\
+4.382
 \end{bmatrix}.
 \]
 
 \paragraph{Interpretation:}
 \begin{itemize}
-    \item \( C_1 = 0.051 \): Indicates that Treatment 1 at Interim Analysis 2 performed slightly better than Treatment 4 at Interim Analysis 1.
-    \item \( C_2 = 0.032 \): Indicates that Treatment 1 at Interim Analysis 1 performed worse than at Interim Analysis 2, but only to a small extent.
-    \item \( C_3 = 0.015 \): Indicates that Treatment 2 at Interim Analysis 2 performed marginally better than Treatment 3 at Interim Analysis 1.
-    \item \( C_4 = 0.011 \): Indicates that Treatment 3 at the Final Analysis performed slightly better than Treatment 2 at Interim Analysis 1.
-    \item \( C_5 = 0.073 \): Represents the absolute performance of Treatment 3 at the Final Analysis.
+    \item \( C_1 = 0.578 \): Indicates that Treatment 1 at Interim Analysis 1 performed better than Treatment 4.
+    \item \( C_2 = 0.946 \): Indicates that Treatment 1 at Interim Analysis 1 performed worse than at Interim Analysis 2.
+    \item \( C_3 = 0.317 \): Indicates that Treatment 3 at Interim Analysis 1 performed better than Treatment 1.
+    \item \( C_4 = 0.447 \): Indicates that Treatment 3 at Interim Analysis 2 performed better than Treatment 1.
+    \item \( C_5 = 4.382 \): Represents the absolute performance of Treatment 3 at the Final Analysis.
 \end{itemize}
 
 
@@ -639,11 +640,11 @@ c = 1.906.
 The critical value \( c = 1.906 \) is applied to the final stage of the trial to determine significance:
 \begin{itemize}
     \item If the test statistic \( Z_j^{(k)} > c \), the treatment \( k \) is deemed significantly better than the control.
-    \item In this example, for \( k = 3 \), the final test statistic is \( Z_3^{(3)} = 0.073 \), which not satisfies \( Z_3^{(3)} > c \). Thus, treatment \( k = 3 \) is not significantly better than the control.
+    \item In this example, for \( k = 3 \), the final test statistic is \( Z_3^{(3)} = 4.382 \), which satisfies \( Z_3^{(3)} > c \). Thus, treatment \( k = 3 \) is significantly better than the control.
 \end{itemize}
 
 \subparagraph{Conclusion}\\
-By applying the critical value \( c = 1.906 \), we conclude that treatment \( k = 3 \) is not significantly better than the control in the final analysis. All other treatments were dropped at earlier stages based on the interim analyses.
+By applying the critical value \( c = 1.906 \), we conclude that treatment \( k = 3 \) is significantly better than the control in the final analysis. All other treatments were dropped at earlier stages based on the interim analyses.
 
 
 
@@ -749,7 +750,7 @@ The present simulation study adopts the ADEMP framework to systematically evalua
 
 % AIM
 
-The aim of this simulation study is to evaluate the performance of the 4:2:1 'Drop-the-Losers'(DLT) design in Phase II and Phase III clinical trial settings with survival endpoints (PFS). The primary focus is on controlling the family-wise error rate (FWER) and ensuring sufficient statistical power across various clinical scenarios. These scenarios include both null and alternative hypotheses, where treatment effects of varying magnitudes are considered. The study aims to assess the ability of the design to detect treatment effects, including beneficial effects (hazard ratio \(HR < 1\)), harmful effects (\(HR > 1\)), and scenarios with multiple effective treatments. Furthermore, the study investigates the ethical advantage of dropping harmful arms early in the trial, thus reducing patient exposure to ineffective or harmful treatments.
+The aim of this simulation study is to evaluate the performance of the 4:2:1 'Drop-the-Losers'(DtL) design in Phase II and Phase III clinical trial settings with survival endpoints (PFS). The primary focus is on controlling the family-wise error rate (FWER) and ensuring sufficient statistical power across various clinical scenarios. These scenarios include both null and alternative hypotheses, where treatment effects of varying magnitudes are considered. The study aims to assess the ability of the design to detect treatment effects, including beneficial effects (hazard ratio \(HR < 1\)), harmful effects (\(HR > 1\)), and scenarios with multiple effective treatments. Furthermore, the study investigates the ethical advantage of dropping harmful arms early in the trial, thus reducing patient exposure to ineffective or harmful treatments.
 
 % Data Generation and Design
 The simulation study was designed to mimic the progression of oncology clinical trials utilizing a survival endpoint, specifically progression-free survival (PFS). Survival times for patients were modeled using exponential distributions, where the hazard rates were determined by the baseline hazard and the hypothesized hazard ratios (HRs) for each treatment arm. The hazard ratio represents the relative risk of an event occurring in a treatment arm compared to the control arm. Scenarios included the null hypothesis (\(HR = 1.00\)) as well as alternative hypotheses with varying degrees of treatment efficacy (\(HR < 1.00\)) or harm (\(HR > 1.00\)). Patients were recruited iteratively and randomized into treatment arms using a block randomization scheme to ensure balanced allocation. Recruitment rates and total sample sizes varied between Phase II and Phase III trials to reflect realistic clinical settings. For Phase II trials, event thresholds for interim analyses were set at 30 and 50 cumulative events, with a final analysis at 100 events. For Phase III trials, the thresholds were increased to 100, 200, and 400 events for the two interim analyses and final analysis, respectively. Dropout was incorporated using a censoring mechanism, where patients who left the trial before experiencing an event were treated as censored at their time of dropout. The dropout rate was set to remain constant across all treatment arms to reflect typical clinical practice. Additionally, a two-month delay between interim analyses was introduced to account for practical challenges such as data collection and processing.
@@ -826,10 +827,10 @@ This is followed by the computation of the Monte Carlo Standard Error (MCSE), wh
 % For Phase 2 studies, it may also be considered to target \(\alpha = 0.05\), as is often standard practice. This adjustment reflects a common trade-off between statistical power and the acceptable Type I error rate at this exploratory stage of development. Since Phase 2 trials typically involve limited sample sizes, achieving high statistical power can be challenging. Therefore, a higher \(\alpha\) threshold is often accepted to increase the likelihood of detecting potential treatment effects, even at the expense of a higher false-positive rate.\\
 %
 %
-% The simulation workflow for this study was designed to replicate the progression of an oncology trial utilizing a DLT design combined with futility analyses. Figure \ref{fig:simulation_flowchart} illustrates the individual steps, beginning with parameter setup through to statistical evaluation. Initially, the study design parameters are defined, including dropout rates, recruitment rates, randomization block sizes, and assumptions regarding progression-free survival (PFS) in the control and treatment arms. The design includes three stages of analysis with predefined event thresholds: 30, 50, and 100 cumulative events in Phase 2, and 100, 200, and 400 cumulative events in Phase 3. During the simulation, patients are recruited iteratively and randomized according to a block randomization scheme. PFS times are modeled using exponential distributions, with hazard ratios derived from the hypothesized effects. Additionally, a dropout model is incorporated to account for realistic dropout scenarios. A delayed effect of two months was introduced between Interim Analysis 1 and Interim Analysis 2 to account for administrative delays, such as data collection and processing, simulating the practical challenges often faced in trial execution.\\
+% The simulation workflow for this study was designed to replicate the progression of an oncology trial utilizing a DtL design combined with futility analyses. Figure \ref{fig:simulation_flowchart} illustrates the individual steps, beginning with parameter setup through to statistical evaluation. Initially, the study design parameters are defined, including dropout rates, recruitment rates, randomization block sizes, and assumptions regarding progression-free survival (PFS) in the control and treatment arms. The design includes three stages of analysis with predefined event thresholds: 30, 50, and 100 cumulative events in Phase 2, and 100, 200, and 400 cumulative events in Phase 3. During the simulation, patients are recruited iteratively and randomized according to a block randomization scheme. PFS times are modeled using exponential distributions, with hazard ratios derived from the hypothesized effects. Additionally, a dropout model is incorporated to account for realistic dropout scenarios. A delayed effect of two months was introduced between Interim Analysis 1 and Interim Analysis 2 to account for administrative delays, such as data collection and processing, simulating the practical challenges often faced in trial execution.\\
 %
 %
-% The function \texttt{simulate\_trial} simulates a clinical trial where futility analysis is assessed solely based on the test statistics from the Cox proportional hazards models. Treatment arms are either dropped if deemed futile or eliminated through the DLT mechanism. The function \texttt{simulate\_trial\_log\_rank} simulates a clinical trial where futility analysis is assessed using Cox proportional hazards models, while the "Drop-the-Losers" decision is specifically based on the test statistics from the log-rank test. In this function, treatment arms are first evaluated for futility using Cox regression, and then the weakest arm is dropped based on the log-rank test statistics. The final analysis is conducted on the remaining treatment arms, with statistical significance determined using a critical value calculated to control the family-wise error rate (FWER), ensuring control of the Type I error. When considering a Phase III study, the critical value (\(c\)) for the final analysis was determined numerically to ensure that the FWER did not exceed the specified level of \(\alpha = 0.025\). This was achieved using the \texttt{finddesign\_survival} function, which considers the structure of the design in terms of stages and arms. The critical value for the final analysis, corresponding to an \(\alpha\) level of 2.5\%, was calculated as \(c = 2.338\). This calculation was grounded in the theoretical framework outlined in Section~\ref{sec:survival_outcomes}, where the critical value was derived using numerical integration of the multivariate normal distribution. When considering a Phase 2 study, targeting an (\alpha\) level of 5\%, the critical value is slightly lower, calculated as \(c = 2.038\). These values were computed using the \texttt{finddesign\_survival} function, as shown in the code snippet below, which determines the thresholds based on the structure of the design, including stages and treatment arms. The event matrix, specifying the cumulative number of events across the three stages for each treatment arm, served as the basis for these computations, ensuring precise control of the family-wise error rate (FWER) across all arms of the study.\\
+% The function \texttt{simulate\_trial} simulates a clinical trial where futility analysis is assessed solely based on the test statistics from the Cox proportional hazards models. Treatment arms are either dropped if deemed futile or eliminated through the DtL mechanism. The function \texttt{simulate\_trial\_log\_rank} simulates a clinical trial where futility analysis is assessed using Cox proportional hazards models, while the "Drop-the-Losers" decision is specifically based on the test statistics from the log-rank test. In this function, treatment arms are first evaluated for futility using Cox regression, and then the weakest arm is dropped based on the log-rank test statistics. The final analysis is conducted on the remaining treatment arms, with statistical significance determined using a critical value calculated to control the family-wise error rate (FWER), ensuring control of the Type I error. When considering a Phase III study, the critical value (\(c\)) for the final analysis was determined numerically to ensure that the FWER did not exceed the specified level of \(\alpha = 0.025\). This was achieved using the \texttt{finddesign\_survival} function, which considers the structure of the design in terms of stages and arms. The critical value for the final analysis, corresponding to an \(\alpha\) level of 2.5\%, was calculated as \(c = 2.338\). This calculation was grounded in the theoretical framework outlined in Section~\ref{sec:survival_outcomes}, where the critical value was derived using numerical integration of the multivariate normal distribution. When considering a Phase 2 study, targeting an (\alpha\) level of 5\%, the critical value is slightly lower, calculated as \(c = 2.038\). These values were computed using the \texttt{finddesign\_survival} function, as shown in the code snippet below, which determines the thresholds based on the structure of the design, including stages and treatment arms. The event matrix, specifying the cumulative number of events across the three stages for each treatment arm, served as the basis for these computations, ensuring precise control of the family-wise error rate (FWER) across all arms of the study.\\
 %
 % The calculated thresholds can be directly applied to the Cox regression test statistics. For the log-rank test, however, the critical value must be squared, as the log-rank test statistic follows a chi-squared distribution under the null hypothesis.
 %
@@ -911,7 +912,7 @@ This comparison is essential for assessing the consistency of the empirical test
 
 \begin{landscape}
 % latex table generated in R 4.4.1 by xtable 1.8-4 package
-% Mon Dec  9 11:55:02 2024
+% Mon Dec  9 15:34:38 2024
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrllll}
@@ -961,6 +962,14 @@ Scenario & TreatmentArm & Dropped in Interim 1 & Dropped in Interim 2 & Not Sign
 \end{equation}
 
 The maximal Monte Carlo standard error (MCSE) for Phase III is 0.00112.
+
+However, the theoretical maximum MCSE would occur under the worst-case scenario where
+$\hat{p} = 0.50$, maximizing the variance $\hat{p}(1 - \hat{p}) = 0.25$. In this case, the MCSE would be:
+
+\begin{equation}
+\text{MCSE}_{\text{max}} = \frac{\sqrt{0.50 \times 0.50}}{\sqrt{200000}} = \frac{\sqrt{0.25}}{\sqrt{200000}} = \frac{0.50}{447.21} \approx 0.00112
+\label{eq:mcse_max}
+\end{equation}
 
 
 \paragraph{Ethical Considerations}
@@ -1039,7 +1048,7 @@ The Type I and Type II error rates in the Phase III simulations were well-contro
 
 \begin{landscape}
 % latex table generated in R 4.4.1 by xtable 1.8-4 package
-% Mon Dec  9 11:55:32 2024
+% Mon Dec  9 15:35:14 2024
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrllll}
@@ -1100,6 +1109,8 @@ This study presents a significant advancement in the methodological framework of
 The primary contributions of this work lie in the extension to other endpoint types. By addressing binary and survival endpoints, the methodology expands beyond Wason's original framework, which was limited to continuous endpoints.
 
 Despite these advancements, the proposed design faces several limitations. One major challenge is the reliance on normal approximations, which may not fully capture the statistical properties of binary and survival endpoints. This could lead to potential biases in treatment selection, particularly under scenarios where endpoint distributions deviate from normality. Another limitation is the maturity of long-term survival endpoints, which may not be fully realized during early interim analyses. A potential solution involves dynamically updating endpoints throughout the trial, such as starting with objective response rate (ORR) at the first analysis, transitioning to progression-free survival (PFS) at the second, and concluding with overall survival (OS) at the final stage. However, this approach introduces additional complexity, requiring careful handling of correlations between surrogate and final endpoints.
+
+To integrate a group-sequential design into the DtL framework, the contrast matrix must be duplicated for each analysis and extended by adding rows to accommodate additional equations (which summarize the previous analyses not leading to early study completion. By utilizing a flexible alpha-spending function, the overall Type I error rate and statistical power can be effectively controlled across interim and final analyses\citep{pocock1983discrete}.
 
 Generalizability is another consideration. While the design demonstrates robust performance in oncology trials, its direct applicability to other therapeutic areas remains uncertain. Variability in endpoint dynamics, sample size requirements, and trial objectives across disciplines may necessitate further adaptation. For instance, non-oncology trials might involve endpoints with fundamentally different statistical properties or clinical implications, which could affect the performance of the "Drop-the-Losers" approach.
 
@@ -1401,7 +1412,7 @@ This result is similar to the case where \( k = m \), but with an additional fac
 
 \section{Additional Simulation Results} \label{sec:app_sim_results}
 
-This appendix provides additional simulation results for a Drop-the-Loser (DLT) design, incorporating both Cox regression and the Log-Rank test. The results are based on \( n = 200'000 \) simulation runs, performed using the function \texttt{simulate\_trial\_log\_rank} for both Phase II and III stages.
+This appendix provides additional simulation results for a Drop-the-Loser (DtL) design, incorporating both Cox regression and the Log-Rank test. The results are based on \( n = 200'000 \) simulation runs, performed using the function \texttt{simulate\_trial\_log\_rank} for both Phase II and III stages.
 
 \begin{figure}[H]
     \centering
@@ -1422,7 +1433,7 @@ This appendix provides additional simulation results for a Drop-the-Loser (DLT) 
 
 \begin{landscape}
 % latex table generated in R 4.4.1 by xtable 1.8-4 package
-% Mon Dec  9 11:56:00 2024
+% Mon Dec  9 15:35:42 2024
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrllll}
@@ -1487,7 +1498,7 @@ Scenario & TreatmentArm & Dropped in Interim 1 & Dropped in Interim 2 & Not Sign
 
 \begin{landscape}
 % latex table generated in R 4.4.1 by xtable 1.8-4 package
-% Mon Dec  9 11:56:34 2024
+% Mon Dec  9 15:36:17 2024
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrllll}
@@ -1541,7 +1552,7 @@ I hereby declare that this master's thesis was independently conducted and writt
 \section{Reproducibility} \label{sec:app_reproducibility}
 
 \flushleft{
-This document was generated on December 09, 2024 at 11:56.
+This document was generated on December 09, 2024 at 15:36.
 \textsf{R} version and packages used to generate this report see Subchapter \ref{sec:session_info}.
 }
 
@@ -1554,7 +1565,7 @@ Github Repository: \url{https://github.com/pfistem/BMS_Masterthesis}
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-## 2024-12-09 11:56:34.136718 Europe/Zurich
+## 2024-12-09 15:36:17.877736 Europe/Zurich
 ## R version 4.4.1 (2024-06-14)
 ## Platform: x86_64-pc-linux-gnu
 ## Running under: Ubuntu 24.04.1 LTS

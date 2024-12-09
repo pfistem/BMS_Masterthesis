@@ -2,7 +2,7 @@
 \contentsline {section}{\numberline {2}Methods}{7}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Multi-Arm Multi-Stage Study Design}{7}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Drop-the-Losers Study Design}{8}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Step-by-Step Example: 4:2:1 DTL for Continuous Endpoints}{9}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.3}Step-by-Step Example: 4:2:1 DtL for Continuous Endpoints}{9}{subsection.2.3}%
 \contentsline {paragraph}{Test Statistics, Covariance, and Contrast Matrices}{10}{section*.9}%
 \contentsline {paragraph}{Test Statistics for Interim Analysis 1:}{10}{section*.10}%
 \contentsline {paragraph}{Test Statistics for Interim Analysis 2}{10}{section*.11}%
@@ -32,7 +32,7 @@
 \contentsline {subsection}{\numberline {4.1}Design of the Simulation Study}{18}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Results: Phase II Trial}{21}{subsection.4.2}%
 \contentsline {paragraph}{Ethical Considerations}{25}{section*.35}%
-\contentsline {subsection}{\numberline {4.3}Results: Phase III Trial}{26}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.3}Results: Phase III Trial}{25}{subsection.4.3}%
 \contentsline {section}{\numberline {5}Discussion}{30}{section.5}%
 \contentsline {section}{Appendix}{31}{section*.40}%
 \contentsline {section}{\numberline {A}Covariance between test statistics based on continuous endpoints}{31}{appendix.A}%

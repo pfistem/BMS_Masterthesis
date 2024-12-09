@@ -1,4 +1,4 @@
-\begin{thebibliography}{6}
+\begin{thebibliography}{8}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{\texttt{#1}}\fi
@@ -20,11 +20,22 @@
 \newblock Using simulation studies to evaluate statistical methods.
 \newblock \textit{Statistics in Medicine} \textbf{38} 2074--2102.
 
+\bibitem[{Pocock(1983)}]{pocock1983discrete}
+\textsc{Pocock, S.~J.} (1983).
+\newblock Discrete sequential boundaries for clinical trials.
+\newblock \textit{Biometrika} \textbf{64} 659--653.
+\newline\urlprefix\url{https://www.jstor.org/stable/2336502}
+
 \bibitem[{Royston et~al.(2003)Royston, Parmar and Qian}]{Royston2003MAMS}
 \textsc{Royston, P.}, \textsc{Parmar, M. K.~B.} and \textsc{Qian, W.} (2003).
 \newblock Novel designs for multi-arm clinical trials with survival outcomes with an application in ovarian cancer.
 \newblock \textit{Statistics in Medicine} \textbf{22} 2239--2256.
 \newline\urlprefix\url{https://doi.org/10.1002/sim.1421}
+
+\bibitem[{Schmidli et~al.(2006)Schmidli, Bretz, Racine and Maurer}]{Schmidli2006Seamless}
+\textsc{Schmidli, H.}, \textsc{Bretz, F.}, \textsc{Racine, A.} and \textsc{Maurer, W.} (2006).
+\newblock Confirmatory seamless phase ii/iii clinical trials with hypotheses selection at interim: applications and practical considerations.
+\newblock \textit{Biometrical Journal} \textbf{48} 635--643.
 
 \bibitem[{Wason et~al.(2017)Wason, Stallard, Bowden and Jennison}]{Wason2017DropTheLosers}
 \textsc{Wason, J.}, \textsc{Stallard, N.}, \textsc{Bowden, J.} and \textsc{Jennison, C.} (2017).
