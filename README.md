@@ -2,11 +2,13 @@
 
 Student: Manuel Pfister
 
+University of Zurich and Bristol Myers Squibb Ltd.
+
 Year: 2024
 
 ## Overview
 
-This repository contains the research and code associated with the STA495 Master Thesis by Manuel Pfister. The thesis explores efficient statistical designs for multi-arm multi-stage (MAMS) clinical trials, focusing on the "drop-the-losers" approach to improve drug development in oncology.
+This repository contains the research and code associated with the STA495 Master Thesis by Manuel Pfister. The thesis explores efficient statistical designs for multi-arm multi-stage (MAMS) clinical trials, focusing on the "Drop-the-Losers" approach to improve drug development in oncology.
 
 The repository includes:
 
