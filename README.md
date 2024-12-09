@@ -31,8 +31,6 @@ The simulation data files included in this release are too large to be hosted di
 
 Please note that the data files are large `.RData` files generated from extensive simulations.  
 - Ensure sufficient system resources (e.g., memory) when loading and processing these datasets in R.  
-- **Important:** Make sure to unzip the data file before use!
-
 
 ### Project Setup with renv
 renv helps manage R package dependencies for reproducible projects.
