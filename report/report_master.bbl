@@ -1,19 +1,40 @@
-\begin{thebibliography}{8}
+\begin{thebibliography}{12}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{\texttt{#1}}\fi
 \expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+
+\bibitem[{Bauer and Kieser(1999)}]{BauerKieser1999}
+\textsc{Bauer, P.} and \textsc{Kieser, M.} (1999).
+\newblock Combining different phases in the development of medical treatments within a single trial.
+\newblock \textit{Statistics in Medicine} \textbf{18} 1833--1848.
 
 \bibitem[{Bland(2015)}]{bland2015introduction}
 \textsc{Bland, M.} (2015).
 \newblock \textit{An Introduction to Medical Statistics}.
 \newblock 4th ed. Oxford University Press.
 
+\bibitem[{Burton et~al.(2006)Burton, Altman, Royston and Holder}]{Burton2006}
+\textsc{Burton, A.}, \textsc{Altman, D.}, \textsc{Royston, P.} and \textsc{Holder, R.} (2006).
+\newblock The design of simulation studies in medical statistics.
+\newblock \textit{Statistics in Medicine} \textbf{25} 4279--4292.
+
 \bibitem[{Demets and Lan(1994)}]{spendingFunction}
 \textsc{Demets, D.~L.} and \textsc{Lan, K. K.~G.} (1994).
 \newblock Interim analysis: The alpha spending function approach.
 \newblock \textit{Statistics in Medicine} \textbf{13} 1341--1352.
 \newline\urlprefix\url{https://onlinelibrary.wiley.com/doi/abs/10.1002/sim.4780131308}
+
+\bibitem[{Jaki and Magirr(2013)}]{Jaki2013}
+\textsc{Jaki, T.} and \textsc{Magirr, D.} (2013).
+\newblock Considerations on covariates and endpoints in multi-arm multi-stage clinical trials selecting all promising treatments.
+\newblock \textit{Statistics in Medicine} \textbf{32} 1150--1163.
+\newblock Published online 30 October 2012.
+
+\bibitem[{Mensh and Kording(2017)}]{Mensh2017}
+\textsc{Mensh, B.} and \textsc{Kording, K.} (2017).
+\newblock Ten simple rules for structuring papers.
+\newblock \textit{PLoS Comput Biol} \textbf{13} e1005619.
 
 \bibitem[{Morris et~al.(2019)Morris, White and Crowther}]{Morris2019}
 \textsc{Morris, T.~P.}, \textsc{White, I.~R.} and \textsc{Crowther, M.~J.} (2019).

@@ -5,45 +5,45 @@ The style file: ims.bst
 Database file #1: reference.bib
 Warning--I didn't find a database entry for "R"
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-You've used 8 entries,
+You've used 12 entries,
             3069 wiz_defined-function locations,
-            721 strings with 6809 characters,
-and the built_in function-call counts, 4914 in all, are:
-= -- 408
-> -- 194
-< -- 5
-+ -- 78
-- -- 66
-* -- 414
-:= -- 770
-add.period$ -- 25
-call.type$ -- 8
-change.case$ -- 63
-chr.to.int$ -- 14
-cite$ -- 8
-duplicate$ -- 342
-empty$ -- 367
-format.name$ -- 88
-if$ -- 947
+            750 strings with 7472 characters,
+and the built_in function-call counts, 7449 in all, are:
+= -- 630
+> -- 282
+< -- 8
++ -- 114
+- -- 96
+* -- 632
+:= -- 1156
+add.period$ -- 38
+call.type$ -- 12
+change.case$ -- 94
+chr.to.int$ -- 18
+cite$ -- 12
+duplicate$ -- 519
+empty$ -- 559
+format.name$ -- 136
+if$ -- 1439
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 68
-newline$ -- 51
-num.names$ -- 32
-pop$ -- 130
+missing$ -- 103
+newline$ -- 72
+num.names$ -- 48
+pop$ -- 190
 preamble$ -- 1
-purify$ -- 54
+purify$ -- 80
 quote$ -- 0
-skip$ -- 108
+skip$ -- 160
 stack$ -- 0
-substring$ -- 262
-swap$ -- 191
+substring$ -- 427
+swap$ -- 294
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 69
+type$ -- 105
 warning$ -- 0
-while$ -- 36
+while$ -- 55
 width$ -- 0
-write$ -- 113
+write$ -- 167
 (There was 1 warning)

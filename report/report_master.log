@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.24)  9 DEC 2024 15:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.24)  15 DEC 2024 16:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -501,12 +501,12 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \openout4 = `report_master.toc'.
 
  [3] [4] [5] [6]
-<figure/Mams.png, id=170, 1278.27562pt x 506.6428pt>
+<figure/Mams.png, id=177, 1278.27562pt x 506.6428pt>
 File: figure/Mams.png Graphic file (type png)
 <use figure/Mams.png>
-Package pdftex.def Info: figure/Mams.png  used on input line 251.
+Package pdftex.def Info: figure/Mams.png  used on input line 252.
 (pdftex.def)             Requested size: 483.69687pt x 191.71454pt.
-LaTeX Font Info:    Trying to load font information for T1+cmss on input line 252.
+LaTeX Font Info:    Trying to load font information for T1+cmss on input line 253.
  (/home/pfistman/.TinyTeX/texmf-dist/tex/latex/base/t1cmss.fd
 File: t1cmss.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 ) [7 <./figure/Mams.png>] [8]
@@ -514,7 +514,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 288--289
 
  []
 
-<figure/drop_the_loser.png, id=210, 1341.51187pt x 526.21594pt>
+<figure/drop_the_loser.png, id=219, 1341.51187pt x 526.21594pt>
 File: figure/drop_the_loser.png Graphic file (type png)
 <use figure/drop_the_loser.png>
 Package pdftex.def Info: figure/drop_the_loser.png  used on input line 295.
@@ -538,7 +538,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 ! Extra }, or forgotten \right.
-l.343 Z_1^{(1)} = \left(1.5 - 1.0}
+l.344 Z_1^{(1)} = \left(1.5 - 1.0}
                                    \right) \sqrt{\frac{20}{2 \cdot 1}} = 1.581,
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -546,15 +546,19 @@ you forgot something else, as in `\hbox{$x}'. In such cases
 the way to recover is to insert both the forgotten and the
 deleted material, e.g., by typing `I$}'.
 
-[10]
 ! Extra }, or forgotten \right.
-l.389 Z_3^{(3)} = \left(1.8 - 1.0}
+l.391 Z_3^{(3)} = \left(1.8 - 1.0}
                                    \right) \sqrt{\frac{60}{2 \cdot 1}} = 4.382.
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
 you forgot something else, as in `\hbox{$x}'. In such cases
 the way to recover is to insert both the forgotten and the
 deleted material, e.g., by typing `I$}'.
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 394--395
+
+ []
 
 
 ! LaTeX Error: There's no line here to end.
@@ -563,7 +567,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.397 
+l.409 
       
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -577,14 +581,14 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.540 T
+l.542 T
        he covariance matrix is not directly used in the calculations shown i...
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 ! Undefined control sequence.
-l.546 \nointend
+l.544 \nointend
                \subparagraph{Example: Covariance Matrix for a 4:2:1 Design}\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -599,22 +603,18 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.547 F
+l.545 F
        or \( n_1 = 20 \), \( n_2 = 40 \), and \( n_3 = 60 \), the covariance...
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 560--563
+
+ []
+
 [13]
-Underfull \hbox (badness 10000) in paragraph at lines 564--568
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 592--593
-
- []
-
 
 ! LaTeX Error: There's no line here to end.
 
@@ -622,7 +622,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.601 
+l.596 
       
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -635,17 +635,16 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.605 U
+l.600 U
        sing the provided R code, the critical value is calculated based on t...
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-[14]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 616.
- (/home/pfistman/.TinyTeX/texmf-dist/tex/latex/base/t1cmtt.fd
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 611.
+(/home/pfistman/.TinyTeX/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-)
+) [14]
 
 ! LaTeX Error: There's no line here to end.
 
@@ -653,7 +652,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.633 T
+l.628 T
        he calculated critical value is:
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -666,7 +665,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.639 
+l.634 
       
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -679,47 +678,48 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.647 B
+l.642 B
        y applying the critical value \( c = 1.906 \), we conclude that treat...
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 [15] [16]
-Underfull \hbox (badness 10000) in paragraph at lines 728--729
+Underfull \hbox (badness 10000) in paragraph at lines 723--724
 
  []
 
 [17]
 
 pdfTeX warning: /home/pfistman/bin/pdflatex (file ./figure/flowchart_simulation.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<figure/flowchart_simulation.pdf, id=310, 408.73703pt x 506.48221pt>
+<figure/flowchart_simulation.pdf, id=320, 408.73703pt x 506.48221pt>
 File: figure/flowchart_simulation.pdf Graphic file (type pdf)
 <use figure/flowchart_simulation.pdf>
-Package pdftex.def Info: figure/flowchart_simulation.pdf  used on input line 746.
+Package pdftex.def Info: figure/flowchart_simulation.pdf  used on input line 741.
 (pdftex.def)             Requested size: 386.95897pt x 479.50923pt.
 [18 <./figure/flowchart_simulation.pdf>] [19] [20] [21]
-<figure/chi_squared-1.pdf, id=398, 505.89pt x 361.35pt>
-File: figure/chi_squared-1.pdf Graphic file (type pdf)
-<use figure/chi_squared-1.pdf>
-Package pdftex.def Info: figure/chi_squared-1.pdf  used on input line 883.
-(pdftex.def)             Requested size: 483.69687pt x 345.5026pt.
-<figure/barplots_phase2-1.pdf, id=399, 505.89pt x 614.295pt>
+<figure/barplots_phase2-1.pdf, id=414, 505.89pt x 614.295pt>
 File: figure/barplots_phase2-1.pdf Graphic file (type pdf)
 <use figure/barplots_phase2-1.pdf>
-Package pdftex.def Info: figure/barplots_phase2-1.pdf  used on input line 901.
+Package pdftex.def Info: figure/barplots_phase2-1.pdf  used on input line 880.
 (pdftex.def)             Requested size: 483.69687pt x 587.3544pt.
- [22 <./figure/chi_squared-1.pdf>]
+ [22]
 Overfull \vbox (8.70433pt too high) has occurred while \output is active []
 
- [23 <./figure/barplots_phase2-1.pdf>] [24] [25
+ [23 <./figure/barplots_phase2-1.pdf>] [24]
+<figure/chi_squared-1.pdf, id=441, 505.89pt x 361.35pt>
+File: figure/chi_squared-1.pdf Graphic file (type pdf)
+<use figure/chi_squared-1.pdf>
+Package pdftex.def Info: figure/chi_squared-1.pdf  used on input line 960.
+(pdftex.def)             Requested size: 483.69687pt x 345.5026pt.
+ [25
 
 
-]
-<figure/barplots_phase3-1.pdf, id=447, 505.89pt x 614.295pt>
+ <./figure/chi_squared-1.pdf>]
+<figure/barplots_phase3-1.pdf, id=463, 505.89pt x 614.295pt>
 File: figure/barplots_phase3-1.pdf Graphic file (type pdf)
 <use figure/barplots_phase3-1.pdf>
-Package pdftex.def Info: figure/barplots_phase3-1.pdf  used on input line 1036.
+Package pdftex.def Info: figure/barplots_phase3-1.pdf  used on input line 1032.
 (pdftex.def)             Requested size: 483.69687pt x 587.3544pt.
  [26]
 Overfull \vbox (8.70433pt too high) has occurred while \output is active []
@@ -727,11 +727,11 @@ Overfull \vbox (8.70433pt too high) has occurred while \output is active []
  [27 <./figure/barplots_phase3-1.pdf>] [28] [29
 
 
-] [30] [31] [32]
+] [30] [31] [32] [33]
 ! Missing } inserted.
 <inserted text> 
                 }
-l.1245 ...we consider the case where \({k \neq m\)
+l.1243 ...we consider the case where \({k \neq m\)
                                                   , and again assume that th...
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -739,33 +739,33 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-[33] [34] [35] [36]
-<figure/barplot_phase2_logrank-1.pdf, id=509, 505.89pt x 505.89pt>
+[34] [35] [36] [37]
+<figure/barplot_phase2_logrank-1.pdf, id=532, 505.89pt x 505.89pt>
 File: figure/barplot_phase2_logrank-1.pdf Graphic file (type pdf)
 <use figure/barplot_phase2_logrank-1.pdf>
-Package pdftex.def Info: figure/barplot_phase2_logrank-1.pdf  used on input line 1422.
+Package pdftex.def Info: figure/barplot_phase2_logrank-1.pdf  used on input line 1420.
 (pdftex.def)             Requested size: 483.69687pt x 483.70361pt.
- [37 <./figure/barplot_phase2_logrank-1.pdf>] [38]
-<figure/barplot_phase3_logrank-1.pdf, id=527, 505.89pt x 505.89pt>
+ [38 <./figure/barplot_phase2_logrank-1.pdf>] [39]
+<figure/barplot_phase3_logrank-1.pdf, id=551, 505.89pt x 505.89pt>
 File: figure/barplot_phase3_logrank-1.pdf Graphic file (type pdf)
 <use figure/barplot_phase3_logrank-1.pdf>
-Package pdftex.def Info: figure/barplot_phase3_logrank-1.pdf  used on input line 1487.
+Package pdftex.def Info: figure/barplot_phase3_logrank-1.pdf  used on input line 1485.
 (pdftex.def)             Requested size: 483.69687pt x 483.70361pt.
- [39
+ [40
 
 
- <./figure/barplot_phase3_logrank-1.pdf>] [40] [41
+ <./figure/barplot_phase3_logrank-1.pdf>] [41] [42
 
 
-] [42]
+] [43]
 
-Package natbib Warning: Citation `R' undefined on input line 1608.
+Package natbib Warning: Citation `R' undefined on input line 1606.
 
 (./report_master.bbl)
 
 Package natbib Warning: There were undefined citations.
 
-[43] (./report_master.aux)
+[44] (./report_master.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-03-14>
@@ -775,21 +775,21 @@ L3 programming layer <2024-03-14>
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `report_master.out' has not changed.
-(rerunfilecheck)             Checksum: C8CC1362D5C6A220515C3BACE513C40D;4253.
+(rerunfilecheck)             Checksum: 29131E027FF43FC524800A06C988E95B;4253.
  ) 
 Here is how much of TeX's memory you used:
- 13336 strings out of 476064
- 209571 string characters out of 5792592
- 1958493 words of memory out of 5000000
- 35118 multiletter control sequences out of 15000+600000
+ 13353 strings out of 476064
+ 209859 string characters out of 5792592
+ 1957493 words of memory out of 5000000
+ 35129 multiletter control sequences out of 15000+600000
  573208 words of font info for 69 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,11n,79p,2609b,528s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,11n,79p,2609b,598s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/pfistman/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1095.600pk> </home/pfistman/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1095.600pk> </home/pfistman/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.600pk> </home/pfistman/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.600pk> </home/pfistman/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk> </home/pfistman/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecss1095.600pk> </home/pfistman/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/pfistman/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </home/pfistman/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/pfistman/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/pfistman/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk></home/pfistman/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></home/pfistman/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></home/pfistman/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/pfistman/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></home/pfistman/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></home/pfistman/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/pfistman/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></home/pfistman/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></home/pfistman/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/pfistman/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on report_master.pdf (44 pages, 1252040 bytes).
+Output written on report_master.pdf (45 pages, 1254937 bytes).
 PDF statistics:
- 1138 PDF objects out of 1200 (max. 8388607)
- 566 compressed objects within 6 object streams
- 144 named destinations out of 1000 (max. 500000)
+ 1167 PDF objects out of 1200 (max. 8388607)
+ 590 compressed objects within 6 object streams
+ 150 named destinations out of 1000 (max. 500000)
  227 words of extra memory for PDF output out of 10000 (max. 10000000)
 

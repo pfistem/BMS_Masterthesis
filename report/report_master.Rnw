@@ -143,6 +143,7 @@ EBPI                 & Epidemiology, Biostatistics and Prevention Institute \\
 FWER                 & Family-Wise Error Rate \\
 GBDS                 & Global Biostatistics and Data Science \\
 HR                   & Hazard Ratio \\
+LFC                  & Least favorable configuration \\
 MAMS                 & Multi-Arm Multi-Stage \\
 MCSE                 & Monte Carlo Standard Error \\
 ORR                  & Objective Response Rate \\
@@ -159,15 +160,15 @@ UZH                  & University of Zurich \\
 % =============================================================================
 \section*{Abstract} \label{sec:abstract}
 
-In drug development, clinical trials are a cornerstone of evaluating new treatments. However, traditional designs often face significant challenges in efficiency, particularly when assessing multiple treatment options. The emergence of Multi-Arm Multi-Stage (MAMS) designs, such as the "Drop-the-Losers" approach, offers innovative solutions by combining multiple hypotheses within a single trial framework. This thesis evaluates the "Drop-the-Losers" approach, focusing on its application in Phase II/III oncology trials, where identifying promising treatments early is critical.
+In drug development, clinical trials are a cornerstone of evaluating new treatments. However, traditional designs often face significant challenges in efficiency, particularly when assessing multiple treatment options. The emergence of Multi-Arm Multi-Stage (MAMS) designs, such as the "Drop-the-Losers" (DtL) approach, offers innovative solutions by combining multiple hypotheses within a single trial framework. This thesis evaluates the DtL approach, focusing on its application in Phase II/III oncology trials, where identifying promising treatments early is critical.
 
-This work extends existing methodologies by incorporating binary and survival endpoints, addressing limitations of earlier designs which focused primarily on continuous outcomes. Using simulation studies, the statistical performance of the "Drop-the-Losers" design was assessed across diverse clinical scenarios. Key metrics included Type I error control, statistical power and the Monte Carlo Standard Error (MCSE) under varying endpoint distributions. Simulations involved endpoints such as progression-free survival (PFS).
+This work extends existing methodologies by incorporating binary and survival endpoints, addressing limitations of earlier designs which focused primarily on continuous outcomes. Using simulation studies, the statistical performance of the DtL design was assessed across diverse clinical scenarios. Key metrics included Type I error control, statistical power and the Monte Carlo Standard Error (MCSE) under varying endpoint distributions. Simulations involved endpoints such as progression-free survival (PFS).
 
-Results demonstrated that the "Drop-the-Losers" design effectively balances statistical rigor and efficiency. The design maintained robust Type I error control while ensuring high power in detecting clinically relevant effects. Scenarios with harmful or ineffective treatments highlighted the ethical advantage of eliminating suboptimal options early, minimizing patient exposure to ineffective therapies.
+Results demonstrated that the DtL design effectively balances statistical rigor and efficiency. The design maintained robust Type I error control while ensuring high power in detecting clinically relevant effects. Scenarios with harmful or ineffective treatments highlighted the ethical advantage of eliminating suboptimal options early, minimizing patient exposure to ineffective therapies.
 
-One limitation identified is that long-term survival endpoints may not be mature enough to support early treatment selection analyses. Updating the endpoint of interest over time could align with clinical practices, starting with objective response rate (ORR) at the first analysis, transitioning to Benefit-Risk scores or PFS at the second analysis, and concluding with overall survival (OS) at the final analysis. However, such an approach requires careful handling of correlations between drug effects across these endpoints, since selecting treatments based on a poor surrogate endpoint.
+One limitation identified is that long-term survival endpoints may not be mature enough to support early treatment selection analyses. Updating the endpoint of interest over time could align with clinical practices, starting with objective response rate at the first analysis, transitioning to Benefit-Risk scores or PFS at the second analysis, and concluding with overall survival at the final analysis. However, such an approach requires careful handling of correlations between drug effects across these endpoints, since selecting treatments based on a poor surrogate endpoint.
 
-This thesis provides a comprehensive framework for implementing "Drop-the-Losers" designs in clinical trials, demonstrating its potential to accelerate treatment evaluation in oncology while upholding ethical and scientific standards. This methodology contributes to the ongoing evolution of designs, underscoring their value in modern clinical research.
+This thesis provides a comprehensive framework for implementing DtL designs in clinical trials, demonstrating its potential to accelerate treatment evaluation in oncology while upholding ethical and scientific standards. This methodology contributes to the ongoing evolution of designs, underscoring their value in modern clinical research.
 
 
 
@@ -175,7 +176,7 @@ This thesis provides a comprehensive framework for implementing "Drop-the-Losers
 \section{Introduction} \label{sec:intro}
 % =============================================================================
 
-Clinical trials are the cornerstone of drug development, particularly in oncology, where multiple treatment options are often explored. Traditional trial designs are resource-intensive and time-consuming, especially when testing multiple treatments. Multi-Arm Multi-Stage (MAMS) trial designs, such as the "Drop-the-Losers" (DtL) approach proposed by \cite{Wason2017DropTheLosers}, provide a more efficient alternative. These designs evaluate multiple treatments within a single trial, using interim analyses to drop less effective options early.
+Clinical trials are the cornerstone of drug development, particularly in oncology, where multiple treatment options are often explored. Traditional trial designs are resource-intensive and time-consuming, especially when testing multiple treatments. Multi-Arm Multi-Stage (MAMS) trial designs, such as the "Drop-the-Losers" (DtL) approach proposed by \cite{Wason2017DropTheLosers}, provide a more efficient alternative. These designs evaluate multiple treatments within a single trial, using interim analyses to drop less effective options early~\citep{BauerKieser1999}.
 
 Oncology trials often require evaluating multiple drug combinations, schedules, and dose levels. Efficiently identifying the most effective treatments early is critical for improving patient outcomes and expediting drug development. Traditional designs, which evaluate one treatment at a time, are inefficient in terms of time, cost, and sample size (\(N\)), where \(N\) represents the total number of patients required to achieve sufficient statistical power. As \(N\) is a random variable, its variability introduces uncertainty in both the cost and duration of the trial, making these designs less predictable and efficient compared to more adaptive approaches.
 
@@ -183,23 +184,23 @@ The DtL design addresses these limitations by testing several treatments simulta
 
 This master thesis evaluates the performance of the DtL design in Phase II/III oncology trials, where treatment selection is crucial. The design incorporates interim analyses at predefined stages, dropping experimental treatments based on their relative performance to a control group. This optimizes resource allocation, focusing on promising treatments while maintaining robust statistical power and controlling Type I error rates. The study investigates the design's effectiveness in controlling Type I error and maintaining statistical power under various clinical scenarios, including continuous, binary, and survival endpoints.
 
-A simulation study assesses the performance of the DtL design across different scenarios. Simulations, conducted in the R programming language with parallel computing, build upon the work of \cite{Wason2017DropTheLosers}, who previously evaluated continuous outcomes. This simulation study extends the DtL approach to survival outcomes, such as progression-free survival (PFS), which are critical in oncology. The study evaluates statistical properties, including Type I error rates, power under null and hybrid models with one or more effective treatments. Additionally, it examines the Monte Carlo standard error (MCSE) associated with the design.
+A simulation study assesses the performance of the DtL design across different scenarios. An overview of the simulation is shown in Figure~\ref{sec:simulation_design}. Simulations, conducted in the R programming language with parallel computing, build upon the work of \cite{Wason2017DropTheLosers}, who previously evaluated continuous outcomes. This simulation study extends the DtL approach to survival outcomes, such as progression-free survival (PFS), which are critical in oncology. The study evaluates statistical properties, including Type I error rates, power under null and hybrid models with one or more effective treatments. Additionally, it examines the Monte Carlo standard error (MCSE) associated with the design.
 
-The Methods section describes the DtL design's mathematical framework and its application to binary and survival endpoints. The Results section presents findings from the simulation study for survival endpoints, assessing the design's performance across scenarios. The Discussion highlights the implications, strengths, limitations, and ethical considerations, while the Conclusion summarizes key insights and suggests directions for future research. Supplementary details are provided in the appendices.
+The Methods section describes the DtL design's mathematical framework and its application to binary and survival endpoints. The Results section presents findings from the simulation study for survival endpoints, assessing the design's performance across scenarios. The Discussion highlights the implications, strengths, limitations, and ethical considerations. Supplementary details are provided in the appendices.
 
 \newpage
 
 \section{Methods} \label{sec:methods}
 % =============================================================================
 
-In this section, we present the methods used in this study, focusing on the Multi-Arm Multi-Stage (MAMS) trial design and the "Drop-the-Losers" approach. Additionally, we illustrate the application of these methods with an example using continuous endpoints to demonstrate their practical implementation.
+In this section, we present the methods used in this study, focusing on the Multi-Arm Multi-Stage (MAMS) trial design and the DtL approach. Additionally, we illustrate the application of these methods with an example using continuous endpoints to demonstrate their practical implementation.
 
 
 \subsection{Multi-Arm Multi-Stage Study Design}
 
-The MAMS design is an adaptive clinical trial framework that enables the simultaneous evaluation of multiple treatments within a single trial. Unlike traditional designs, which require separate trials for each treatment, MAMS designs incorporate interim analyses at predefined stages to assess treatment efficacy. Treatments that fail to demonstrate sufficient promise are dropped early, allowing resources to focus on the most effective options. This approach improves efficiency, reduces costs, and shortens the time needed to identify successful therapies while maintaining rigorous control over statistical error rates. The MAMS design is particularly useful in settings with limited resources or when rapid treatment evaluation is essential, such as in oncology \citep{Royston2003MAMS}. This study evaluates a MAMS clinical trial design, focusing on the DtL approach as discussed by \cite{Wason2017DropTheLosers}. As shown in Figure~\ref{fig:mams_design}, the MAMS framework, allows multiple experimental treatments to be assessed in parallel within a single trial. At the outset, we have four treatment arms. During each interim analysis, the arms are assessed for futility or high efficacy. In the first interim analysis, treatment arm 2 is removed, and in the second interim analysis, treatment arm 1 is eliminated. By the end, two arms remain, which are compared against the standard of care to determine if they are significantly better.
+The MAMS design is an adaptive clinical trial framework that enables the simultaneous evaluation of multiple treatments within a single trial~\citep{Jaki2013}. Unlike traditional designs, which require separate trials for each treatment, MAMS designs incorporate interim analyses at predefined stages to assess treatment efficacy. Treatments that fail to demonstrate sufficient promise are dropped early, allowing resources to focus on the most effective options. This approach improves efficiency, reduces costs, and shortens the time needed to identify successful therapies while maintaining rigorous control over statistical error rates. The MAMS design is particularly useful in settings with limited resources or when rapid treatment evaluation is essential, such as in oncology \citep{Royston2003MAMS}. This study evaluates a MAMS clinical trial design, focusing on the DtL approach as discussed by \cite{Wason2017DropTheLosers}. As shown in Figure~\ref{fig:mams_design}, the MAMS framework, allows multiple experimental treatments to be assessed in parallel within a single trial. At the outset, we have four treatment arms. During each interim analysis, the arms are assessed for futility or high efficacy. In the first interim analysis, treatment arm 2 is removed, and in the second interim analysis, treatment arm 1 is eliminated. By the end, two arms remain, which are compared against the standard of care to determine if they are significantly better.
 
-As with any design incorporating interim analyses, the issue of multiple testing arises, along with the associated risks of Type I and Type II errors. This challenge can be addressed by applying a spending function, such as the Pocock spending function~\citep{spendingFunction}, which allocates the significance level across interim analyses in a controlled manner. Later in this section, the DtL design is introduced, highlighting the differences compared to the traditional MAMS (Multi-Arm Multi-Stage) design.
+As with any design incorporating interim analyses, the issue of multiple testing arises, along with the associated risks of Type I and Type II errors. This challenge can be addressed by applying a spending function, such as the Pocock spending function~\citep{spendingFunction}, which allocates the significance level across interim analyses in a controlled manner. Later in this section, the DtL design is introduced, highlighting the differences compared to the traditional MAMS design.
 
 
 \begin{figure}[H]
@@ -212,8 +213,7 @@ As with any design incorporating interim analyses, the issue of multiple testing
 
 \subsection{Drop-the-Losers Study Design}
 
-
-In this section, we discuss the specific design of MAMS studies, particularly the Drop-the-Losers (DtL) design, with a focus on hypothesis testing, the distribution of treatment outcomes, and the underlying concept. The DtL  design is a type of seamless design, meaning that it allows for the continuation of promising treatments through various stages of the trial without the need for a formal transition between phases~\citep{Schmidli2006Seamless}.
+The DtL  design is a type of seamless design, meaning that it allows for the continuation of promising treatments through various stages of the trial without the need for a formal transition between phases~\citep{Schmidli2006Seamless}.
 
 At the end of stage $j$, let $Z_j^{(k)}$ be the test statistic~(\ref{eq:Z_j_k}) for treatment $k$. The treatments are ranked according to these statistics, and a fixed number of treatments with the worst test statistics are dropped. Let $n^{(j)}$ represent the number of treatments remaining at stage $j$. The design is defined by the sequence of treatment counts across stages: $K : n^{(2)} : n^{(3)} : \dots : n^{(J)}$, where $n^{(J)} = 1$ (indicating that only one experimental treatment reaches the final stage). At each interim analysis, the least promising treatments are dropped based on their ranked test statistics (see Figure \ref{fig:drop_losers}). The exact number of treatments to be dropped is prespecified, and the remaining treatments proceed to the next stage.
 
@@ -249,7 +249,7 @@ The correlation~(\ref{eq:covariance_method1},~\ref{eq:covariance_method2}) betwe
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figure/drop_the_loser.png}
-    \caption{Illustration of the (4:2:1) "Drop-the-Losers" design. Treatments are evaluated at each interim analysis. Treatments with the least promising results are dropped, while the most promising treatments continue to the next stage. The process continues until the final analysis, where the remaining treatment is compared to the control.}
+    \caption{Illustration of the (4:2:1) DtL design. Treatments are evaluated at each interim analysis. Treatments with the least promising results are dropped, while the most promising treatments continue to the next stage. The process continues until the final analysis, where the remaining treatment is compared to the control.}
     \label{fig:drop_losers}
 \end{figure}
 
@@ -260,7 +260,7 @@ The following example is a fictional scenario designed to illustrate the applica
 \begin{itemize}
     \item Number of treatment arms: \( K = 4 \) (\( k = 1, 2, 3, 4 \)).
     \item Control arm: \( k = 0 \).
-    \item Number of stages: \( J = 3 \), with 2 interim analyses and 1 final analysis.
+    \item Number of stages: \( J = 3 \), with 2 interim analyses and one final analysis.
     \item Group sizes at each stage:
           \[
           n_1 = 20, \quad n_2 = 40, \quad n_3 = 60.
@@ -295,17 +295,18 @@ Z_1^{(k)} = \left( \frac{\sum_{i=1}^{n_1} X_{ki}}{n_1} - \frac{\sum_{i=1}^{n_1} 
 \]
 Using the observed means from Interim Analysis 1 from the Table~\ref{tab:example}:
 
-\begin{equation}
+
+\[
 Z_1^{(1)} = \left(1.5 - 1.0} \right) \sqrt{\frac{20}{2 \cdot 1}} = 1.581,
-\end{equation}
+\]
 
 \begin{equation}
 Z_1^{(2)} = \left(1.2 - 1.0 \right) \sqrt{\frac{20}{2 \cdot 1}} = 0.632, \label{eq:Z1_2}
 \end{equation}
 
-\begin{equation}
+\[
 Z_1^{(3)} = \left( 1.3 - 1.0 \right) \sqrt{\frac{20}{2 \cdot 1}} = 0.945,
-\end{equation}
+\]
 
 \begin{equation}
 Z_1^{(4)} = \left( 1.1 - 1.0 \right) \sqrt{\frac{20}{2 \cdot 1}} = 0.316
@@ -322,15 +323,14 @@ Z_2^{(k)} = \left( \frac{\sum_{i=1}^{n_2} X_{ki}}{n_2} - \frac{\sum_{i=1}^{n_2} 
 Using the observed means from Interim Analysis 2 from Table~\ref{tab:example}, we compute:
 
 
-\begin{equation}
+\[
 Z_2^{(1)} = \left( 1.6 - 1.0 \right) \sqrt{\frac{40}{2 \cdot 1}} = 2.683,
-\end{equation}
+\]
 
-
-\begin{equation}
+\[
 Z_2^{(3)} = \left(1.7 - 1.0 \right) \sqrt{\frac{40}{2 \cdot 1}} = 3.130,
 \label{eq:Z2_3}
-\end{equation}
+\]
 
 
 Treatment arms \(k=2\) and \(k=4\) were dropped at this stage.
@@ -340,18 +340,30 @@ The test statistic for each remaining treatment arm at the Final Analysis is
 \[
 Z_3^{(k)} = \left( \frac{\sum_{i=1}^{n_3} X_{ki}}{n_3} - \frac{\sum_{i=1}^{n_3} X_{0i}}{n_3} \right) \sqrt{\frac{n_3}{2\sigma^2}}.
 \]
+
 Using the observed means from the Final Analysis from Table~\ref{tab:example}, we compute:
-\begin{equation}
+
+\[
 Z_3^{(3)} = \left(1.8 - 1.0} \right) \sqrt{\frac{60}{2 \cdot 1}} = 4.382.
+\]
+
+Treatment arms \(k=1\), \(k=2\), and \(k=4\) were dropped prior to the Final Analysis.\\
+
+The test statistics vector \( Z \) contains all test statistics for the treatment arms (\( k = 1, 2, 3, 4 \)) across all stages (\( j = 1, 2, 3 \)):
+
+\begin{equation}
+Z =
+\begin{bmatrix}\label{eq:Z_stages}
+Z_1^{(1)} \\ Z_2^{(1)} \\ Z_3^{(1)} \\
+Z_1^{(2)} \\ Z_2^{(2)} \\ Z_3^{(2)} \\
+Z_1^{(3)} \\ Z_2^{(3)} \\ Z_3^{(3)} \\
+Z_1^{(4)} \\ Z_2^{(4)} \\ Z_3^{(4)}
+\end{bmatrix}.
 \end{equation}
-
-Treatment arms \(k=1\), \(k=2\), and \(k=4\) were dropped prior to the Final Analysis.
-
-
 
 \paragraph{Contrast Matrix}\\
 
-The contrast matrix \( A \) defines the pairwise comparisons between treatment arms and the control in a 4:2:1 "Drop-the-Losers" design. It reflects the dropping of \( k = 2 \) and \( k = 4 \) after the first interim analysis, and \( k = 1 \) after the second interim analysis, as directly shown in Equations~\ref{eq:Z1_2} and~\ref{eq:Z1_4}. This leads to only \( k = 3 \) proceeding to the final analysis. The matrix is defined as
+The contrast matrix \( A \) defines the pairwise comparisons between treatment arms and the control in a 4:2:1 DtL design. It reflects the dropping of \( k = 2 \) and \( k = 4 \) after the first interim analysis, and \( k = 1 \) after the second interim analysis, as directly shown in Equations~\ref{eq:Z1_2} and~\ref{eq:Z1_4}. This leads to only \( k = 3 \) proceeding to the final analysis. The matrix is defined as
 
 \begin{equation}
 \setlength{\arraycolsep}{3pt}
@@ -377,17 +389,7 @@ A =
 \end{flushleft}
 
 
-The vector \( C \) is obtained by multiplying the contrast matrix \( A \)~(\ref{eq:contrast_matrix}) with the vector of test statistics \( Z \)~(\ref{eq:Z_stages}). The test statistics vector \( Z \) contains all test statistics for the treatment arms (\( k = 1, 2, 3, 4 \)) across all stages (\( j = 1, 2, 3 \)):
-
-\begin{equation}
-Z =
-\begin{bmatrix}\label{eq:Z_stages}
-Z_1^{(1)} \\ Z_2^{(1)} \\ Z_3^{(1)} \\
-Z_1^{(2)} \\ Z_2^{(2)} \\ Z_3^{(2)} \\
-Z_1^{(3)} \\ Z_2^{(3)} \\ Z_3^{(3)} \\
-Z_1^{(4)} \\ Z_2^{(4)} \\ Z_3^{(4)}
-\end{bmatrix}.
-\end{equation}
+The vector \( C \) is obtained by multiplying the contrast matrix \( A \)~(\ref{eq:contrast_matrix}) with the vector of test statistics \( Z \)~(\ref{eq:Z_stages}).
 
 
 \paragraph{Step-by-Step Multiplication:}
@@ -482,8 +484,8 @@ C =
 
 \paragraph{Interpretation:}
 \begin{itemize}
-    \item \( C_1 = 0.578 \): Indicates that Treatment 1 at Interim Analysis 1 performed better than Treatment 4.
-    \item \( C_2 = 0.946 \): Indicates that Treatment 1 at Interim Analysis 1 performed worse than at Interim Analysis 2.
+    \item \( C_1 = 0.316 \): Indicates that Treatment 1 at Interim Analysis 1 performed better than Treatment 4.
+    \item \( C_2 = 0.946 \): Indicates that Treatment 1 at Interim Analysis 1 performed worse than Treatment 2.
     \item \( C_3 = 0.317 \): Indicates that Treatment 3 at Interim Analysis 1 performed better than Treatment 1.
     \item \( C_4 = 0.447 \): Indicates that Treatment 3 at Interim Analysis 2 performed better than Treatment 1.
     \item \( C_5 = 4.382 \): Represents the absolute performance of Treatment 3 at the Final Analysis.
@@ -495,29 +497,22 @@ C =
 \paragraph{Covariance Matrix Calculation}\\
 The covariance matrix is not directly used in the calculations shown in this example. However, it plays a crucial role in determining the critical value \(c\) at final analysis and can also be used as a verification in simulation studies. For simplicity, the mathematical derivation is presented in a simplified manner.
 
-
-The covariance between test statistics for treatment arms \( k \) and \( m \) across stages \( j \) and \( p \) is given by the formulas~\label{eq:covariance1} and~\label{eq:covariance2}.
-
-
 \nointend\subparagraph{Example: Covariance Matrix for a 4:2:1 Design}\\
 For \( n_1 = 20 \), \( n_2 = 40 \), and \( n_3 = 60 \), the covariance matrix \( \Sigma \) for all treatment arms (\( k = 1, 2, 3, 4 \)) across all stages (\( j = 1, 2, 3 \)) is computed as follows:
 
 \paragraph{Step 1: Define the Matrix Structure}
 The covariance matrix has dimensions \( (K \cdot J) \times (K \cdot J) \), where \( K = 4 \) (number of treatment arms) and \( J = 3 \) (number of stages). This results in a \( 12 \times 12 \) matrix.
 
+
 \paragraph{Step 2: Populate Blocks}
-1. \textbf{Diagonal blocks (\( k = m \)):} The covariance between the same treatment arm across different stages is:
-   \[
-   \text{Cov}(Z_j^{(k)}, Z_p^{(k)}) = \sqrt{\frac{\min(n_j, n_p)}{\max(n_j, n_p)}}, \quad p \geq j.
-   \]
+1. \textbf{Diagonal blocks (\( k = m \)):} The covariance of the same treatment arm across different stages is given by Equation~(\ref{eq:covariance_method1}):
+
    For example:
    \( \text{Cov}(Z_1^{(1)}, Z_2^{(1)}) = \sqrt{\frac{20}{40}} = 0.707 \),
    \( \text{Cov}(Z_2^{(1)}, Z_3^{(1)}) = \sqrt{\frac{40}{60}} = 0.816 \).
 
-2. \textbf{Off-diagonal blocks (\( k \neq m \)):} The covariance between different treatment arms is:
-   \[
-   \text{Cov}(Z_j^{(k)}, Z_p^{(m)}) = \frac{1}{2} \sqrt{\frac{\min(n_j, n_p)}{\max(n_j, n_p)}}, \quad p \geq j.
-   \]
+2. \textbf{Off-diagonal blocks (\( k \neq m \)):} The covariance of the different treatment arm across different stages is given by Equation~(\ref{eq:covariance_method2}):
+
    For example:
    \( \text{Cov}(Z_1^{(1)}, Z_2^{(2)}) = \frac{1}{2} \sqrt{\frac{20}{40}} = 0.354 \),
    \( \text{Cov}(Z_2^{(1)}, Z_3^{(2)}) = \frac{1}{2} \sqrt{\frac{40}{60}} =  0.408\).\\
@@ -525,7 +520,7 @@ The covariance matrix has dimensions \( (K \cdot J) \times (K \cdot J) \), where
 \paragraph{Step 3: Full Covariance Matrix}
 Using the formula above, the complete \( 12 \times 12 \) covariance matrix is:
 
-\[
+\begin{equation}
 \Sigma =
 \renewcommand{\arraystretch}{1.2} % Vertikalen Abstand anpassen
 \setlength{\arraycolsep}{2pt} % Horizontalen Abstand anpassen
@@ -544,8 +539,8 @@ Using the formula above, the complete \( 12 \times 12 \) covariance matrix is:
 \cdots & \cdots & \cdots & \cdots & \cdots & \cdots & \cdots & \cdots & \cdots & \cdots & 1.000 & 0.816 \\
 \cdots & \cdots & \cdots & \cdots & \cdots & \cdots & \cdots & \cdots & \cdots & \cdots & \cdots & 1.000 \\
 \end{array}
-\right]
-\]\\
+\right] \label{eq:covariance_matrix_big}
+\end{equation}
 
 
 \textbf{The interpretation is as follows:} The diagonal elements of the matrix represent the variance of the test statistics for the same treatment arm at the same stage, with
@@ -563,8 +558,8 @@ Using the provided R code, the critical value is calculated based on the specifi
     \item \( J = 3 \): Number of stages.
     \item \( K = 4 \): Number of treatment arms.
     \item \( \alpha = 0.05 \): Family-wise error rate.
-    \item Covariance matrix \( \Sigma \): As defined earlier.
-    \item Contrast matrix \( A \): As defined earlier.
+    \item Covariance matrix \( \Sigma \): Refer to Matrix~(\ref{eq:covariance_matrix_big}).
+    \item Contrast matrix \( A \): Refer to Matrix~(\ref{eq:contrast_matrix}).
 \end{itemize}
 
 The calculation in R uses the following function:
@@ -670,15 +665,15 @@ Z_j^{(k)} \approx \frac{\log \widehat{HR}_{kj}}{\sqrt{\frac{4}{d_j^{(o)} + d_j^{
 \end{equation}
 where $\widehat{HR}_{kj}$ is the estimated hazard ratio for treatment $k$ at stage $j$, $d_j^{(o)}$ represents the number of events in the control group, and $d_j^{(k)}$ is the number of events in the treatment group. This statistic assumes that $d_j^{(o)} > d_j^{(k)}$ and adjusts for the number of observed events.
 
-The covariance between test statistics for survival outcomes across different stages $j$ and $p$ is given by
+The covariance between test statistics for survival outcomes across different stages $j$ and $l$ is given by
 \begin{equation}
-\text{Cov}(Z_j^{(k)}, Z_p^{(m)}) = \sqrt{\frac{d_j^{(o)} + d_j^{(k)}}{d_p^{(o)} + d_p^{(k)}}}\label{eq:survival_covariance1},
+\text{Cov}(Z_j^{(k)}, Z_l^{(m)}) = \sqrt{\frac{d_j^{(o)} + d_j^{(k)}}{d_l^{(o)} + d_l^{(k)}}}\label{eq:survival_covariance1},
 \end{equation}
 
 for $k = m$ (same treatment arm), and
 
 \begin{equation}
-\text{Cov}(Z_j^{(k)}, Z_p^{(m)}) = \frac{1}{2} \sqrt{\frac{d_j^{(o)} + d_j^{(k)}}{d_p^{(o)} + d_p^{(k)}}}\label{eq:survival_covariance2},
+\text{Cov}(Z_j^{(k)}, Z_l^{(m)}) = \frac{1}{2} \sqrt{\frac{d_j^{(o)} + d_j^{(k)}}{d_l^{(o)} + d_l^{(k)}}}\label{eq:survival_covariance2},
 \end{equation}
 
 for $k$ $\neq$ $m$ (for different treatment arms).\\
@@ -691,7 +686,7 @@ This formula, along with further derivations, is discussed in Appendix \ref{sec:
 \section{Results: Simulation Study} \label{sec:simulation_results}
 % =============================================================================
 
-The present simulation study adopts the ADEMP framework to systematically evaluate the performance of the 4:2:1 "Drop-the-Losers" design in Phase II and Phase III clinical trial settings. This structured approach ensures transparency and reproducibility while providing insights into the behavior of the design across varying clinical scenarios~\citep{Morris2019}.
+The present simulation study adopts the ADEMP framework to systematically evaluate the performance of the 4:2:1 DtL design in Phase II and Phase III clinical trial settings. This structured approach ensures transparency and reproducibility while providing insights into the behavior of the design across varying clinical scenarios~\citep{Morris2019, Burton2006}.
 
 
 \subsection{Design of the Simulation Study} \label{sec:simulation_design}
@@ -700,18 +695,33 @@ The present simulation study adopts the ADEMP framework to systematically evalua
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.80\textwidth]{figure/flowchart_simulation.pdf}
-    \caption{Overview of the simulation workflow for the 4:2:1 "Drop-the-Losers" design, including design inputs, simulation structure, and statistical analysis for Phase II and III.}
+    \caption{Overview of the simulation workflow for the 4:2:1 DtL design, including design inputs, simulation structure, and statistical analysis for Phase II and III.}
     \label{fig:simulation_flowchart}
 \end{figure}
 
-% AIM
-
+\subsection*{Aim}
 The aim of this simulation study is to evaluate the performance of the 4:2:1 'Drop-the-Losers'(DtL) design in Phase II and Phase III clinical trial settings with survival endpoints (PFS). The primary focus is on controlling the family-wise error rate (FWER) and ensuring sufficient statistical power across various clinical scenarios. These scenarios include both null and alternative hypotheses, where treatment effects of varying magnitudes are considered. The study aims to assess the ability of the design to detect treatment effects, including beneficial effects (hazard ratio \(HR < 1\)), harmful effects (\(HR > 1\)), and scenarios with multiple effective treatments. Furthermore, the study investigates the ethical advantage of dropping harmful arms early in the trial, thus reducing patient exposure to ineffective or harmful treatments.
 
 % Data Generation and Design
+\subsection*{Data Generation Mechanism}
 The simulation study was designed to mimic the progression of oncology clinical trials utilizing a survival endpoint, specifically progression-free survival (PFS). Survival times for patients were modeled using exponential distributions, where the hazard rates were determined by the baseline hazard and the hypothesized hazard ratios (HRs) for each treatment arm. The hazard ratio represents the relative risk of an event occurring in a treatment arm compared to the control arm. Scenarios included the null hypothesis (\(HR = 1.00\)) as well as alternative hypotheses with varying degrees of treatment efficacy (\(HR < 1.00\)) or harm (\(HR > 1.00\)). Patients were recruited iteratively and randomized into treatment arms using a block randomization scheme to ensure balanced allocation. Recruitment rates and total sample sizes varied between Phase II and Phase III trials to reflect realistic clinical settings. For Phase II trials, event thresholds for interim analyses were set at 30 and 50 cumulative events, with a final analysis at 100 events. For Phase III trials, the thresholds were increased to 100, 200, and 400 events for the two interim analyses and final analysis, respectively. Dropout was incorporated using a censoring mechanism, where patients who left the trial before experiencing an event were treated as censored at their time of dropout. The dropout rate was set to remain constant across all treatment arms to reflect typical clinical practice. Additionally, a two-month delay between interim analyses was introduced to account for practical challenges such as data collection and processing.
 
-To evaluate the futility of treatment arms, Cox proportional hazards models were applied at each interim analysis. Arms deemed futile based on pre-specified thresholds were dropped according to the "Drop-the-Losers" 4:2:1 design. In this case, arms with a hazard ratio (HR) greater than 1.0 were considered futile and dropped, indicating that the treatment arm performed worse than the control or reference treatment. For the final analysis, statistical significance was assessed using test statistics from either the Cox proportional hazards regression model or the log-rank test. A treatment arm was deemed significant if its test statistic exceeded the critical value, which was derived numerically to control the family-wise error rate (FWER). The critical values used were \(c = 2.038\) for Phase II studies (\(\alpha = 0.05\)) and \(c = 2.338\) for Phase III studies (\(\alpha = 0.025\)). The calculated thresholds can be directly applied to the Cox regression test statistics. For the log-rank test, however, the critical value must be squared, as the log-rank test statistic follows a chi-squared distribution under the null hypothesis.
+% estimands
+\subsection*{Estimands}
+The primary estimands of interest in this simulation study were defined to align with the objectives of clinical trials utilizing the 4:2:1 DtL design. These estimands focus on characterizing the treatment effect on progression-free survival (PFS) across the different clinical scenarios outlined in Table~\ref{tab:hazard_ratios}.
+
+\begin{itemize}
+    \item \textbf{Treatment Effect Estimand:} The relative treatment effect for each experimental arm compared to the control arm was estimated using the hazard ratio (HR). The HR represents the relative risk of progression or death in the experimental arm compared to the control arm. A hazard ratio of 1.00 indicates no effect, whereas a value less than 1.00 suggests a beneficial treatment effect, and a value greater than 1.00 indicates harm.
+    \item \textbf{Family-Wise Error Rate (FWER):} The probability of making at least one Type I error (incorrectly declaring a treatment arm effective when no true effect exists) across all treatment arms was assessed. This was controlled using critical values numerically derived to ensure FWER did not exceed the specified significance thresholds (\(\alpha = 0.05\) for Phase II and \(\alpha = 0.025\) for Phase III).
+    \item \textbf{Power to Detect Effective Arms:} The ability of the design to correctly identify effective treatment arms under various clinical scenarios was measured. This included scenarios where one or more arms demonstrated true treatment effects (\(HR < 1.00\)).
+    \item \textbf{Futility Assessment:} The capability to identify and discontinue treatment arms with a lack of efficacy (\(HR \geq 1.00\)) at interim analyses was evaluated. Futility was determined based on predefined thresholds applied to Cox regression test statistics.
+    \item \textbf{Ethical Considerations:} The proportion of harmful arms (\(HR > 1.00\)) that were dropped at early stages of the trial was also assessed to ensure minimal patient exposure to treatments associated with increased risk.
+\end{itemize}
+
+These estimands were evaluated separately for Phase II and Phase III designs to account for differences in sample size and event thresholds.
+
+\subsection*{Methods}
+To evaluate the futility of treatment arms, Cox proportional hazards models were applied at each interim analysis. Arms deemed futile based on pre-specified thresholds were dropped according to the DtL 4:2:1 design. In this case, arms with a hazard ratio (HR) greater than 1.0 were considered futile and dropped, indicating that the treatment arm performed worse than the control or reference treatment. For the final analysis, statistical significance was assessed using test statistics from either the Cox proportional hazards regression model or the log-rank test. A treatment arm was deemed significant if its test statistic exceeded the critical value, which was derived numerically to control the family-wise error rate (FWER). The critical values used were \(c = 2.038\) for Phase II studies (\(\alpha = 0.05\)) and \(c = 2.338\) for Phase III studies (\(\alpha = 0.025\)). The calculated thresholds can be directly applied to the Cox regression test statistics. For the log-rank test, however, the critical value must be squared, as the log-rank test statistic follows a chi-squared distribution under the null hypothesis.
 
 \begin{verbatim}
 finddesign_survival(
@@ -743,22 +753,10 @@ The clinical scenarios, detailed in Table~\ref{tab:hazard_ratios}, covered a bro
     \end{tabular}
 \end{table}
 
-% estimands
-
-The primary estimands of interest in this simulation study were defined to align with the objectives of clinical trials utilizing the 4:2:1 "Drop-the-Losers" design. These estimands focus on characterizing the treatment effect on progression-free survival (PFS) across the different clinical scenarios outlined in Table~\ref{tab:hazard_ratios}.
-
-\begin{itemize}
-    \item \textbf{Treatment Effect Estimand:} The relative treatment effect for each experimental arm compared to the control arm was estimated using the hazard ratio (HR). The HR represents the relative risk of progression or death in the experimental arm compared to the control arm. A hazard ratio of 1.00 indicates no effect, whereas a value less than 1.00 suggests a beneficial treatment effect, and a value greater than 1.00 indicates harm.
-    \item \textbf{Family-Wise Error Rate (FWER):} The probability of making at least one Type I error (incorrectly declaring a treatment arm effective when no true effect exists) across all treatment arms was assessed. This was controlled using critical values numerically derived to ensure FWER did not exceed the specified significance thresholds (\(\alpha = 0.05\) for Phase II and \(\alpha = 0.025\) for Phase III).
-    \item \textbf{Power to Detect Effective Arms:} The ability of the design to correctly identify effective treatment arms under various clinical scenarios was measured. This included scenarios where one or more arms demonstrated true treatment effects (\(HR < 1.00\)).
-    \item \textbf{Futility Assessment:} The capability to identify and discontinue treatment arms with a lack of efficacy (\(HR \geq 1.00\)) at interim analyses was evaluated. Futility was determined based on predefined thresholds applied to Cox regression test statistics.
-    \item \textbf{Ethical Considerations:} The proportion of harmful arms (\(HR > 1.00\)) that were dropped at early stages of the trial was also assessed to ensure minimal patient exposure to treatments associated with increased risk.
-\end{itemize}
-
-These estimands were evaluated separately for Phase II and Phase III designs to account for differences in sample size and event thresholds.
 
 % performance measures
-The performance of the 4:2:1 "Drop-the-Losers" design was evaluated using key metrics. These included control of the family-wise error rate (FWER) to maintain Type I error within specified thresholds (\(\alpha = 0.05\) for Phase II and \(\alpha = 0.025\) for Phase III) and statistical power to detect effective treatment arms (\(HR < 1.00\)) across various scenarios. The proportion of arms dropped during interim analyses was measured, both for futility (\(HR \geq 1.00\)) and based on the "Drop-the-Losers" rules, providing insights into the design's efficiency. The proportion of dropped arms was visualized as barplots to illustrate the trial dynamics.
+\subsection*{Performance Measures}
+The performance of the 4:2:1 DtL design was evaluated using key metrics. These included control of the family-wise error rate (FWER) to maintain Type I error within specified thresholds (\(\alpha = 0.05\) for Phase II and \(\alpha = 0.025\) for Phase III) and statistical power to detect effective treatment arms (\(HR < 1.00\)) across various scenarios. The proportion of arms dropped during interim analyses was measured, both for futility (\(HR \geq 1.00\)) and based on the DtL rules, providing insights into the design's efficiency. The proportion of dropped arms was visualized as barplots to illustrate the trial dynamics.
 
 In our analysis, we focus particularly on the maximum error introduced by estimation variability. Therefore, we start by calculating the standard deviation \( s \) of the estimated proportion \(\hat{p}\) as:
 \[
@@ -786,7 +784,7 @@ This is followed by the computation of the Monte Carlo Standard Error (MCSE), wh
 % The simulation workflow for this study was designed to replicate the progression of an oncology trial utilizing a DtL design combined with futility analyses. Figure \ref{fig:simulation_flowchart} illustrates the individual steps, beginning with parameter setup through to statistical evaluation. Initially, the study design parameters are defined, including dropout rates, recruitment rates, randomization block sizes, and assumptions regarding progression-free survival (PFS) in the control and treatment arms. The design includes three stages of analysis with predefined event thresholds: 30, 50, and 100 cumulative events in Phase 2, and 100, 200, and 400 cumulative events in Phase 3. During the simulation, patients are recruited iteratively and randomized according to a block randomization scheme. PFS times are modeled using exponential distributions, with hazard ratios derived from the hypothesized effects. Additionally, a dropout model is incorporated to account for realistic dropout scenarios. A delayed effect of two months was introduced between Interim Analysis 1 and Interim Analysis 2 to account for administrative delays, such as data collection and processing, simulating the practical challenges often faced in trial execution.\\
 %
 %
-% The function \texttt{simulate\_trial} simulates a clinical trial where futility analysis is assessed solely based on the test statistics from the Cox proportional hazards models. Treatment arms are either dropped if deemed futile or eliminated through the DtL mechanism. The function \texttt{simulate\_trial\_log\_rank} simulates a clinical trial where futility analysis is assessed using Cox proportional hazards models, while the "Drop-the-Losers" decision is specifically based on the test statistics from the log-rank test. In this function, treatment arms are first evaluated for futility using Cox regression, and then the weakest arm is dropped based on the log-rank test statistics. The final analysis is conducted on the remaining treatment arms, with statistical significance determined using a critical value calculated to control the family-wise error rate (FWER), ensuring control of the Type I error. When considering a Phase III study, the critical value (\(c\)) for the final analysis was determined numerically to ensure that the FWER did not exceed the specified level of \(\alpha = 0.025\). This was achieved using the \texttt{finddesign\_survival} function, which considers the structure of the design in terms of stages and arms. The critical value for the final analysis, corresponding to an \(\alpha\) level of 2.5\%, was calculated as \(c = 2.338\). This calculation was grounded in the theoretical framework outlined in Section~\ref{sec:survival_outcomes}, where the critical value was derived using numerical integration of the multivariate normal distribution. When considering a Phase 2 study, targeting an (\alpha\) level of 5\%, the critical value is slightly lower, calculated as \(c = 2.038\). These values were computed using the \texttt{finddesign\_survival} function, as shown in the code snippet below, which determines the thresholds based on the structure of the design, including stages and treatment arms. The event matrix, specifying the cumulative number of events across the three stages for each treatment arm, served as the basis for these computations, ensuring precise control of the family-wise error rate (FWER) across all arms of the study.\\
+% The function \texttt{simulate\_trial} simulates a clinical trial where futility analysis is assessed solely based on the test statistics from the Cox proportional hazards models. Treatment arms are either dropped if deemed futile or eliminated through the DtL mechanism. The function \texttt{simulate\_trial\_log\_rank} simulates a clinical trial where futility analysis is assessed using Cox proportional hazards models, while the DtL decision is specifically based on the test statistics from the log-rank test. In this function, treatment arms are first evaluated for futility using Cox regression, and then the weakest arm is dropped based on the log-rank test statistics. The final analysis is conducted on the remaining treatment arms, with statistical significance determined using a critical value calculated to control the family-wise error rate (FWER), ensuring control of the Type I error. When considering a Phase III study, the critical value (\(c\)) for the final analysis was determined numerically to ensure that the FWER did not exceed the specified level of \(\alpha = 0.025\). This was achieved using the \texttt{finddesign\_survival} function, which considers the structure of the design in terms of stages and arms. The critical value for the final analysis, corresponding to an \(\alpha\) level of 2.5\%, was calculated as \(c = 2.338\). This calculation was grounded in the theoretical framework outlined in Section~\ref{sec:survival_outcomes}, where the critical value was derived using numerical integration of the multivariate normal distribution. When considering a Phase 2 study, targeting an (\alpha\) level of 5\%, the critical value is slightly lower, calculated as \(c = 2.038\). These values were computed using the \texttt{finddesign\_survival} function, as shown in the code snippet below, which determines the thresholds based on the structure of the design, including stages and treatment arms. The event matrix, specifying the cumulative number of events across the three stages for each treatment arm, served as the basis for these computations, ensuring precise control of the family-wise error rate (FWER) across all arms of the study.\\
 %
 % The calculated thresholds can be directly applied to the Cox regression test statistics. For the log-rank test, however, the critical value must be squared, as the log-rank test statistic follows a chi-squared distribution under the null hypothesis.
 %
@@ -805,13 +803,13 @@ This is followed by the computation of the Monte Carlo Standard Error (MCSE), wh
 % \begin{figure}[H]
 %     \centering
 %     \includegraphics[width=0.9\textwidth]{flowchart_simulation.pdf}
-%     \caption{Overview of the simulation workflow for the 4:2:1 "Drop-the-Losers" design, including design inputs, simulation structure, and statistical analysis.}
+%     \caption{Overview of the simulation workflow for the 4:2:1 DtL design, including design inputs, simulation structure, and statistical analysis.}
 %     \label{fig:simulation_flowchart}
 % \end{figure}
 
 
 \subsection{Results: Phase II Trial} \label{sec:simulation_results}
-This simulation study was conducted with $n = 200'000$ runs for each scenario to evaluate the performance of the "Drop-the-Losers" design in Phase II trials under various clinical scenarios. Figure~\ref{fig:outcome_distribution_phase2} presents the distribution of treatment arm outcomes for each scenario, showing the proportions dropped at interim analyses or deemed significant in the final analysis. The results shown in the Figure~\ref{fig:outcome_distribution_phase2} and~\ref{fig:outcome_distribution_phase3} are based on the function \texttt{simulate\_trial}, which implements the "Drop-the-Losers" approach using test statistics derived from the Cox regression model. While this practice differs minimally from the approach based on Cox regression and log-rank test, results from the log-rank-based method are included in the Appendix~\ref{sec:app_sim_results} for comparison.
+This simulation study was conducted with $n = 200'000$ runs for each scenario to evaluate the performance of the DtL design in Phase II trials under various clinical scenarios. Figure~\ref{fig:outcome_distribution_phase2} presents the distribution of treatment arm outcomes for each scenario, showing the proportions dropped at interim analyses or deemed significant in the final analysis. The results shown in the Figure~\ref{fig:outcome_distribution_phase2} and~\ref{fig:outcome_distribution_phase3} are based on the function \texttt{simulate\_trial}, which implements the DtL approach using test statistics derived from the Cox regression model. While this practice differs minimally from the approach based on Cox regression and log-rank test, results from the log-rank-based method are included in the Appendix~\ref{sec:app_sim_results} for comparison.
 
 The simulation was also performed with $n = 1'000'000$ runs to ensure robustness of the findings. However, due to the computational intensity of the larger simulation and the negligible differences observed in the results between $n = 200'000$ and $n = 1'000'000$, the outcomes for $n = 1'000'000$ are not included in this report.
 
@@ -823,77 +821,11 @@ For hybrid scenarios, such as "Hybrid 1" and "Hybrid 2," the design performed we
 
 The "Harmful" scenario, where one arm increased adverse outcomes (HR > 1.00), highlighted the design's ethical advantage. The harmful arm was reliably dropped early, minimizing patient exposure to potentially harmful treatments. Similarly, in the "All Effective" scenario (HR < 1.00 for all arms), the design excelled in detecting multiple effective treatments, underscoring its utility in trials involving multiple promising candidates.
 
-Overall, these findings illustrate that the "Drop-the-Losers" design achieves a careful balance between controlling Type I error and maintaining high statistical power. Its performance across diverse scenarios underscores its robustness and adaptability, ensuring ethical and efficient decision-making by reducing the risk of advancing ineffective or harmful treatments while reliably identifying effective ones.
+Overall, these findings illustrate that the DtL design achieves a careful balance between controlling Type I error and maintaining high statistical power. Its performance across diverse scenarios underscores its robustness and adaptability, ensuring ethical and efficient decision-making by reducing the risk of advancing ineffective or harmful treatments while reliably identifying effective ones.
 
 To verify the distribution and evaluate the assumptions underlying the statistical methods in this study, Figure~\ref{fig:test_statistics} illustrates the distribution of test statistics from the Log-Rank test and squared Cox regression test statistics compared to the theoretical Chi-Squared distribution with one degree of freedom (\( \chi^2_{(1)} \)).
 
 This comparison is essential for assessing the consistency of the empirical test statistics with the theoretical distribution, ensuring the validity of the statistical tests under the null hypothesis. The observed alignment between the histograms and the theoretical curve supports the appropriateness of these tests for survival analysis in the context of this study.
-
-
-
-\begin{figure}[H]
-    \centering
-<<chi_squared, fig=TRUE, echo=FALSE, fig.height=5, fig.width=7, message=FALSE, warning=FALSE, eval= TRUE>>=
-
-library(dplyr)
-library(ggplot2)
-load("data/Sim_Phase2_Log_Rank_200k.RData")
-
-# Filter for final results
-final_results <- subset(Results_sim, AnalysisType == "Final Analysis")
-
-# Ensure TestStatistic_Cox and TestStatistic_LogRank are not NA
-final_results <- final_results %>%
-  filter(!is.na(TestStatistic_Cox), !is.na(TestStatistic_LogRank))
-
-# Square the Cox test statistic
-final_results$TestStatistic_Cox2 <- final_results$TestStatistic_Cox^2
-
-
-scenario_1_results <- final_results %>% filter(Scenario == 1)
-
-# Create the plot
-hist(scenario_1_results$TestStatistic_Cox2,
-     breaks = 200,
-     freq = F,
-     col = rgb(0, 0, 1, 0.1), # Blau mit 50% Transparenz
-     xlim = c(0, 4),
-     xlab = "Test Statistic",
-     ylab = "Density",
-     main = "Distribution of Test Statistics with Theoretical Chi-Squared")
-
-# Add histogram for squared Cox test statistic
-hist(scenario_1_results$TestStatistic_LogRank,
-     breaks = 200,
-     freq = F,
-     col = rgb(0.5, 0.5, 0.5, 0.1), # Grau mit 50% Transparenz
-     add = TRUE)
-
-# Plot the theoretical chi-squared density with curve()
-curve(dchisq(x, df = 1),
-      from = 0, to = 10,
-      col = "black", lwd = 2, lty = "dashed", # Linienstil geändert für Klarheit
-      xlab = "x", ylab = "Density",
-      main = "Theoretical Chi-Squared Density (df = 1)", add = T)
-
-# Add grid for better visualization
-grid()
-
-# Add legend
-legend("topright",
-       legend = c("Test Statistic (Log Rank Test)", "Squared Cox Regression Test Statistic", "Theoretical Chi-Squared (df=1)"),
-       fill = c(rgb(0.5, 0.5, 0.5, 0.5), rgb(0, 0, 1, 0.5), NA),
-       border = c(NA, NA, NA),
-       lty = c(NA, NA, "dashed"),
-       col = c("grey", "blue", "black"),
-       lwd = c(NA, NA, 2))
-
-    @
-    \caption{Distribution of Test Statistics with Theoretical Chi-Squared (\( \chi^2_{(1)} \)). The gray bars represent Log-Rank test statistics, the blue bars represent squared Cox regression test statistics, and the dashed line represents the theoretical \( \chi^2_{(1)} \) distribution.}
-    \label{fig:test_statistics}
-\end{figure}
-
-
 
 
 \begin{figure}[H]
@@ -989,7 +921,7 @@ ggplot(status_summary, aes(x = TreatmentArm, y = Percentage, fill = Status)) +
         "Significant in Final" = "blue"
     )) +
     labs(
-        title = "Outcome Distribution Across Interim Steps and Final Analysis for Phase II Trial",
+        title = "Distribution of Treatment Arm Classifications Across Interim \n and Final Analyses for Phase II Trial",
         x = "Treatment Arm",
         y = "Percentage",
         fill = "Status"
@@ -1000,7 +932,7 @@ ggplot(status_summary, aes(x = TreatmentArm, y = Percentage, fill = Status)) +
         legend.position = "top"
     )
     @
-    \caption{Outcome distribution across interim steps and final analysis for different scenarios for Phase II Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref{tab:outcome_distribution_phase2.1} for detailed examination.
+    \caption{Distribution of treatment arm classifications across interim steps and final analyses for different scenarios for Phase II Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref{tab:outcome_distribution_phase2.1} for detailed examination.
 }
     \label{fig:outcome_distribution_phase2}
 \end{figure}
@@ -1051,7 +983,7 @@ grouped_data <- status_summary %>%
 
 # Tabelle erstellen
 xtable_data <- xtable(grouped_data,
-                      caption = "Outcome Distribution Across Interim Steps and Final Analysis in Phase II Trial (with 95\\% Confidence Intervals for the Final Analysis). Note: The maximum Monte Carlo Standard Error is calculated on the following page (Equation~\\ref{eq:mcse}).",
+                      caption = "Distribution of Treatment Arm Classifications Across Interim and Final Analyses in Phase II Trial (with 95\\% Confidence Intervals for the Final Analysis). Note: The maximum Monte Carlo Standard Error is calculated on the following page (Equation~\\ref{eq:mcse}).",
                       label = "tab:outcome_distribution_phase2.1")
 
 # Horizontale Linien nach jeder 4. Zeile einfügen
@@ -1087,9 +1019,73 @@ $\hat{p} = 0.50$, maximizing the variance $\hat{p}(1 - \hat{p}) = 0.25$. In this
 \end{equation}
 
 
+
+\begin{figure}[H]
+    \centering
+<<chi_squared, fig=TRUE, echo=FALSE, fig.height=5, fig.width=7, message=FALSE, warning=FALSE, eval= TRUE>>=
+
+library(dplyr)
+library(ggplot2)
+load("data/Sim_Phase2_Log_Rank_200k.RData")
+
+# Filter for final results
+final_results <- subset(Results_sim, AnalysisType == "Final Analysis")
+
+# Ensure TestStatistic_Cox and TestStatistic_LogRank are not NA
+final_results <- final_results %>%
+  filter(!is.na(TestStatistic_Cox), !is.na(TestStatistic_LogRank))
+
+# Square the Cox test statistic
+final_results$TestStatistic_Cox2 <- final_results$TestStatistic_Cox^2
+
+
+scenario_1_results <- final_results %>% filter(Scenario == 1)
+
+# Create the plot
+hist(scenario_1_results$TestStatistic_Cox2,
+     breaks = 200,
+     freq = F,
+     col = rgb(0, 0, 1, 0.1), # Blau mit 50% Transparenz
+     xlim = c(0, 4),
+     xlab = "Test Statistic",
+     ylab = "Density",
+     main = "Distribution of Test Statistics with Theoretical Chi-Squared")
+
+# Add histogram for squared Cox test statistic
+hist(scenario_1_results$TestStatistic_LogRank,
+     breaks = 200,
+     freq = F,
+     col = rgb(0.5, 0.5, 0.5, 0.1), # Grau mit 50% Transparenz
+     add = TRUE)
+
+# Plot the theoretical chi-squared density with curve()
+curve(dchisq(x, df = 1),
+      from = 0, to = 10,
+      col = "black", lwd = 2, lty = "dashed", # Linienstil geändert für Klarheit
+      xlab = "x", ylab = "Density",
+      main = "Theoretical Chi-Squared Density (df = 1)", add = T)
+
+# Add grid for better visualization
+grid()
+
+# Add legend
+legend("topright",
+       legend = c("Test Statistic (Log Rank Test)", "Squared Cox Regression Test Statistic", "Theoretical Chi-Squared (df=1)"),
+       fill = c(rgb(0.5, 0.5, 0.5, 0.5), rgb(0, 0, 1, 0.5), NA),
+       border = c(NA, NA, NA),
+       lty = c(NA, NA, "dashed"),
+       col = c("grey", "blue", "black"),
+       lwd = c(NA, NA, 2))
+
+    @
+    \caption{Distribution of Test Statistics with Theoretical Chi-Squared (\( \chi^2_{(1)} \)). The gray bars represent Log-Rank test statistics, the blue bars represent squared Cox regression test statistics, and the dashed line represents the theoretical \( \chi^2_{(1)} \) distribution.}
+    \label{fig:test_statistics}
+\end{figure}
+
+
 \paragraph{Ethical Considerations}
 
-The "Drop-the-Losers" design is highly aligned with ethical principles in clinical trials, as it minimizes patient exposure to suboptimal or harmful therapies. By incorporating interim analyses to identify and eliminate ineffective or harmful treatment arms, the design ensures that only effective treatments progress to later stages. This approach reduces the risk of advancing ineffective treatments, which could otherwise expose patients to unnecessary risks and compromise the trial's efficiency.
+The DtL design is highly aligned with ethical principles in clinical trials, as it minimizes patient exposure to suboptimal or harmful therapies. By incorporating interim analyses to identify and eliminate ineffective or harmful treatment arms, the design ensures that only effective treatments progress to later stages. This approach reduces the risk of advancing ineffective treatments, which could otherwise expose patients to unnecessary risks and compromise the trial's efficiency.
 
 To further evaluate the risk of ineffective arms advancing, we calculated the probability of at least one ineffective treatment arm progressing at each stage based on the simulation results. Table~\ref{tab:ineffective_arm_probability_interim2} presents these probabilities for Interim Analysis 2, while Table~\ref{tab:ineffective_arm_probability_final} provides the corresponding probabilities for the final analysis. These calculations demonstrate the robustness of the statistical thresholds and decision-making mechanisms, ensuring that ineffective treatments are identified and removed with high probability.
 
@@ -1141,7 +1137,7 @@ For example, in Scenario 1 (Null Hypothesis), where all arms are ineffective, th
 
 The Phase III trial simulations yielded results that were consistent with those observed in the Phase II study. Given that the underlying assumptions and methods used in Phase III largely mirrored those of Phase II, the numerical findings did not exhibit significant deviations. Consequently, this section focuses on summarizing the key observations without delving into exhaustive details.
 
-The Type I and Type II error rates in the Phase III simulations were well-controlled and aligned closely with the expectations set by Phase II results. Specifically, the Type I error rate remained robustly controlled below the nominal 2.5\% threshold, reflecting the design's capacity to minimize false positives. Similarly, the power to detect true effects, even under complex scenarios such as "Hybrid 1" and "Hybrid 2," was comparable to that achieved in Phase II, demonstrating the scalability of the "Drop-the-Losers" design across trial phases.
+The Type I and Type II error rates in the Phase III simulations were well-controlled and aligned closely with the expectations set by Phase II results. Specifically, the Type I error rate remained robustly controlled below the nominal 2.5\% threshold, reflecting the design's capacity to minimize false positives. Similarly, the power to detect true effects, even under complex scenarios such as "Hybrid 1" and "Hybrid 2," was comparable to that achieved in Phase II, demonstrating the scalability of the DtL design across trial phases.
 
 \begin{figure}[H]
     \centering
@@ -1238,7 +1234,7 @@ ggplot(status_summary, aes(x = TreatmentArm, y = Percentage, fill = Status)) +
         "Significant in Final" = "green"
     )) +
     labs(
-        title = "Outcome Distribution Across Interim Steps and Final Analysis for Phase III Trial",
+        title = "Distribution of Treatment Arm Classifications Across Interim \n and Final Analyses for Phase III Trial",
         x = "Treatment Arm",
         y = "Percentage",
         fill = "Status"
@@ -1250,7 +1246,7 @@ ggplot(status_summary, aes(x = TreatmentArm, y = Percentage, fill = Status)) +
     )
 
     @
-    \caption{Outcome distribution across interim steps and final analysis for different scenarios for Phase III Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table~\ref{tab:outcome_distribution_phase3} for detailed examination.
+    \caption{Distribution of treatment arm classifications across interim steps and final analyse for different scenarios for Phase III Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table~\ref{tab:outcome_distribution_phase3} for detailed examination.
 }
     \label{fig:outcome_distribution_phase3}
 \end{figure}
@@ -1301,7 +1297,7 @@ grouped_data <- status_summary %>%
 
 # Tabelle erstellen
 xtable_data <- xtable(grouped_data,
-                      caption = "Outcome Distribution Across Interim Steps and Final Analysis in Phase III Trial (with 95\\% Confidence Intervals for the Final Analysis). Note: The maximum Monte Carlo Standard Error is calculated on the following page (Equation~\\ref{eq:mcse2}).",
+                      caption = "Distribution of Treatment Arm Classifications Across Interim and Final Analyses in Phase III Trial (with 95\\% Confidence Intervals for the Final Analysis). Note: The maximum Monte Carlo Standard Error is calculated on the following page (Equation~\\ref{eq:mcse2}).",
                       label = "tab:outcome_distribution_phase3")
 
 # Horizontale Linien nach jeder 4. Zeile einfügen
@@ -1333,20 +1329,22 @@ The maximal Monte Carlo standard error (MCSE) is 0.00112
 \newpage
 \section{Discussion} \label{sec:discussion}
 
-This study presents a significant advancement in the methodological framework of adaptive clinical trial designs by extending the "Drop-the-Losers" approach to accommodate binary and survival endpoints. This extension fills a critical gap in existing methodologies, enhancing the design's applicability to Phase II/III oncology trials, where treatment selection is essential for optimizing patient outcomes and expediting drug development. The proposed modifications align with recommended clinical endpoints, allowing trials to incorporate real-world complexities without compromising statistical rigor.
+This thesis evaluated the "Drop-the-Losers" (DtL) design in Phase II/III oncology clinical trials. Through simulation studies, the statistical properties of the design were assessed, with a focus on progression-free survival (PFS) as the primary endpoint. The study examined how the design balanced ethical considerations, controlled Type I error rates, and maintained statistical power to enable efficient treatment selection and resource allocation.
+
+This study presents a significant advancement in the methodological framework of adaptive clinical trial designs by extending the DtL approach to accommodate binary and survival endpoints. This extension fills a critical gap in existing methodologies, enhancing the design's applicability to Phase II/III oncology trials, where treatment selection is essential for optimizing patient outcomes and expediting drug development. The proposed modifications align with recommended clinical endpoints, allowing trials to incorporate real-world complexities without compromising statistical rigor.
 
 The primary contributions of this work lie in the extension to other endpoint types. By addressing binary and survival endpoints, the methodology expands beyond Wason's original framework, which was limited to continuous endpoints.
 
 Despite these advancements, the proposed design faces several limitations. One major challenge is the reliance on normal approximations, which may not fully capture the statistical properties of binary and survival endpoints. This could lead to potential biases in treatment selection, particularly under scenarios where endpoint distributions deviate from normality. Another limitation is the maturity of long-term survival endpoints, which may not be fully realized during early interim analyses. A potential solution involves dynamically updating endpoints throughout the trial, such as starting with objective response rate (ORR) at the first analysis, transitioning to progression-free survival (PFS) at the second, and concluding with overall survival (OS) at the final stage. However, this approach introduces additional complexity, requiring careful handling of correlations between surrogate and final endpoints.
 
-To integrate a group-sequential design into the DtL framework, the contrast matrix must be duplicated for each analysis and extended by adding rows to accommodate additional equations (which summarize the previous analyses not leading to early study completion. By utilizing a flexible alpha-spending function, the overall Type I error rate and statistical power can be effectively controlled across interim and final analyses\citep{pocock1983discrete}.
+To integrate a group-sequential design into the DtL framework, the contrast matrix must be duplicated for each analysis and extended by adding rows to accommodate additional equations (which summarize the previous analyses not leading to early study completion. By utilizing a flexible alpha-spending function, the overall Type I error rate and statistical power can be effectively controlled across interim and final analyses~\citep{pocock1983discrete}.
 
-Generalizability is another consideration. While the design demonstrates robust performance in oncology trials, its direct applicability to other therapeutic areas remains uncertain. Variability in endpoint dynamics, sample size requirements, and trial objectives across disciplines may necessitate further adaptation. For instance, non-oncology trials might involve endpoints with fundamentally different statistical properties or clinical implications, which could affect the performance of the "Drop-the-Losers" approach.
+Generalizability is another consideration. While the design demonstrates robust performance in oncology trials, its direct applicability to other therapeutic areas remains uncertain. Variability in endpoint dynamics, sample size requirements, and trial objectives across disciplines may necessitate further adaptation. For instance, non-oncology trials might involve endpoints with fundamentally different statistical properties or clinical implications, which could affect the performance of the DtL approach.
 
-In terms of ethical considerations, the "Drop-the-Losers" design minimizes patient exposure to suboptimal or harmful treatments by eliminating less effective arms at interim stages. This aligns with the ethical principle of beneficence, ensuring that trial participants receive treatments with the highest likelihood of benefit. For example, in the simulation scenarios, the design consistently identified and removed ineffective or harmful arms early in the trial, reducing unnecessary risk and resource expenditure.
+In terms of ethical considerations, the DtL design minimizes patient exposure to suboptimal or harmful treatments by eliminating less effective arms at interim stages. This aligns with the ethical principle of beneficence, ensuring that trial participants receive treatments with the highest likelihood of benefit. For example, in the simulation scenarios, the design consistently identified and removed ineffective or harmful arms early in the trial, reducing unnecessary risk and resource expenditure.
 
 
-In conclusion, this study represents a substantial step forward in clinical trial methodologies. By addressing key limitations of previous designs and extending their applicability to binary and survival endpoints, the "Drop-the-Losers" approach offers a powerful tool for Phase II/III oncology trials and beyond. While further validation and refinement are needed to address specific limitations, the proposed framework provides a strong foundation for more efficient, ethical, and scientifically robust clinical trials. Future work could explore extensions to other therapeutic areas, refine statistical assumptions, and incorporate additional endpoints to further enhance the versatility and impact of this design.
+In conclusion, this study represents a substantial step forward in clinical trial methodologies. By addressing key limitations of previous designs and extending their applicability to binary and survival endpoints, the DtL approach offers a powerful tool for Phase II/III oncology trials and beyond. While further validation and refinement are needed to address specific limitations, the proposed framework provides a strong foundation for more efficient, ethical, and scientifically robust clinical trials. Future work could explore extensions to other therapeutic areas, refine statistical assumptions, and incorporate additional endpoints to further enhance the versatility and impact of this design~\citep{Mensh2017}.
 
 
 % References and appendices
@@ -1367,161 +1365,161 @@ We first define the standardized difference between the two groups for a continu
 Z_j^{(k)} = \left(\frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki} - \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}\right) \sqrt{\frac{n_j}{2\sigma^2}}
 \end{align*}
 
-Assume that \( p > j \), \( n_p > n_j \), and we are looking at \({k = m}\). We want to compute the following covariance:
+Assume that \( l > j \), \( n_l > n_j \), and we are looking at \({k = m}\). We want to compute the following covariance:
 
 \[
-\text{Cov}\left(Z_j^{(k)}; Z_p^{(m)}\right)
+\text{Cov}\left(Z_j^{(k)}; Z_l^{(m)}\right)
 \]
 
 The covariance between the two standardized variables is given by:
 
 \begin{align*}
-\text{Cov}\left(Z_j^{(k)}; Z_p^{(m)}\right)
+\text{Cov}\left(Z_j^{(k)}; Z_l^{(m)}\right)
 & = \text{Cov}\left( \left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki} - \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i} \right) \sqrt{\frac{n_j}{2\sigma^2}}; \right. \\
-& \quad \left. \left( \frac{1}{n_p} \sum_{i=1}^{n_p} X_{ki} - \frac{1}{n_p} \sum_{i=1}^{n_p} X_{0i} \right) \sqrt{\frac{n_p}{2\sigma^2}} \right) \\
-& = \frac{\sqrt{n_j n_p}}{2 \sigma^2} \cdot \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki} - \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}; \frac{1}{n_p} \sum_{i=1}^{n_p} X_{ki} - \frac{1}{n_p} \sum_{i=1}^{n_p} X_{0i} \right)
+& \quad \left. \left( \frac{1}{n_l} \sum_{i=1}^{n_l} X_{ki} - \frac{1}{n_l} \sum_{i=1}^{n_l} X_{0i} \right) \sqrt{\frac{n_l}{2\sigma^2}} \right) \\
+& = \frac{\sqrt{n_j n_l}}{2 \sigma^2} \cdot \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki} - \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}; \frac{1}{n_l} \sum_{i=1}^{n_l} X_{ki} - \frac{1}{n_l} \sum_{i=1}^{n_l} X_{0i} \right)
 \end{align*}
 
 By splitting the covariance terms, we get:
 
 \begin{align*}
-\text{Cov}\left(Z_j^{(k)}; Z_p^{(m)}\right)
-& = \frac{\sqrt{n_j n_p}}{2 \sigma^2} \left[ \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki}; \frac{1}{n_p} \sum_{i=1}^{n_p} X_{ki} \right) \right. \\
-& \quad - \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki}; \frac{1}{n_p} \sum_{i=1}^{n_p} X_{0i} \right) \\
-& \quad - \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}; \frac{1}{n_p} \sum_{i=1}^{n_p} X_{ki} \right) \\
-& \quad \left. + \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}; \frac{1}{n_p} \sum_{i=1}^{n_p} X_{0i} \right) \right]
+\text{Cov}\left(Z_j^{(k)}; Z_l^{(m)}\right)
+& = \frac{\sqrt{n_j n_l}}{2 \sigma^2} \left[ \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki}; \frac{1}{n_l} \sum_{i=1}^{n_l} X_{ki} \right) \right. \\
+& \quad - \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki}; \frac{1}{n_l} \sum_{i=1}^{n_l} X_{0i} \right) \\
+& \quad - \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}; \frac{1}{n_l} \sum_{i=1}^{n_l} X_{ki} \right) \\
+& \quad \left. + \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}; \frac{1}{n_l} \sum_{i=1}^{n_l} X_{0i} \right) \right]
 \end{align*}
 
 The computation of each covariance term leads to:
 
 \begin{align*}
-\text{Cov}\left(Z_j^{(k)}; Z_p^{(m)}\right)
-& = \frac{\sqrt{n_j n_p}}{2 \sigma^2} \left[ \frac{1}{n_j n_p} \sum_{i=1}^{n_j} \text{Cov}\left( X_{ki}, X_{ki} \right) + \frac{1}{n_j n_p} \sum_{i=1}^{n_j} \text{Cov}\left( X_{0i}, X_{0i} \right) \right] \\
-& = \frac{\sqrt{n_j n_p}}{2 \sigma^2} \left[ \frac{1}{n_j n_p} \cdot 2n_j \sigma^2 \right] \\
-& = \sqrt{\frac{n_j}{n_p}}
+\text{Cov}\left(Z_j^{(k)}; Z_l^{(m)}\right)
+& = \frac{\sqrt{n_j n_l}}{2 \sigma^2} \left[ \frac{1}{n_j n_l} \sum_{i=1}^{n_j} \text{Cov}\left( X_{ki}, X_{ki} \right) + \frac{1}{n_j n_l} \sum_{i=1}^{n_j} \text{Cov}\left( X_{0i}, X_{0i} \right) \right] \\
+& = \frac{\sqrt{n_j n_l}}{2 \sigma^2} \left[ \frac{1}{n_j n_l} \cdot 2n_j \sigma^2 \right] \\
+& = \sqrt{\frac{n_j}{n_l}}
 \end{align*}
 
 
-Assume that \( p > j \), \( n_p > n_j \), and we are considering \({k \neq m}\). We want to compute the following covariance:
+Assume that \( l > j \), \( n_l > n_j \), and we are considering \({k \neq m}\). We want to compute the following covariance:
 
 \[
-\text{Cov}\left(Z_j^{(k)}; Z_p^{(m)}\right)
+\text{Cov}\left(Z_j^{(k)}; Z_l^{(m)}\right)
 \]
 
 The covariance between the two standardized variables is given by:
 
 \begin{align*}
-\text{Cov}\left(Z_j^{(k)}; Z_p^{(m)}\right)
+\text{Cov}\left(Z_j^{(k)}; Z_l^{(m)}\right)
 & = \text{Cov}\left( \left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki} - \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i} \right) \sqrt{\frac{n_j}{2\sigma^2}}; \right. \\
-& \quad \left. \left( \frac{1}{n_p} \sum_{i=1}^{n_p} X_{mi} - \frac{1}{n_p} \sum_{i=1}^{n_p} X_{0i} \right) \sqrt{\frac{n_p}{2\sigma^2}} \right)
+& \quad \left. \left( \frac{1}{n_l} \sum_{i=1}^{n_l} X_{mi} - \frac{1}{n_l} \sum_{i=1}^{n_l} X_{0i} \right) \sqrt{\frac{n_l}{2\sigma^2}} \right)
 \end{align*}
 
 Next, we break down the covariance term:
 
 \begin{align*}
-\text{Cov}\left(Z_j^{(k)}; Z_p^{(m)}\right)
-& = \frac{\sqrt{n_j n_p}}{2 \sigma^2} \cdot \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki} - \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}; \frac{1}{n_p} \sum_{i=1}^{n_p} X_{mi} - \frac{1}{n_p} \sum_{i=1}^{n_p} X_{0i} \right)
+\text{Cov}\left(Z_j^{(k)}; Z_l^{(m)}\right)
+& = \frac{\sqrt{n_j n_l}}{2 \sigma^2} \cdot \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki} - \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}; \frac{1}{n_l} \sum_{i=1}^{n_l} X_{mi} - \frac{1}{n_l} \sum_{i=1}^{n_l} X_{0i} \right)
 \end{align*}
 
 Expanding the covariance terms results in:
 
 \begin{align*}
-\text{Cov}\left(Z_j^{(k)}; Z_p^{(m)}\right)
-& = \frac{\sqrt{n_j n_p}}{2 \sigma^2} \left[ \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki}; \frac{1}{n_p} \sum_{i=1}^{n_p} X_{mi} \right) \right. \\
-& \quad - \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki}; \frac{1}{n_p} \sum_{i=1}^{n_p} X_{0i} \right) \\
-& \quad - \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}; \frac{1}{n_p} \sum_{i=1}^{n_p} X_{mi} \right) \\
-& \quad \left. + \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}; \frac{1}{n_p} \sum_{i=1}^{n_p} X_{0i} \right) \right]
+\text{Cov}\left(Z_j^{(k)}; Z_l^{(m)}\right)
+& = \frac{\sqrt{n_j n_l}}{2 \sigma^2} \left[ \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki}; \frac{1}{n_l} \sum_{i=1}^{n_l} X_{mi} \right) \right. \\
+& \quad - \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki}; \frac{1}{n_l} \sum_{i=1}^{n_l} X_{0i} \right) \\
+& \quad - \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}; \frac{1}{n_l} \sum_{i=1}^{n_l} X_{mi} \right) \\
+& \quad \left. + \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}; \frac{1}{n_l} \sum_{i=1}^{n_l} X_{0i} \right) \right]
 \end{align*}
 
 Simplifying further:
 
 \begin{align*}
-\text{Cov}\left(Z_j^{(k)}; Z_p^{(m)}\right)
-& = \frac{\sqrt{n_j n_p}}{2\sigma^2} \left[ \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki}; \frac{1}{n_p} \sum_{i=1}^{n_p} X_{mi} \right) \right. \\
-& \quad \left. + \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}; \frac{1}{n_p} \sum_{i=1}^{n_p} X_{0i} \right) \right]
+\text{Cov}\left(Z_j^{(k)}; Z_l^{(m)}\right)
+& = \frac{\sqrt{n_j n_l}}{2\sigma^2} \left[ \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki}; \frac{1}{n_l} \sum_{i=1}^{n_l} X_{mi} \right) \right. \\
+& \quad \left. + \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}; \frac{1}{n_l} \sum_{i=1}^{n_l} X_{0i} \right) \right]
 \end{align*}
 
 Finally, we evaluate the covariance terms:
 
 \begin{align*}
-\text{Cov}\left(Z_j^{(k)}; Z_p^{(m)}\right)
-& = \frac{\sqrt{n_j n_p}}{2 \sigma^2} \left[ \frac{1}{n_j n_p} \sum_{i=1}^{n_j} \text{Cov}\left(X_{ki}, X_{mi}\right) + \frac{1}{n_j n_p} \sum_{i=1}^{n_j} \text{Cov}\left(X_{0i}, X_{0i}\right) \right] \\
-& = \frac{\sqrt{n_j n_p}}{2 \sigma^2} \left[ \frac{1}{n_j n_p} \cdot 0 + \frac{1}{n_j n_p} \cdot n_j \sigma^2 \right] \\
-& = \frac{\sqrt{n_j n_p}}{2 \sigma^2} \cdot \frac{\sigma^2}{n_p} \\
-& = \frac{1}{2} \cdot \sqrt{\frac{n_j}{n_p}}
+\text{Cov}\left(Z_j^{(k)}; Z_l^{(m)}\right)
+& = \frac{\sqrt{n_j n_l}}{2 \sigma^2} \left[ \frac{1}{n_j n_l} \sum_{i=1}^{n_j} \text{Cov}\left(X_{ki}, X_{mi}\right) + \frac{1}{n_j n_l} \sum_{i=1}^{n_j} \text{Cov}\left(X_{0i}, X_{0i}\right) \right] \\
+& = \frac{\sqrt{n_j n_l}}{2 \sigma^2} \left[ \frac{1}{n_j n_l} \cdot 0 + \frac{1}{n_j n_l} \cdot n_j \sigma^2 \right] \\
+& = \frac{\sqrt{n_j n_l}}{2 \sigma^2} \cdot \frac{\sigma^2}{n_l} \\
+& = \frac{1}{2} \cdot \sqrt{\frac{n_j}{n_l}}
 \end{align*}
 
 
 
 \section{Covariance between test statistics based on binary endpoints} \label{sec:app_derivations_binary}
 
-First, we consider the case where \( k = m \), and assume that the probability \( p \) is constant. We aim to compute the covariance between \( Z_j^{(k)} \) and \( Z_p^{(m)} \).
+First, we consider the case where \( k = m \), and assume that the probability \( p \) is constant. We aim to compute the covariance between \( Z_j^{(k)} \) and \( Z_l^{(m)} \).
 
 \begin{align*}
-\text{Cov}(Z_j^{(k)}, Z_p^{(m)})
-&= \text{Cov}\left(\frac{1}{n_j} \sum_{i=1}^{n_j} (X_{ki} - X_{0i}), \frac{1}{n_p} \sum_{i=1}^{n_p} (X_{ki} - X_{0i})\right) \sqrt{\frac{n_j n_p}{2p(1-p)}} \\
-&= \sqrt{\frac{n_j n_p}{2p(1-p)}} \left( \frac{1}{n_j n_p} \sum_{i=1}^{n_j} \text{Cov}(X_{ki}, X_{ki}) - \frac{1}{n_j n_p} \sum_{i=1}^{n_j} \text{Cov}(X_{ki}, X_{0i}) \right)
+\text{Cov}(Z_j^{(k)}, Z_l^{(m)})
+&= \text{Cov}\left(\frac{1}{n_j} \sum_{i=1}^{n_j} (X_{ki} - X_{0i}), \frac{1}{n_l} \sum_{i=1}^{n_l} (X_{ki} - X_{0i})\right) \sqrt{\frac{n_j n_l}{2p(1-p)}} \\
+&= \sqrt{\frac{n_j n_l}{2p(1-p)}} \left( \frac{1}{n_j n_l} \sum_{i=1}^{n_j} \text{Cov}(X_{ki}, X_{ki}) - \frac{1}{n_j n_l} \sum_{i=1}^{n_j} \text{Cov}(X_{ki}, X_{0i}) \right)
 \end{align*}
 
 Next, simplifying the covariance expression:
 
 \begin{align*}
-\text{Cov}(Z_j^{(k)}, Z_p^{(m)})
-&= \sqrt{\frac{n_j n_p}{2p(1-p)}} \left( \frac{p(1-p)}{n_j n_p} \right) \\
+\text{Cov}(Z_j^{(k)}, Z_l^{(m)})
+&= \sqrt{\frac{n_j n_l}{2p(1-p)}} \left( \frac{p(1-p)}{n_j n_l} \right) \\
 \end{align*}
 
 
-Now, we consider the case where \({k \neq m\), and again assume that the probability \( p \) is constant. The covariance between \( Z_j^{(k)} \) and \( Z_p^{(m)} \) can be expanded as follows:
+Now, we consider the case where \({k \neq m\), and again assume that the probability \( p \) is constant. The covariance between \( Z_j^{(k)} \) and \( Z_l^{(m)} \) can be expanded as follows:
 
 \begin{align*}
-\text{Cov}(Z_j^{(k)}, Z_p^{(m)})
-&= \text{Cov}\left(\frac{1}{n_j} \sum_{i=1}^{n_j} (X_{ki} - X_{0i}), \frac{1}{n_p} \sum_{i=1}^{n_p} (X_{mi} - X_{0i})\right) \sqrt{\frac{n_j n_p}{2p(1-p)}}
+\text{Cov}(Z_j^{(k)}, Z_l^{(m)})
+&= \text{Cov}\left(\frac{1}{n_j} \sum_{i=1}^{n_j} (X_{ki} - X_{0i}), \frac{1}{n_l} \sum_{i=1}^{n_l} (X_{mi} - X_{0i})\right) \sqrt{\frac{n_j n_l}{2p(1-p)}}
 \end{align*}
 
 We first expand the covariance expression:
 
 \begin{align*}
-\text{Cov}(Z_j^{(k)}, Z_p^{(m)})
-&= \sqrt{\frac{n_j n_p}{2p(1-p)}} \cdot \text{Cov}\left(\frac{1}{n_j} \sum_{i=1}^{n_j} (X_{ki} - X_{0i}), \frac{1}{n_p} \sum_{i=1}^{n_p} (X_{mi} - X_{0i})\right) \\
-&= \sqrt{\frac{n_j n_p}{2p(1-p)}} \left[ \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki}, \frac{1}{n_p} \sum_{i=1}^{n_p} X_{mi} \right) \right. \\
-& \quad \left. - \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki}, \frac{1}{n_p} \sum_{i=1}^{n_p} X_{0i} \right) \right. \\
-& \quad \left. - \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}, \frac{1}{n_p} \sum_{i=1}^{n_p} X_{mi} \right) \right. \\
-& \quad \left. + \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}, \frac{1}{n_p} \sum_{i=1}^{n_p} X_{0i} \right) \right]
+\text{Cov}(Z_j^{(k)}, Z_l^{(m)})
+&= \sqrt{\frac{n_j n_l}{2p(1-p)}} \cdot \text{Cov}\left(\frac{1}{n_j} \sum_{i=1}^{n_j} (X_{ki} - X_{0i}), \frac{1}{n_l} \sum_{i=1}^{n_l} (X_{mi} - X_{0i})\right) \\
+&= \sqrt{\frac{n_j n_l}{2p(1-p)}} \left[ \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki}, \frac{1}{n_l} \sum_{i=1}^{n_l} X_{mi} \right) \right. \\
+& \quad \left. - \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki}, \frac{1}{n_l} \sum_{i=1}^{n_l} X_{0i} \right) \right. \\
+& \quad \left. - \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}, \frac{1}{n_l} \sum_{i=1}^{n_l} X_{mi} \right) \right. \\
+& \quad \left. + \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}, \frac{1}{n_l} \sum_{i=1}^{n_l} X_{0i} \right) \right]
 \end{align*}
 
 When \( k \neq m \), the random variables \( X_{ki} \) and \( X_{mi} \) are independent. Therefore, the covariance \( \text{Cov}(X_{ki}, X_{mi}) \) is zero, and the corresponding terms vanish:
 
 \begin{align*}
-\text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki}, \frac{1}{n_p} \sum_{i=1}^{n_p} X_{mi} \right) &= 0
+\text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki}, \frac{1}{n_l} \sum_{i=1}^{n_l} X_{mi} \right) &= 0
 \end{align*}
 
 This leaves us with the remaining covariance terms:
 
 \begin{align*}
-\text{Cov}(Z_j^{(k)}, Z_p^{(m)})
-&= \sqrt{\frac{n_j n_p}{2p(1-p)}} \left[ - \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki}, \frac{1}{n_p} \sum_{i=1}^{n_p} X_{0i} \right) \right. \\
-& \quad \left. - \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}, \frac{1}{n_p} \sum_{i=1}^{n_p} X_{mi} \right) \right. \\
-& \quad \left. + \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}, \frac{1}{n_p} \sum_{i=1}^{n_p} X_{0i} \right) \right]
+\text{Cov}(Z_j^{(k)}, Z_l^{(m)})
+&= \sqrt{\frac{n_j n_l}{2p(1-p)}} \left[ - \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ki}, \frac{1}{n_l} \sum_{i=1}^{n_l} X_{0i} \right) \right. \\
+& \quad \left. - \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}, \frac{1}{n_l} \sum_{i=1}^{n_l} X_{mi} \right) \right. \\
+& \quad \left. + \text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}, \frac{1}{n_l} \sum_{i=1}^{n_l} X_{0i} \right) \right]
 \end{align*}
 
-The remaining covariance terms involve \( X_{0i} \), which represents the control group. Since the control group is common across both \( j \) and \( p \), we can simplify the covariance of the control group with itself:
+The remaining covariance terms involve \( X_{0i} \), which represents the control group. Since the control group is common across both \( j \) and \( l \), we can simplify the covariance of the control group with itself:
 
 \begin{align*}
-\text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}, \frac{1}{n_p} \sum_{i=1}^{n_p} X_{0i} \right) &= \frac{p(1-p)}{n_j n_p}
+\text{Cov}\left( \frac{1}{n_j} \sum_{i=1}^{n_j} X_{0i}, \frac{1}{n_l} \sum_{i=1}^{n_l} X_{0i} \right) &= \frac{p(1-p)}{n_j n_l}
 \end{align*}
 
 Substituting this result back into the original expression gives us:
 
 \begin{align*}
-\text{Cov}(Z_j^{(k)}, Z_p^{(m)})
-&= \sqrt{\frac{n_j n_p}{2p(1-p)}} \cdot \frac{p(1-p)}{n_j n_p} \\
-&= \frac{1}{2} \cdot \sqrt{\frac{n_j}{n_p}}
+\text{Cov}(Z_j^{(k)}, Z_l^{(m)})
+&= \sqrt{\frac{n_j n_l}{2p(1-p)}} \cdot \frac{p(1-p)}{n_j n_l} \\
+&= \frac{1}{2} \cdot \sqrt{\frac{n_j}{n_l}}
 \end{align*}
 
 Thus, for \( k \neq m \), the covariance simplifies to:
 
 \[
-\text{Cov}(Z_j^{(k)}, Z_p^{(m)}) = \frac{1}{2} \cdot \sqrt{\frac{n_j}{n_p}}
+\text{Cov}(Z_j^{(k)}, Z_l^{(m)}) = \frac{1}{2} \cdot \sqrt{\frac{n_j}{n_l}}
 \]
 
 
@@ -1535,106 +1533,106 @@ Z_j^{(k)} \approx \frac{\log \widehat{HR}_{kj}}{\sqrt{\frac{4}{d_j^{(o)} + d_j^{
 
 where \( \widehat{HR}_{kj} \) is the hazard ratio estimate for arm \( k \) in stage \( j \), and \( d_j^{(o)} \) and \( d_j^{(k)} \) are the event counts for the control and treatment arms, respectively.
 
-We assume \( k = m \) and further that \( p > j \), meaning that the sample size in stage \( p \) is greater than in stage \( j \) \( (n_p > n_j) \). Now, we aim to compute the covariance between \( Z_j^{(k)} \) and \( Z_p^{(k)} \):
+We assume \( k = m \) and further that \( l > j \), meaning that the sample size in stage \( l \) is greater than in stage \( j \) \( (n_l > n_j) \). Now, we aim to compute the covariance between \( Z_j^{(k)} \) and \( Z_l^{(k)} \):
 
 \[
-\text{Cov} \left( Z_j^{(k)} , Z_p^{(k)} \right) = \frac{1}{4} \text{Cov}\left( \log \widehat{HR}_{kj} \times \sqrt{d_j^{(o)} + d_j^{(k)}} ; \log \widehat{HR}_{kp} \times \sqrt{d_p^{(o)} + d_p^{(k)}} \right)
+\text{Cov} \left( Z_j^{(k)} , Z_l^{(k)} \right) = \frac{1}{4} \text{Cov}\left( \log \widehat{HR}_{kj} \times \sqrt{d_j^{(o)} + d_j^{(k)}} ; \log \widehat{HR}_{kl} \times \sqrt{d_l^{(o)} + d_l^{(k)}} \right)
 \]
 
 
-Next, we use an approximation for the hazard ratio between studies \( j \) and \( p \):
+Next, we use an approximation for the hazard ratio between studies \( j \) and \( l \):
 
 \[
-\widehat{HR}_{kp} \approx \widehat{HR}_{kj}^{\left(\frac{d_j^{(o)} + d_j^{(k)}}{d_p^{(o)} + d_p^{(k)}}\right)} \times \widehat{HR}_{\overline{kj}}^{\left(1 - \frac{d_j^{(o)} + d_j^{(k)}}{d_p^{(o)} + d_p^{(k)}}\right)}
+\widehat{HR}_{kl} \approx \widehat{HR}_{kj}^{\left(\frac{d_j^{(o)} + d_j^{(k)}}{d_l^{(o)} + d_l^{(k)}}\right)} \times \widehat{HR}_{\overline{kj}}^{\left(1 - \frac{d_j^{(o)} + d_j^{(k)}}{d_l^{(o)} + d_l^{(k)}}\right)}
 \]
 
-This expresses the hazard ratio in stage \( p \) as a weighted average of the hazard ratio in stage \( j \) and its complement.
+This expresses the hazard ratio in stage \( l \) as a weighted average of the hazard ratio in stage \( j \) and its complement.
 
 Taking the logarithm of the hazard ratio approximation gives:
 
 \[
-\log(\widehat{HR}_{kp}) \approx \left(\frac{d_j^{(o)} + d_j^{(k)}}{d_p^{(o)} + d_p^{(k)}}\right) \log(\widehat{HR}_{kj}) + \left(1 - \frac{d_j^{(o)} + d_j^{(k)}}{d_p^{(o)} + d_p^{(k)}}\right) \log(\widehat{HR}_{\overline{kj}})
+\log(\widehat{HR}_{kl}) \approx \left(\frac{d_j^{(o)} + d_j^{(k)}}{d_l^{(o)} + d_l^{(k)}}\right) \log(\widehat{HR}_{kj}) + \left(1 - \frac{d_j^{(o)} + d_j^{(k)}}{d_l^{(o)} + d_l^{(k)}}\right) \log(\widehat{HR}_{\overline{kj}})
 \]
 
 Now we substitute this back into the covariance expression:
 
 \[
-\text{Cov} \left( Z_j^{(k)} , Z_p^{(k)} \right) = \frac{1}{4} \times \text{Cov} \left( \log \widehat{HR}_{kj} , \log \widehat{HR}_{kp} \right) \times \sqrt{(d_j^{(o)} + d_j^{(k)})^3} \times \frac{1}{\sqrt{d_p^{(o)} + d_p^{(k)}}}
+\text{Cov} \left( Z_j^{(k)} , Z_l^{(k)} \right) = \frac{1}{4} \times \text{Cov} \left( \log \widehat{HR}_{kj} , \log \widehat{HR}_{kl} \right) \times \sqrt{(d_j^{(o)} + d_j^{(k)})^3} \times \frac{1}{\sqrt{d_l^{(o)} + d_l^{(k)}}}
 \]
 
 
 Assuming that the hazard ratio estimates across studies are proportional to the event counts, we simplify the covariance term:
 
 \[
-\text{Cov} \left( Z_j^{(k)} , Z_p^{(k)} \right) = \frac{1}{4} \times \text{Cov} \left( \log \widehat{HR}_{kj} , \log \widehat{HR}_{kj} \right) \times \frac{(d_j^{(o)} + d_j^{(k)})^{3/2}}{(d_p^{(o)} + d_p^{(k)})^{1/2}}
+\text{Cov} \left( Z_j^{(k)} , Z_l^{(k)} \right) = \frac{1}{4} \times \text{Cov} \left( \log \widehat{HR}_{kj} , \log \widehat{HR}_{kj} \right) \times \frac{(d_j^{(o)} + d_j^{(k)})^{3/2}}{(d_l^{(o)} + d_l^{(k)})^{1/2}}
 \]
 
 Given that the covariance of the log hazard ratios is proportional to the event counts, we can further simplify:
 
 \[
-\text{Cov} \left( Z_j^{(k)} , Z_p^{(k)} \right) = \frac{1}{4} \times \frac{4 \times (d_j^{(o)} + d_j^{(k)})}{d_j^{(o)} + d_j^{(k)}} \times \sqrt{\frac{d_j^{(o)} + d_j^{(k)}}{d_p^{(o)} + d_p^{(k)}}}
+\text{Cov} \left( Z_j^{(k)} , Z_l^{(k)} \right) = \frac{1}{4} \times \frac{4 \times (d_j^{(o)} + d_j^{(k)})}{d_j^{(o)} + d_j^{(k)}} \times \sqrt{\frac{d_j^{(o)} + d_j^{(k)}}{d_l^{(o)} + d_l^{(k)}}}
 \]
 
 Finally, the covariance simplifies to:
 
 \[
-\text{Cov} \left( Z_j^{(k)} , Z_p^{(k)} \right) = \sqrt{\frac{d_j^{(o)} + d_j^{(k)}}{d_p^{(o)} + d_p^{(k)}}}
+\text{Cov} \left( Z_j^{(k)} , Z_l^{(k)} \right) = \sqrt{\frac{d_j^{(o)} + d_j^{(k)}}{d_l^{(o)} + d_l^{(k)}}}
 \]
 
 
 
-We now consider the case where \({k \neq m}\) and compute the covariance between \( Z_j^{(k)} \) and \( Z_p^{(m)} \). We start with the same definition for \( Z_j^{(k)} \) and \( Z_p^{(m)} \):
+We now consider the case where \({k \neq m}\) and compute the covariance between \( Z_j^{(k)} \) and \( Z_l^{(m)} \). We start with the same definition for \( Z_j^{(k)} \) and \( Z_l^{(m)} \):
 
 \[
 Z_j^{(k)} \approx \log \widehat{HR}_{kj} \cdot \sqrt{\frac{d_j^{(o)} + d_j^{(k)}}{4}}
 \]
 \[
-Z_p^{(m)} \approx \log \widehat{HR}_{mp} \cdot \sqrt{\frac{d_p^{(o)} + d_p^{(m)}}{4}}
+Z_l^{(m)} \approx \log \widehat{HR}_{ml} \cdot \sqrt{\frac{d_l^{(o)} + d_l^{(m)}}{4}}
 \]
 
-where \( \widehat{HR}_{kj} \) and \( \widehat{HR}_{mp} \) are the hazard ratio estimates for arm \( k \) in stage \( j \) and arm \( m \) in stage \( p \), respectively.
+where \( \widehat{HR}_{kj} \) and \( \widehat{HR}_{ml} \) are the hazard ratio estimates for arm \( k \) in stage \( j \) and arm \( m \) in stage \( l \), respectively.
 
 
-Now, we compute the covariance between \( Z_j^{(k)} \) and \( Z_p^{(m)} \):
+Now, we compute the covariance between \( Z_j^{(k)} \) and \( Z_l^{(m)} \):
 
 \[
-\text{Cov} \left( Z_j^{(k)} , Z_p^{(m)} \right) = \frac{1}{4} \text{Cov}\left( \log \widehat{HR}_{kj} \cdot \sqrt{d_j^{(o)} + d_j^{(k)}} ; \log \widehat{HR}_{mp} \cdot \sqrt{d_p^{(o)} + d_p^{(m)}} \right)
+\text{Cov} \left( Z_j^{(k)} , Z_l^{(m)} \right) = \frac{1}{4} \text{Cov}\left( \log \widehat{HR}_{kj} \cdot \sqrt{d_j^{(o)} + d_j^{(k)}} ; \log \widehat{HR}_{ml} \cdot \sqrt{d_l^{(o)} + d_l^{(m)}} \right)
 \]
 
 We expand the covariance term:
 
 \[
-\text{Cov} \left( Z_j^{(k)} , Z_p^{(m)} \right) = \frac{1}{4} \cdot \sqrt{(d_j^{(o)} + d_j^{(k)})} \cdot \sqrt{(d_p^{(o)} + d_p^{(m)})} \cdot \text{Cov}\left( \log \widehat{HR}_{kj}, \log \widehat{HR}_{mp} \right)
+\text{Cov} \left( Z_j^{(k)} , Z_l^{(m)} \right) = \frac{1}{4} \cdot \sqrt{(d_j^{(o)} + d_j^{(k)})} \cdot \sqrt{(d_l^{(o)} + d_l^{(m)})} \cdot \text{Cov}\left( \log \widehat{HR}_{kj}, \log \widehat{HR}_{ml} \right)
 \]
 
-When \( k \neq m \), the hazard ratio estimates \( \widehat{HR}_{kj} \) and \( \widehat{HR}_{mp} \) are independent, meaning the covariance between \( \log \widehat{HR}_{kj} \) and \( \log \widehat{HR}_{mp} \) is zero:
+When \( k \neq m \), the hazard ratio estimates \( \widehat{HR}_{kj} \) and \( \widehat{HR}_{ml} \) are independent, meaning the covariance between \( \log \widehat{HR}_{kj} \) and \( \log \widehat{HR}_{ml} \) is zero:
 
 \[
-\text{Cov}\left( \log \widehat{HR}_{kj}, \log \widehat{HR}_{mp} \right) = 0
+\text{Cov}\left( \log \widehat{HR}_{kj}, \log \widehat{HR}_{ml} \right) = 0
 \]
 
-Thus, the first term involving \( \log \widehat{HR}_{kj} \) and \( \log \widehat{HR}_{mp} \) vanishes, and we are left with the covariance of the control arm terms:
+Thus, the first term involving \( \log \widehat{HR}_{kj} \) and \( \log \widehat{HR}_{ml} \) vanishes, and we are left with the covariance of the control arm terms:
 
 \[
-\text{Cov} \left( Z_j^{(k)} , Z_p^{(m)} \right) = \frac{1}{4} \cdot \left( \text{Cov} \left( \log \widehat{HR}_{kj}, \log \widehat{HR}_{\overline{kj}} \right) \right)
+\text{Cov} \left( Z_j^{(k)} , Z_l^{(m)} \right) = \frac{1}{4} \cdot \left( \text{Cov} \left( \log \widehat{HR}_{kj}, \log \widehat{HR}_{\overline{kj}} \right) \right)
 \]
 
 This leads to the following simplified covariance expression for the control arm:
 
 \[
-\text{Cov} \left( Z_j^{(k)} , Z_p^{(m)} \right) = \frac{1}{4} \times \frac{(d_j^{(o)} + d_j^{(k)})^{3/2}}{(d_p^{(o)} + d_p^{(m)})^{1/2}} \cdot \text{Cov} \left( \log \widehat{HR}_{\overline{kj}}, \log \widehat{HR}_{\overline{mp}} \right)
+\text{Cov} \left( Z_j^{(k)} , Z_l^{(m)} \right) = \frac{1}{4} \times \frac{(d_j^{(o)} + d_j^{(k)})^{3/2}}{(d_l^{(o)} + d_l^{(m)})^{1/2}} \cdot \text{Cov} \left( \log \widehat{HR}_{\overline{kj}}, \log \widehat{HR}_{\overline{ml}} \right)
 \]
 
-Given that the hazard ratios \( \widehat{HR}_{\overline{kj}} \) and \( \widehat{HR}_{\overline{mp}} \) are independent for \( k \neq m \), the resulting covariance is proportional to the event counts. Finally, we arrive at:
+Given that the hazard ratios \( \widehat{HR}_{\overline{kj}} \) and \( \widehat{HR}_{\overline{ml}} \) are independent for \( k \neq m \), the resulting covariance is proportional to the event counts. Finally, we arrive at:
 
 \[
-\text{Cov} \left( Z_j^{(k)} , Z_p^{(m)} \right) = \frac{1}{4} \times \frac{4 \times (d_j^{(o)} + d_j^{(k)})}{d_j^{(o)} + d_j^{(k)}} \times \sqrt{\frac{d_j^{(o)} + d_p^{(m)}}{d_p^{(o)} + d_p^{(m)}}}
+\text{Cov} \left( Z_j^{(k)} , Z_l^{(m)} \right) = \frac{1}{4} \times \frac{4 \times (d_j^{(o)} + d_j^{(k)})}{d_j^{(o)} + d_j^{(k)}} \times \sqrt{\frac{d_j^{(o)} + d_l^{(m)}}{d_l^{(o)} + d_l^{(m)}}}
 \]
 
 The final covariance for \( k \neq m \) is:
 
 \[
-\text{Cov} \left( Z_j^{(k)} , Z_p^{(m)} \right) = \frac{1}{2} \cdot \sqrt{\frac{d_j^{(o)} + d_j^{(k)}}{d_p^{(o)} + d_p^{(m)}}}
+\text{Cov} \left( Z_j^{(k)} , Z_l^{(m)} \right) = \frac{1}{2} \cdot \sqrt{\frac{d_j^{(o)} + d_j^{(k)}}{d_l^{(o)} + d_l^{(m)}}}
 \]
 
 This result is similar to the case where \( k = m \), but with an additional factor of \( 0.5 \) due to the independence of \( k \) and \( m \).
@@ -1736,7 +1734,7 @@ ggplot(status_summary, aes(x = TreatmentArm, y = Percentage, fill = Status)) +
         "Significant in Final" = "blue"
     )) +
     labs(
-        title = "Outcome Distribution Across Interim Steps and Final Analysis for Phase II Trial",
+        title = "Distribution of Treatment Arm Classifications Across Interim \n and Final Analyses for Phase II Trial",
         x = "Treatment Arm",
         y = "Percentage",
         fill = "Status"
@@ -1747,7 +1745,7 @@ ggplot(status_summary, aes(x = TreatmentArm, y = Percentage, fill = Status)) +
         legend.position = "top"
     )
     @
-    \caption{Outcome distribution across interim steps and final analysis for different scenarios for Phase II Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref{tab:outcome_distribution_phase2_appendix} for detailed examination.
+    \caption{Distribution of treatment arm classifications across interim steps and final analyses for different scenarios for Phase II Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref{tab:outcome_distribution_phase2_appendix} for detailed examination.
 }
     \label{fig:outcome_distribution_phase2_appendix}
 \end{figure}
@@ -1798,7 +1796,7 @@ grouped_data <- status_summary %>%
 
 # Tabelle erstellen
 xtable_data <- xtable(grouped_data,
-                      caption = "Outcome Distribution Across Interim Steps and Final Analysis in Phase II Trial (with 95\\% Confidence Intervals for the Final Analysis).",
+                      caption = "Distribution of Treatment Arm Classifications Across Interim and Final Analyses for Phase II Trial (with 95\\% Confidence Intervals for the Final Analysis). The maximum MCSE is 0.00112.",
                       label = "tab:outcome_distribution_phase2_appendix",)
 
 # Horizontale Linien nach jeder 4. Zeile einfügen
@@ -1913,7 +1911,7 @@ ggplot(status_summary, aes(x = TreatmentArm, y = Percentage, fill = Status)) +
         "Significant in Final" = "green"
     )) +
     labs(
-        title = "Outcome Distribution Across Interim Steps and Final Analysis for Phase III Trial",
+        title = "Distribution of Treatment Arm Classifications Across Interim \n and Final Analyses for Phase III Trial",
         x = "Treatment Arm",
         y = "Percentage",
         fill = "Status"
@@ -1924,7 +1922,7 @@ ggplot(status_summary, aes(x = TreatmentArm, y = Percentage, fill = Status)) +
         legend.position = "top"
     )
     @
-    \caption{Outcome distribution across interim steps and final analysis for different scenarios for Phase III Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref{tab:outcome_distribution_phase3_appendix} for detailed examination.
+    \caption{Distribution of treatment arm classifications across interim steps and final analyses for different scenarios for Phase III Trial. In the visualization, percentages below 1\% are omitted to improve clarity and avoid overcrowding, as such small values can make the chart difficult to interpret. However, for the Null Hypothesis, all percentages are displayed regardless of their size to ensure full visibility. Additionally, all results, including those below 1\%, are fully available in Table \ref{tab:outcome_distribution_phase3_appendix} for detailed examination.
 }
     \label{fig:outcome_distribution_phase3_appendix}
 \end{figure}
@@ -1975,7 +1973,7 @@ grouped_data <- status_summary %>%
 
 # Tabelle erstellen
 xtable_data <- xtable(grouped_data,
-                      caption = "Outcome Distribution Across Interim Steps and Final Analysis in Phase III Trial (with 95\\% Confidence Intervals for the Final Analysis).",
+                      caption = "Distribution of Treatment Arm Classifications Across Interim and Final Analyses for Phase III Trial (with 95\\% Confidence Intervals for the Final Analysis). The maximum MCSE is 0.00112.",
                       label = "tab:outcome_distribution_phase3_appendix",)
 
 # Horizontale Linien nach jeder 4. Zeile einfügen

@@ -14,7 +14,7 @@
 \contentsline {paragraph}{Covariance Matrix Calculation}{13}{section*.17}%
 \contentsline {subparagraph}{Example: Covariance Matrix for a 4:2:1 Design}{13}{section*.18}%
 \contentsline {paragraph}{Step 1: Define the Matrix Structure}{13}{section*.19}%
-\contentsline {paragraph}{Step 2: Populate Blocks}{14}{section*.20}%
+\contentsline {paragraph}{Step 2: Populate Blocks}{13}{section*.20}%
 \contentsline {paragraph}{Step 3: Full Covariance Matrix}{14}{section*.21}%
 \contentsline {paragraph}{Calculation of the Critical Value \( c \)}{14}{section*.22}%
 \contentsline {subparagraph}{Numerical Calculation}{14}{section*.23}%
@@ -22,7 +22,7 @@
 \contentsline {subparagraph}{Application of the Critical Value}{15}{section*.25}%
 \contentsline {subparagraph}{Conclusion}{15}{section*.26}%
 \contentsline {subsection}{\numberline {2.4}Analytical Operating Properties}{15}{subsection.2.4}%
-\contentsline {paragraph}{Probability of a Specific Treatment Being Recommended}{16}{section*.27}%
+\contentsline {paragraph}{Probability of a Specific Treatment Being Recommended}{15}{section*.27}%
 \contentsline {paragraph}{Probability of Recommending Any Treatment Under the Global Null Hypothesis}{16}{section*.28}%
 \contentsline {paragraph}{Probability of Recommending a Specific Treatment Under the LFC}{16}{section*.29}%
 \contentsline {section}{\numberline {3}Results: Derivations}{17}{section.3}%
@@ -31,14 +31,14 @@
 \contentsline {section}{\numberline {4}Results: Simulation Study}{18}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Design of the Simulation Study}{18}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Results: Phase II Trial}{21}{subsection.4.2}%
-\contentsline {paragraph}{Ethical Considerations}{25}{section*.35}%
-\contentsline {subsection}{\numberline {4.3}Results: Phase III Trial}{25}{subsection.4.3}%
+\contentsline {paragraph}{Ethical Considerations}{25}{section*.40}%
+\contentsline {subsection}{\numberline {4.3}Results: Phase III Trial}{26}{subsection.4.3}%
 \contentsline {section}{\numberline {5}Discussion}{30}{section.5}%
-\contentsline {section}{Appendix}{31}{section*.40}%
-\contentsline {section}{\numberline {A}Covariance between test statistics based on continuous endpoints}{31}{appendix.A}%
-\contentsline {section}{\numberline {B}Covariance between test statistics based on binary endpoints}{33}{appendix.B}%
-\contentsline {section}{\numberline {C}Covariance between test statistics based on survival endpoints}{35}{appendix.C}%
-\contentsline {section}{\numberline {D}Additional Simulation Results}{37}{appendix.D}%
-\contentsline {section}{\numberline {E}Personal Statement}{41}{appendix.E}%
-\contentsline {section}{\numberline {F}Reproducibility}{41}{appendix.F}%
-\contentsline {section}{\numberline {G}Session Info}{41}{appendix.G}%
+\contentsline {section}{Appendix}{32}{section*.45}%
+\contentsline {section}{\numberline {A}Covariance between test statistics based on continuous endpoints}{32}{appendix.A}%
+\contentsline {section}{\numberline {B}Covariance between test statistics based on binary endpoints}{34}{appendix.B}%
+\contentsline {section}{\numberline {C}Covariance between test statistics based on survival endpoints}{36}{appendix.C}%
+\contentsline {section}{\numberline {D}Additional Simulation Results}{38}{appendix.D}%
+\contentsline {section}{\numberline {E}Personal Statement}{42}{appendix.E}%
+\contentsline {section}{\numberline {F}Reproducibility}{42}{appendix.F}%
+\contentsline {section}{\numberline {G}Session Info}{42}{appendix.G}%
